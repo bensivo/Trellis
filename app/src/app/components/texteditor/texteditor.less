@@ -1,0 +1,37 @@
+@green-01: #244226;
+@green-02: #5b865e;
+@grey-01: #262626;
+@grey-02: #454545;
+@grey-03: #707070;
+@grey-04: #d1d1d1;
+@grey-05: #f2f2f2;
+
+:root {
+  flex-grow: 1;
+}
+
+#text-editor {
+  height: 100%;
+  border: solid 1px @grey-04;
+}
+
+.editor-root {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 16px;
+  min-height: 200px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  &:focus {
+    outline: none;
+    border-color: #007acc;
+  }
+}
+
+.editor-paragraph {
+  margin: 0px 0px 8px 0px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

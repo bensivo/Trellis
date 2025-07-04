@@ -1,0 +1,37 @@
+Design
+[ ] Mockups for "Views" page
+[ ] Mockups for "View builder" page
+
+Development
+[x] Basic angular application
+[x] Basic layout and pages
+[ ] Tech Debt: rename homepage to notespage
+[ ] Tech Debt: Reusable colors
+[ ] Tech Debt: Separate layout component from rest
+[ ] Tech Debt: make compoents for atomic elements
+[ ] Tech Debt: Hash routing
+[ ] Feat: Save notes to file on edit
+[ ] Feat: Read notes list from file
+[ ] Feat: Save schemas to file on edit
+[ ] Feat: Read schemas from file
+[ ] Bug: spacing before lists is too large
+[ ] Bug: nested list items show all levels of list
+[ ] Feat: inline images in note
+[ ] Feat: code blocks in note
+[ ] Feat: clickable links in note
+[ ] Feat: Note searchbar
+[ ] Feat: Note searchbar
+[ ] Feat: Inital note screen "select a schema or create a new one'
+[ ] Feat: Inital schema screen "select a schema or create a new one'
+[ ] Feat: Links to other notes
+
+[ ] Note editor UI with tabs
+[x] Note type editor
+
+Distribution
+[ ] Packaging / Signing for macos
+[ ] Packaging / Signing for windows
+[ ] Packaging / Signing for linux
+
+Admnistrative
+[ ] Generate a logo and icon

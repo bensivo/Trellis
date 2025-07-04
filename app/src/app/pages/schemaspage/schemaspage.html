@@ -1,0 +1,70 @@
+<div id="page">
+  <div id="header">
+  </div>
+  <div id="body">
+    <div id="side-nav">
+      <a class="nav-link" href="/">Notes</a>
+      <a class="nav-link active" href="/schemas">Schemas</a>
+    </div>
+    <div id="content">
+      <section id="schemas">
+        <div class="row">
+          <h3>Schemas</h3>
+        </div>
+        <ul id="schema-list">
+          <li class="active">Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+        </ul>
+        <hr/>
+        <button id="new-schema-btn">+ New Schema</button>
+      </section>
+      <section id="schema-editor">
+        <h3 id="schema-title">Edit Schema</h3>
+
+        <div id="schema-fields">
+          <label class="field-label">Name</label>
+          <input class="field-input" [value]="'Meeting'"/>
+        </div>
+
+        <hr/>
+
+        <span class="section-title">Schema Fields</span>
+        <div id="schema-fields">
+          <label class="field-label"> Field Name</label>
+          <input class="field-input" [value]="'1970-01-01'"/>
+          <label class="field-label">Field Type</label>
+          <select class="field-select">
+            <option>Date</option>
+            <option>Text</option>
+            <option>Number</option>
+            <option>Select</option>
+          </select>
+          <i class="ri-arrow-up-s-line"></i>
+          <i class="ri-arrow-down-s-line"></i>
+          <i class="ri-delete-bin-line"></i>
+
+          <label class="field-label">Field Name</label>
+          <input class="field-input" [value]="'1970-01-01'"/>
+          <label class="field-label">Field Type</label>
+          <select class="field-select">
+            <option>Date</option>
+            <option>Text</option>
+            <option>Number</option>
+            <option>Select</option>
+          </select>
+          <i class="ri-arrow-up-s-line"></i>
+          <i class="ri-arrow-down-s-line"></i>
+          <i class="ri-delete-bin-line"></i>
+        </div>
+        <hr/>
+        <span class="section-title">Content Template</span>
+        <textarea id="schema-content" [value]="'1970-01-01'"></textarea>
+      </section>
+    </div>
+  </div>
+</div>

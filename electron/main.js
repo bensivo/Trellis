@@ -10,7 +10,8 @@ const createWindow = () => {
       },
   });
 
-  win.loadFile('index.html');
+  // NOTE: the 'browser' dir is a symlink to app/dist/trellis-app/browser/, which is where angular builds the Static site to
+  win.loadURL(`file://${path.join(__dirname, 'browser/index.html')}`)
 }
 
 // For MacOS, becuase the app can be running without any windows open, we have to listen

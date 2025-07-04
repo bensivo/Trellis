@@ -33,6 +33,10 @@
     "@angular/build": "^20.0.5",
     "@angular/cli": "^20.0.5",
     "@angular/compiler-cli": "^20.0.0",
+    "@lexical/history": "^0.33.0",
+    "@lexical/markdown": "^0.33.0",
+    "@lexical/rich-text": "^0.33.0",
+    "@lexical/utils": "^0.33.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.7.0",
     "karma": "~6.4.0",
@@ -41,6 +45,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "less": "^4.2.0",
+    "lexical": "^0.33.0",
+    "remixicon": "^4.6.0",
     "typescript": "~5.8.2"
   }
 }
