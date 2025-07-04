@@ -1,0 +1,54 @@
+<div id="page">
+  <div id="header">
+  </div>
+  <div id="body">
+    <div id="side-nav">
+      <a class="nav-link active" href="#">Notes</a>
+      <a class="nav-link" href="#">Schemas</a>
+    </div>
+    <div id="content">
+      <section id="notes">
+        <div class="row">
+          <h3>Notes</h3>
+          <button id="new-note-btn">+ New Note</button>
+        </div>
+        <div class="row">
+          <input id="search-notes" placeholder="Search"/>
+        </div>
+        <div class="row">
+          <label id="note-schema-label" for="">Schema</label>
+          <select id="note-schema-select">
+            <option>Meeting</option>
+            <option>Task</option>
+            <option>Epic</option>
+            <option>Story</option>
+            <option>Person</option>
+          </select>
+        </div>
+        <hr/>
+        <ul id="note-list">
+          <li class="active">Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+          <li>Lorem Ipsum</li>
+        </ul>
+      </section>
+      <section id="note-editor">
+        <h3 id="note-title">Lorem Ipsum</h3>
+        <span id="note-schema">Meeting</span>
+
+        <div id="note-fields">
+          <label class="field-label">Date</label>
+          <input class="field-input" [value]="'1970-01-01'"/>
+          <label class="field-label">Description</label>
+          <textarea class="field-textarea" [value]="'1970-01-01'"></textarea>
+        </div>
+        <hr/>
+        <textarea id="note-content" [value]="'1970-01-01'"></textarea>
+      </section>
+    </div>
+  </div>
+</div>
