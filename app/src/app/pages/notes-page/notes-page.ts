@@ -1,14 +1,15 @@
 import { Component, computed, inject, Inject, Signal } from '@angular/core';
 import { TextEditorComponent } from '../../components/text-editor/text-editor';
 import { NotesStore } from '../../store/notes-store';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TemplatesStore } from '../../store/templates-store';
 
 @Component({
   selector: 'app-notes-page',
   imports: [
-    TextEditorComponent
+    TextEditorComponent,
+    RouterLink,
   ],
   templateUrl: './notes-page.html',
   styleUrl: './notes-page.less'

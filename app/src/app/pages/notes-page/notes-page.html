@@ -3,8 +3,8 @@
   </div>
   <div id="body">
     <div id="side-nav">
-      <a class="nav-link active" href="/#/notes">Notes</a>
-      <a class="nav-link" href="/#/templates">Templates</a>
+      <a class="nav-link" routerLink="/notes">Notes</a>
+      <a class="nav-link" routerLink="/templates">Templates</a>
     </div>
     <div id="content">
       <section id="notes">
@@ -27,10 +27,10 @@
         <ul id="note-list">
           @for (note of notesStore.notes(); track note) {
             @if(note.id == currentNoteId()){ 
-              <a href="/#/notes/{{ note.id }}" class="active">{{ note.name }}</a>
+              <a routerLink="/notes/{{ note.id }}" class="active">{{ note.name }}</a>
             } 
             @else {
-              <a href="/#/notes/{{ note.id }}">{{ note.name }}</a>
+              <a routerLink="/notes/{{ note.id }}">{{ note.name }}</a>
             }
           }
         </ul>

@@ -3,8 +3,8 @@
   </div>
   <div id="body">
     <div id="side-nav">
-      <a class="nav-link" href="/#/notes">Notes</a>
-      <a class="nav-link active" href="/#/templates">Templates</a>
+      <a class="nav-link" routerLink="/notes">Notes</a>
+      <a class="nav-link" routerLink="/templates">Templates</a>
     </div>
     <div id="content">
       <section id="templates">
@@ -14,10 +14,10 @@
         <div id="template-list">
           @for (template of templatesStore.templates(); track template) {
             @if (template.id == currentTemplateId()) {
-              <a href="/#/templates/{{ template.id }}" class="active">{{ template.name }}</a>
+              <a routerLink="/templates/{{ template.id }}" class="active">{{ template.name }}</a>
             }
             @else {
-              <a href="/#/templates/{{ template.id }}">{{ template.name }}</a>
+              <a routerLink="/templates/{{ template.id }}">{{ template.name }}</a>
             }
           }
         </div>

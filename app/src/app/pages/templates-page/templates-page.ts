@@ -1,12 +1,14 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { TemplatesStore } from '../../store/templates-store';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Template } from '../../models/template-interface';
 
 @Component({
   selector: 'app-templates-page',
-  imports: [],
+  imports: [
+    RouterLink,
+  ],
   templateUrl: './templates-page.html',
   styleUrl: './templates-page.less'
 })
