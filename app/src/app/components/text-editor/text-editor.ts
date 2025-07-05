@@ -12,12 +12,12 @@ import { registerMarkdownShortcuts } from '@lexical/markdown';
 
 
 @Component({
-  selector: 'app-texteditor',
+  selector: 'app-text-editor',
   imports: [],
-  templateUrl: './texteditor.html',
-  styleUrl: './texteditor.less'
+  templateUrl: './text-editor.html',
+  styleUrl: './text-editor.less'
 })
-export class Texteditor implements AfterViewInit {
+export class TextEditorComponent implements AfterViewInit {
   private editor: any;
 
   ngAfterViewInit() {

@@ -1,10 +1,4 @@
-@green-01: #244226;
-@green-02: #5b865e;
-@grey-01: #262626;
-@grey-02: #454545;
-@grey-03: #707070;
-@grey-04: #d1d1d1;
-@grey-05: #f2f2f2;
+@import '../../../utils.less';
 
 #page {
   height: 100vh;
@@ -66,7 +60,7 @@
   background-color: @grey-05;
 }
 
-#schemas {
+#notes {
   min-width: 200px;
 
   display: flex;
@@ -76,10 +70,6 @@
   border-right: @grey-04 1px solid;
 }
 
-h3 {
-  margin-bottom: 8px;
-}
-
 .row {
   display: flex;
   flex-direction: row;
@@ -87,9 +77,8 @@ h3 {
   margin: 0px 0px 8px 0px;
 }
 
-#new-schema-btn {
+#new-note-btn {
   margin-left: auto;
-  margin-right: auto;
   padding: 8px 16px;
   height: fit-content;
   font-size: 14px;
@@ -105,15 +94,44 @@ h3 {
   }
 }
 
+#search-notes {
+  width: 100%;
+
+  color: @grey-01;
+  background-color: @grey-05;
+  padding: 8px 16px;
+  border-radius: 7px;
+  border: solid 1px @grey-04;
+}
+
+#note-schema-label {
+  font-size: 14px;
+  margin: 0px 8px;
+}
+
+#note-schema-select {
+  width: 100%;
+
+  color: @grey-01;
+  background-color: @grey-05;
+  padding: 8px 16px;
+  border-radius: 7px;
+  border: solid 1px @grey-04;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+  }
+}
+
 hr {
   width: 100%;
   color: @grey-04;
   border: none;
   border-top: @grey-04 1px solid;
-  margin-bottom: 16px;
 }
 
-#schema-list {
+#note-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -137,7 +155,7 @@ hr {
   }
 }
 
-#schema-editor{
+#note-editor{
   padding: 16px;
   width: 100%;
 
@@ -145,26 +163,21 @@ hr {
   flex-direction: column;
 }
 
-#schema-title {
+#note-title {
   margin-bottom: 8px;
 }
-
-.section-title {
+#note-schema {
   display: block;
-  font-size: 14px;
   margin-bottom: 16px;
+  font-weight: bold;
 }
 
-#schema-fields {
-  max-width: 700px;
+#note-fields {
+  max-width: 500px;
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr 5fr 0fr 0fr 0fr;
+  grid-template-columns: 1fr 10fr;
   row-gap: 8px;
   column-gap: 8px;
-  align-items: center;
-  * {
-    text-wrap: nowrap;
-  }
 }
 
 .field-label {
@@ -180,23 +193,16 @@ hr {
   font-size: 14px;
 }
 
-.field-select {
-  width: 100%;
-
+.field-textarea {
   color: @grey-01;
   background-color: @grey-05;
   padding: 8px 16px;
   border-radius: 7px;
   border: solid 1px @grey-04;
-
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-  }
-
+  font-size: 14px;
 }
 
-#schema-content {
+#note-content {
   width: 100%;
   box-sizing: border-box;
   height: 100%;
@@ -208,4 +214,9 @@ hr {
   border-radius: 7px;
   border: solid 1px @grey-04;
   font-size: 14px;
+
+}
+
+app-text-editor {
+  flex-grow: 1;
 }
