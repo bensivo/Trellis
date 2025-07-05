@@ -1,5 +1,5 @@
 import { KEY_TAB_COMMAND, COMMAND_PRIORITY_LOW, $isRangeSelection, OUTDENT_CONTENT_COMMAND, INDENT_CONTENT_COMMAND} from 'lexical';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, inject } from '@angular/core';
 import { createEditor, $getRoot, $getSelection, $createParagraphNode, $createTextNode } from 'lexical';
 import {createEmptyHistoryState, registerHistory} from '@lexical/history';
 import {HeadingNode, QuoteNode, registerRichText} from '@lexical/rich-text';
@@ -8,6 +8,7 @@ import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { ListItemNode, ListNode, $isListItemNode, $isListNode } from '@lexical/list';
 import {$findMatchingParent, mergeRegister} from '@lexical/utils';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
+import { CurrentNoteStore } from '../../store/current-note-store';
 
 
 
@@ -18,6 +19,8 @@ import { registerMarkdownShortcuts } from '@lexical/markdown';
   styleUrl: './text-editor.less'
 })
 export class TextEditorComponent implements AfterViewInit {
+  readonly currentNoteStore = inject(CurrentNoteStore);
+
   private editor: any;
 
   ngAfterViewInit() {

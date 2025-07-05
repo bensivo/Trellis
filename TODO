@@ -1,37 +1,41 @@
-Design
-[ ] Mockups for "Views" page
-[ ] Mockups for "View builder" page
-
-Development
-[x] Basic angular application
-[x] Basic layout and pages
-[ ] Tech Debt: rename homepage to notespage
-[ ] Tech Debt: Reusable colors
-[ ] Tech Debt: Separate layout component from rest
-[ ] Tech Debt: make compoents for atomic elements
-[ ] Tech Debt: Hash routing
-[ ] Feat: Save notes to file on edit
-[ ] Feat: Read notes list from file
-[ ] Feat: Save schemas to file on edit
-[ ] Feat: Read schemas from file
-[ ] Bug: spacing before lists is too large
+Basic functionality:
+[ ] Feat: serialize and load note content for each note (to store)
+[ ] Feat: serialize and load content for each template (to store)
+[ ] Bug: scroll issues when text-editor becomes larger than allowed space
+[ ] Feat: notes page, make "template" select functional
+[ ] Feat: notes page, make "search" functional
+[ ] Feat: Save a note to file 
+[ ] Feat: Read a note from a file 
+[ ] Feat: Folder structure for all notes
+[ ] Feat: List notes from folders
+[ ] Feat: Save a template to file 
+[ ] Feat: Read a template from a file 
+[ ] Feat: Folder structure for all templates
+[ ] Feat: List templates from folders
 [ ] Bug: nested list items show all levels of list
+
+Nice to have functionality:
+[ ] Note editor UI with tabs
 [ ] Feat: inline images in note
 [ ] Feat: code blocks in note
 [ ] Feat: clickable links in note
-[ ] Feat: Note searchbar
-[ ] Feat: Note searchbar
-[ ] Feat: Inital note screen "select a schema or create a new one'
-[ ] Feat: Inital schema screen "select a schema or create a new one'
+[ ] Mockups for "Views" page
+[ ] Mockups for "View builder" page
+
+Tech Debt:
+[ ] Separate layout component from rest
+[ ] Make components for atomic elements
 [ ] Feat: Links to other notes
 
-[ ] Note editor UI with tabs
+
+Done: 
+[x] Bug: spacing before lists is too large
+[x] Feat: Inital note screen "select a template or create a new one'
+[x] Feat: Inital template screen "select a template or create a new one'
 [x] Note type editor
-
-Distribution
-[ ] Packaging / Signing for macos
-[ ] Packaging / Signing for windows
-[ ] Packaging / Signing for linux
-
-Admnistrative
-[ ] Generate a logo and icon
+[x] Basic angular application
+[x] Basic layout and pages
+[x] Tech Debt: rename homepage to notespage
+[x] Tech Debt: Reusable colors
+[x] Tech Debt: Hash routing
+[x] Tech Debt: state management with signals?

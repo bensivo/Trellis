@@ -1,0 +1,65 @@
+<div id="page">
+  <div id="header">
+  </div>
+  <div id="body">
+    <div id="side-nav">
+      <a class="nav-link" href="/#/notes">Notes</a>
+      <a class="nav-link active" href="/#/templates">Templates</a>
+    </div>
+    <div id="content">
+      <section id="templates">
+        <div class="row">
+          <h3>Templates</h3>
+        </div>
+        <div id="template-list">
+          @for (template of templatesStore.templates(); track template) {
+            @if (template.id == currentTemplateId()) {
+              <a href="/#/templates/{{ template.id }}" class="active">{{ template.name }}</a>
+            }
+            @else {
+              <a href="/#/templates/{{ template.id }}">{{ template.name }}</a>
+            }
+          }
+        </div>
+        <hr/>
+        <button id="new-template-btn">+ New Template</button>
+      </section>
+      <section id="template-editor">
+        @if(currentTemplate(); as template) {
+          <h3 id="template-title">Edit Template</h3>
+          <div id="template-fields">
+            <label class="field-label">Name</label>
+            <input class="field-input" [value]="template.name"/>
+          </div>
+
+          <hr/>
+
+          <span class="section-title">Template Fields</span>
+          <div id="template-fields">
+            @for (field of template.fields; track field) {
+              <label class="field-label"> Field Name</label>
+              <input class="field-input" [value]="field.name"/>
+              <label class="field-label">Field Type</label>
+              <select class="field-select" [value]="field.type">
+                <option value="date">Date</option>
+                <option value="text">Text</option>
+                <option value="number">Number</option>
+                <option value="select">Select</option>
+              </select>
+              <i class="ri-arrow-up-s-line"></i>
+              <i class="ri-arrow-down-s-line"></i>
+              <i class="ri-delete-bin-line"></i>
+            }
+          </div>
+          <hr/>
+
+          <span class="section-title">Content Template</span>
+          <textarea id="template-content" [value]="'1970-01-01'"></textarea>
+        }
+        @else {
+          <h3 id="template-title">No template selected</h3>
+        }
+      </section>
+    </div>
+  </div>
+</div>

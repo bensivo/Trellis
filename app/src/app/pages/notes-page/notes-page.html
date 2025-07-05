@@ -3,8 +3,8 @@
   </div>
   <div id="body">
     <div id="side-nav">
-      <a class="nav-link active" href="/#/">Notes</a>
-      <a class="nav-link" href="/#/schemas">Schemas</a>
+      <a class="nav-link active" href="/#/notes">Notes</a>
+      <a class="nav-link" href="/#/templates">Templates</a>
     </div>
     <div id="content">
       <section id="notes">
@@ -16,39 +16,42 @@
           <input id="search-notes" placeholder="Search"/>
         </div>
         <div class="row">
-          <label id="note-schema-label" for="">Schema</label>
-          <select id="note-schema-select">
-            <option>Meeting</option>
-            <option>Task</option>
-            <option>Epic</option>
-            <option>Story</option>
-            <option>Person</option>
+          <label id="note-template-label" for="">Template</label>
+          <select id="note-template-select">
+            @for (template of templatesStore.templates(); track template) {
+              <option>{{ template.name }}</option>
+            }
           </select>
         </div>
         <hr/>
         <ul id="note-list">
-          <li class="active">Lorem Ipsum</li>
-          <li>Lorem Ipsum</li>
-          <li>Lorem Ipsum</li>
-          <li>Lorem Ipsum</li>
-          <li>Lorem Ipsum</li>
-          <li>Lorem Ipsum</li>
-          <li>Lorem Ipsum</li>
+          @for (note of notesStore.notes(); track note) {
+            @if(note.id == currentNoteId()){ 
+              <a href="/#/notes/{{ note.id }}" class="active">{{ note.name }}</a>
+            } 
+            @else {
+              <a href="/#/notes/{{ note.id }}">{{ note.name }}</a>
+            }
+          }
         </ul>
       </section>
       <section id="note-editor">
-        <h3 id="note-title">Lorem Ipsum</h3>
-        <span id="note-schema">Meeting</span>
+        @if (currentNote(); as note) {
+          <h3 id="note-title">{{ note.name }}</h3>
+          <span id="note-template">{{ note.template }}</span>
 
-        <div id="note-fields">
-          <label class="field-label">Date</label>
-          <input class="field-input" [value]="'1970-01-01'"/>
-          <label class="field-label">Description</label>
-          <textarea class="field-textarea" [value]="'1970-01-01'"></textarea>
-        </div>
-        <hr/>
-        <!--<textarea id="note-content" [value]="'1970-01-01'"></textarea>-->
-        <app-text-editor/>
+          <div id="note-fields">
+            @for (field of note.fields; track field) {
+              <label class="field-label">{{ field.name }}</label>
+              <input class="field-input" [value]="field.value"/>
+            }
+          </div>
+          <hr/>
+          <app-text-editor/>
+        }
+        @else {
+          <h3 id="note-title">No note selected</h3>
+        }
       </section>
     </div>
   </div>
