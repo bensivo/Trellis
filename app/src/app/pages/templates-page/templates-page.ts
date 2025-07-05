@@ -20,7 +20,6 @@ export class TemplatesPage {
 
   readonly currentTemplateId: Signal<number|null> = computed(() => {
     const params = this.routeParams();
-    console.log('params', params);
     if (params == null) {
       return null;
     }
@@ -37,7 +36,6 @@ export class TemplatesPage {
     }
 
     const template = templates.find(t => t.id == templateId);
-    console.log('Template', template);
     return template ?? null;
   })
 

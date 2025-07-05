@@ -1,11 +1,13 @@
 Basic functionality:
-[ ] Bug: Hash routing doesn't work with electron 
-[ ] Feat: serialize and load note content for each note (to store)
+[ ] Feat: serialize and load note fields to/from store
 [ ] Feat: serialize and load content for each template (to store)
+[ ] Feat: add note
+[ ] Feat: add template
 [ ] Bug: scroll issues when text-editor becomes larger than allowed space
 [ ] Feat: notes page, make "template" select functional
 [ ] Feat: notes page, make "search" functional
 [ ] Feat: Save a note to file 
+[ ] Feat: rename a note
 [ ] Feat: Read a note from a file 
 [ ] Feat: Folder structure for all notes
 [ ] Feat: List notes from folders
@@ -14,6 +16,7 @@ Basic functionality:
 [ ] Feat: Folder structure for all templates
 [ ] Feat: List templates from folders
 [ ] Bug: nested list items show all levels of list
+[ ] Feat: Links to other notes
 
 Nice to have functionality:
 [ ] Note editor UI with tabs
@@ -26,7 +29,7 @@ Nice to have functionality:
 Tech Debt:
 [ ] Separate layout component from rest
 [ ] Make components for atomic elements
-[ ] Feat: Links to other notes
+[ ] Optimize logic for saving note content to the store, maybe add debouncing too.
 
 
 Done: 
@@ -40,3 +43,5 @@ Done:
 [x] Tech Debt: Reusable colors
 [x] Tech Debt: Hash routing
 [x] Tech Debt: state management with signals?
+[x] Bug: Hash routing doesn't work with electron 
+[x] Feat: serialize and load note content for each note (to store)

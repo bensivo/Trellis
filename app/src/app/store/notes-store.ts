@@ -1,18 +1,7 @@
-import {signalStore, withState} from '@ngrx/signals';
+import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
 import { TemplateFieldType } from '../models/template-interface';
+import { Note } from '../models/note-interface';
 
-interface NoteField {
-    name: string;
-    type: TemplateFieldType;
-    value: any;
-}
-
-interface Note {
-    id: number;
-    name: string;
-    template: string;
-    fields: NoteField[];
-}
 type NotesStore = {
     notes: Note[]
 }
@@ -28,7 +17,8 @@ const initialState: NotesStore = {
                { name: "Location", type: TemplateFieldType.TEXT, value: "Conference Room A" },
                { name: "Organizer", type: TemplateFieldType.TEXT, value: "Sarah Johnson" },
                { name: "Attendees", type: TemplateFieldType.TEXT, value: "John, Mike, Lisa, Alex, Emily, David, Rachel, Tom" }
-           ]
+           ],
+           content: null,
        },
        {
            id: 2,
@@ -39,7 +29,8 @@ const initialState: NotesStore = {
                { name: "End Date", type: TemplateFieldType.DATE, value: "2025-06-30" },
                { name: "Status", type: TemplateFieldType.SELECT, value: "In Progress" },
                { name: "Priority", type: TemplateFieldType.SELECT, value: "High" }
-           ]
+           ],
+           content: null,
        },
        {
            id: 3,
@@ -50,7 +41,8 @@ const initialState: NotesStore = {
                { name: "Department", type: TemplateFieldType.TEXT, value: "Engineering" },
                { name: "Manager", type: TemplateFieldType.NUMBER, value: 1001 },
                { name: "Email", type: TemplateFieldType.TEXT, value: "john.smith@company.com" }
-           ]
+           ],
+           content: null,
        },
        {
            id: 4,
@@ -58,7 +50,8 @@ const initialState: NotesStore = {
            template: "Segment",
            fields: [
                { name: "Created Date", type: TemplateFieldType.DATE, value: "2025-01-15" }
-           ]
+           ],
+           content: null,
        },
        {
            id: 5,
@@ -67,7 +60,8 @@ const initialState: NotesStore = {
            fields: [
                { name: "Subject", type: TemplateFieldType.TEXT, value: "Updated Remote Work Guidelines" },
                { name: "Date", type: TemplateFieldType.DATE, value: "2025-03-01" }
-           ]
+           ],
+           content: null,
        },
        {
            id: 6,
@@ -78,7 +72,8 @@ const initialState: NotesStore = {
                { name: "Location", type: TemplateFieldType.TEXT, value: "Boardroom" },
                { name: "Organizer", type: TemplateFieldType.TEXT, value: "Lisa Martinez" },
                { name: "Attendees", type: TemplateFieldType.TEXT, value: "All Team Leads and Directors" }
-           ]
+           ],
+           content: null,
        },
        {
            id: 7,
@@ -89,7 +84,8 @@ const initialState: NotesStore = {
                { name: "End Date", type: TemplateFieldType.DATE, value: "2025-04-15" },
                { name: "Status", type: TemplateFieldType.SELECT, value: "Planning" },
                { name: "Priority", type: TemplateFieldType.SELECT, value: "Medium" }
-           ]
+           ],
+           content: null,
        },
        {
            id: 8,
@@ -100,7 +96,8 @@ const initialState: NotesStore = {
                { name: "Department", type: TemplateFieldType.TEXT, value: "Design" },
                { name: "Manager", type: TemplateFieldType.NUMBER, value: 1005 },
                { name: "Email", type: TemplateFieldType.TEXT, value: "emily.davis@company.com" }
-           ]
+           ],
+           content: null,
        },
        {
            id: 9,
@@ -108,7 +105,8 @@ const initialState: NotesStore = {
            template: "Segment",
            fields: [
                { name: "Created Date", type: TemplateFieldType.DATE, value: "2025-02-10" }
-           ]
+           ],
+           content: null,
        },
        {
            id: 10,
@@ -117,7 +115,8 @@ const initialState: NotesStore = {
            fields: [
                { name: "Subject", type: TemplateFieldType.TEXT, value: "New Security Procedures" },
                { name: "Date", type: TemplateFieldType.DATE, value: "2025-02-28" }
-           ]
+           ],
+           content: null,
        }
    ] 
 }
@@ -125,4 +124,29 @@ const initialState: NotesStore = {
 export const NotesStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
+    withMethods((store) => ({
+        updateNoteContent(id: number, content: any) {
+            // Note: this is probably a very inefficient way to manage note state.
+            // We're looping the entire note array everytime somethign changes in a single note.
+            //
+            // Potential future improvement, keep the current note in a separate store, just update
+            // that store, then sync it back to the 'notes' array later
+            patchState(store, (state) => {
+                const notes = state.notes;
+
+                return {
+                    notes: notes.map(note => {
+                        if (note.id !== id) {
+                            return note
+                        } else {
+                            return {
+                                ...note,
+                                content,
+                            }
+                        }
+                    })
+                }
+            })
+        }
+    }))
 );

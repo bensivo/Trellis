@@ -1,13 +1,16 @@
-import { KEY_TAB_COMMAND, COMMAND_PRIORITY_LOW, $isRangeSelection, OUTDENT_CONTENT_COMMAND, INDENT_CONTENT_COMMAND} from 'lexical';
-import { Component, AfterViewInit, inject } from '@angular/core';
+import { KEY_TAB_COMMAND, COMMAND_PRIORITY_LOW, $isRangeSelection, OUTDENT_CONTENT_COMMAND, INDENT_CONTENT_COMMAND } from 'lexical';
+import { Component, AfterViewInit, inject, Signal, effect } from '@angular/core';
 import { createEditor, $getRoot, $getSelection, $createParagraphNode, $createTextNode } from 'lexical';
-import {createEmptyHistoryState, registerHistory} from '@lexical/history';
-import {HeadingNode, QuoteNode, registerRichText} from '@lexical/rich-text';
+import { createEmptyHistoryState, registerHistory } from '@lexical/history';
+import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { ListItemNode, ListNode, $isListItemNode, $isListNode } from '@lexical/list';
-import {$findMatchingParent, mergeRegister} from '@lexical/utils';
+import { $findMatchingParent, mergeRegister } from '@lexical/utils';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
+import { NotesService } from '../../services/notes-service';
+import { Note } from '../../models/note-interface';
+import { NotesStore } from '../../store/notes-store';
 
 
 
@@ -18,7 +21,25 @@ import { registerMarkdownShortcuts } from '@lexical/markdown';
   styleUrl: './text-editor.less'
 })
 export class TextEditorComponent implements AfterViewInit {
+  readonly noteStore = inject(NotesStore);
+  readonly notesService = inject(NotesService);
+  readonly currentNoteId: Signal<number | null> = this.notesService.currentNoteId;
+  readonly currentNote: Signal<Note | null> = this.notesService.currentNote;
+
+  previousNoteId: number | null = null;
+
   private editor: any;
+
+  constructor() {
+    effect(() => {
+      // Listen for changes in the noteid, and load the new note
+      const id = this.currentNoteId();
+      if (id !== null && id !== this.previousNoteId) {
+        this.previousNoteId = id;
+        this.loadNoteFromId(id);
+      }
+    });
+  }
 
   ngAfterViewInit() {
     const editorDiv = document.getElementById('text-editor');
@@ -27,7 +48,7 @@ export class TextEditorComponent implements AfterViewInit {
       return;
     }
 
-    const editor = createEditor({
+    this.editor = createEditor({
       namespace: 'MyEditor',
       nodes: [
         HeadingNode,
@@ -69,19 +90,17 @@ export class TextEditorComponent implements AfterViewInit {
       }
     });
 
-    // Mount the editor
-    editor.setRootElement(editorDiv);
+    this.editor.setRootElement(editorDiv);
 
-    // Registering Plugins
     mergeRegister(
-      registerRichText(editor),
-      registerHistory(editor, createEmptyHistoryState(), 300),
-      registerMarkdownShortcuts(editor),
+      registerRichText(this.editor),
+      registerHistory(this.editor, createEmptyHistoryState(), 300),
+      registerMarkdownShortcuts(this.editor),
 
-          // Handle Tab key
-      editor.registerCommand(
+      // Handle Tab key
+      this.editor.registerCommand(
         KEY_TAB_COMMAND,
-        (event) => {
+        (event: any) => {
           event.preventDefault();
           const selection = $getSelection();
           if (!$isRangeSelection(selection)) {
@@ -105,9 +124,9 @@ export class TextEditorComponent implements AfterViewInit {
                 listItem.replace(paragraph);
                 paragraph.selectEnd();
               }
-              editor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined);
+              this.editor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined);
             } else {
-              editor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined);
+              this.editor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined);
             }
 
             return true;
@@ -115,9 +134,9 @@ export class TextEditorComponent implements AfterViewInit {
 
           // Not in list, just add 4 spaces
           if (!event.shiftKey) {
-           const text = $createTextNode('    ');
-           selection.insertNodes([text]);
-         }
+            const text = $createTextNode('    ');
+            selection.insertNodes([text]);
+          }
 
           return true; // Prevent default tab behavior
         },
@@ -125,26 +144,83 @@ export class TextEditorComponent implements AfterViewInit {
       ),
     );
 
-    // // Example of programmatic updates
-    // editor.update(() => {
-    //   // Get the RootNode from the EditorState
-    //   const root = $getRoot();
+    // Listen for changes in the editor, and save the changes to the store
+    this.editor.registerUpdateListener(() => {
+      this.saveCurrentNote();
+    });
 
-    //   // Get the selection from the EditorState
-    //   const selection = $getSelection();
+    // Display the currently active noteid (if there is one)
+    const id = this.currentNoteId();
+    if (id !== null) {
+      this.loadNoteFromId(id);
+    }
+  }
 
-    //   // Create a new ParagraphNode
-    //   const paragraphNode = $createParagraphNode();
+  /**
+   * Load a note from the store (based on id), then update the Lexical
+   * editor with the note's contents.
+   * 
+   * @param id ID of the note to load
+   */
+  loadNoteFromId(id: number) {
+    if (!this.editor) {
+      console.warn('Skipping loadNote. this.editor undefined.')
+      return;
+    }
 
-    //   // Create a new TextNode
-    //   const textNode = $createTextNode('Hello world');
+    const note = this.noteStore.notes().find((n) => n.id == id);
+    if (!note) {
+      return;
+    }
 
-    //   // Append the text node to the paragraph
-    //   paragraphNode.append(textNode);
+    const content = note.content;
 
-    //   // Finally, append the paragraph to the root
-    //   root.append(paragraphNode);
-    // });
+    // If the note had 'null' for content, create a root and a paragraph
+    if (content == null) {
+      this.editor.update(() => {
+        const root = $getRoot();
+        root.clear();
+
+        const paragraph = $createParagraphNode();
+        root.append(paragraph);
+        paragraph.selectEnd();
+      });
+      return;
+    }
+
+    // If note had content, parse and load it into the editor state
+    try {
+      const state = this.editor.parseEditorState(content);
+      this.editor.setEditorState(state);
+    } catch (e) {
+      console.error("Error parsing / loading editor state", e)
+    } finally {
+    }
+  }
+
+  /**
+   * Take the current editor contents, and save it to the store
+   * using the current note id.
+   *
+   * @returns 
+   */
+  saveCurrentNote() {
+    if (!this.editor) {
+      console.warn('Skipping saveNote. Editor undefined.')
+      return;
+    }
+
+    const editorState = this.editor.getEditorState();
+    const editorContent = editorState.toJSON();
+
+   
+    const id = this.currentNoteId();
+    if (!id) {
+      console.warn('Skipping saveNote. No note in state')
+      return;
+    }
+
+    this.noteStore.updateNoteContent(id, editorContent);
   }
 
   ngOnDestroy() {
