@@ -8,7 +8,6 @@ import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { ListItemNode, ListNode, $isListItemNode, $isListNode } from '@lexical/list';
 import {$findMatchingParent, mergeRegister} from '@lexical/utils';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
-import { CurrentNoteStore } from '../../store/current-note-store';
 
 
 
@@ -19,8 +18,6 @@ import { CurrentNoteStore } from '../../store/current-note-store';
   styleUrl: './text-editor.less'
 })
 export class TextEditorComponent implements AfterViewInit {
-  readonly currentNoteStore = inject(CurrentNoteStore);
-
   private editor: any;
 
   ngAfterViewInit() {

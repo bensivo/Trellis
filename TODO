@@ -1,4 +1,5 @@
 Basic functionality:
+[ ] Bug: Hash routing doesn't work with electron 
 [ ] Feat: serialize and load note content for each note (to store)
 [ ] Feat: serialize and load content for each template (to store)
 [ ] Bug: scroll issues when text-editor becomes larger than allowed space

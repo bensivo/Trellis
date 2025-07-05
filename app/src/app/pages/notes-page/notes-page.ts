@@ -1,6 +1,5 @@
 import { Component, computed, inject, Inject, Signal } from '@angular/core';
 import { TextEditorComponent } from '../../components/text-editor/text-editor';
-import { CurrentNoteStore } from '../../store/current-note-store';
 import { NotesStore } from '../../store/notes-store';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -17,7 +16,6 @@ import { TemplatesStore } from '../../store/templates-store';
 export class NotesPage {
   readonly templatesStore = inject(TemplatesStore);
 
-  readonly currentNoteStore = inject(CurrentNoteStore);
   readonly notesStore = inject(NotesStore);
 
   readonly route = inject(ActivatedRoute);
