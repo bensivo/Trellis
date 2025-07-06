@@ -3,18 +3,18 @@
   <section class="new-note">
     <h3 class="section-title">Select Template</h3>
     <div class="template-search-container">
-      <input #templatesearch autofocus class="template-search" placeholder="Template Name" [value]="searchValue()" (input)="onChangeSearch($event)" (keypress)="onKeypress($event)">
+      <input #templatesearch autofocus class="app-input template-search" placeholder="Template Name" [value]="searchValue()" (input)="onChangeSearch($event)" (keypress)="onKeypress($event)">
     </div>
     <hr/>
     <div class="template-list">
       @for (template of orderedTemplates(); track template.id) {
-        <button class="list-item" [class.active]="$index == 0" (click)="onClickTemplateButton($index)">{{ template.name }}</button>
+        <button class="app-list-item " [class.active]="$index == 0" (click)="onClickTemplateButton($index)">{{ template.name }}</button>
       }
     </div>
 
     <div class="btn-container">
-      <button class="btn-secondary" (click)="onClickCancel()">Cancel </button>
-      <button class="btn-primary" (click)="onClickSubmit()">Submit ↵</button>
+      <button class="app-btn-secondary" (click)="onClickCancel()">Cancel </button>
+      <button class="app-btn-primary" (click)="onClickSubmit()">Submit ↵</button>
     </div>
   </section>
 

@@ -2,11 +2,11 @@
     <h3>Notes</h3>
 </div>
 <div class="row">
-    <input id="search-notes" placeholder="Search"/>
+    <input class="app-input" id="search-notes" placeholder="Search"/>
 </div>
 <div class="row">
-    <label id="note-template-label" for="">Template</label>
-    <select id="note-template-select">
+    <label class="app-label" id="note-template-label" for="">Template</label>
+    <select class="app-select" id="note-template-select">
     @for (template of templatesStore.templates(); track template.id) {
         <option>{{ template.name }}</option>
     }
@@ -15,8 +15,8 @@
 <hr/>
 <ul id="note-list">
     @for (note of notesStore.notes(); track note.id) {
-        <a routerLink="/notes/{{ note.id }}" class="list-item" [class.active]="note.id == currentNoteId()">{{ note.name }}</a>
+        <a routerLink="/notes/{{ note.id }}" class="app-list-item" [class.active]="note.id == currentNoteId()">{{ note.name }}</a>
     }
 </ul>
 <hr/>
-<a id="new-note-btn" class="btn-primary" routerLink="/new-note">New Note (Ctrl + N)</a>
+<a id="new-note-btn" class="app-btn-primary" routerLink="/new-note">New Note (Ctrl + N)</a>

@@ -166,6 +166,24 @@ export const NotesStore = signalStore(
                 }
             })
         },
+        updateNoteName(id: number, name: string) {
+            patchState(store, (state) => {
+                const notes = state.notes;
+
+                return {
+                    notes: notes.map(note => {
+                        if (note.id !== id) {
+                            return note
+                        } else {
+                            return {
+                                ...note,
+                                name,
+                            }
+                        }
+                    })
+                }
+            })
+        },
         updateNoteField(id: number, index: number, value: any) {
             patchState(store, (state) => {
                 const notes = state.notes;

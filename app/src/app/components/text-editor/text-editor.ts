@@ -182,7 +182,6 @@ export class TextEditor implements AfterViewInit {
 
         const paragraph = $createParagraphNode();
         root.append(paragraph);
-        paragraph.selectEnd();
       });
       return;
     }

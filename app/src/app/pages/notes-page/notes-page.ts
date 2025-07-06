@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutMain } from '../../components/layout-main/layout-main';
 import { NotesPanel } from '../../components/notes-panel/notes-panel';
@@ -25,6 +25,21 @@ export class NotesPage {
   readonly currentNoteId = this.notesService.currentNoteId;
   readonly currentNote = this.notesService.currentNote;
 
+  @ViewChild('notetitle') titleInput!: ElementRef<HTMLInputElement>;
+  ngAfterViewInit() {
+    setTimeout(() => {
+      // Becuase we're using hash-routers, the "autofocus" on the input element doesn't work all the time
+      // We add the manual call to focus() in afterViewInit as a workaround
+
+      // Focus title, but only on brand new notes
+      const note = this.currentNote();
+      if (note && note.name === 'Untitled') {
+        this.titleInput.nativeElement.select();
+      }
+
+    }, 0);
+  }
+
   onFieldChange(index: number, event: Event) {
     const currentNoteId = this.currentNoteId();
     if (!currentNoteId) {
@@ -44,5 +59,15 @@ export class NotesPage {
       event.preventDefault(); // Prevent browser's "New Window"
       this.router.navigate(['/new-note']);
     }
+  }
+
+  onChangeTitle(event: any) {
+    const id = this.currentNoteId();
+    if (id == null) {
+      return;
+    }
+
+    const value = event.target.value;
+    this.notesStore.updateNoteName(id, value);
   }
 }

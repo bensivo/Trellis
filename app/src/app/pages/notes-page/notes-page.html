@@ -2,13 +2,13 @@
   <app-notes-panel/>
   <section class="note-editor">
     @if (currentNote(); as note) {
-      <h3 class="section-title">{{ note.name }}</h3>
+      <input #notetitle class="editable-header" [value]="note.name" (change)="onChangeTitle($event)"/>
       <span class="section-subtitle">{{ note.template }}</span>
 
       <div class="note-fields-container">
         @for (field of note.fields; track field.name) {
-          <label>{{ field.name }}</label>
-          <input [value]="field.value" (change)="onFieldChange($index, $event)"/>
+          <label class="app-label">{{ field.name }}</label>
+          <input class="app-input" [value]="field.value" (change)="onFieldChange($index, $event)"/>
         }
       </div>
       <hr/>
