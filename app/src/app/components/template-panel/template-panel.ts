@@ -110,4 +110,31 @@ export class TemplatePanel {
 
     this.templatesStore.addField(id)
   }
+
+  onClickDeleteField(index: number) {
+    const id = this.currentTemplateId();
+    if (id == null) {
+      return;
+    }
+
+    this.templatesStore.removeField(id, index)
+  }
+
+  onClickMoveFieldUp(index: number) {
+    const id = this.currentTemplateId();
+    if (id == null) {
+      return;
+    }
+
+    this.templatesStore.moveFieldUp(id, index)
+  }
+
+  onClickMoveFieldDown(index: number) {
+    const id = this.currentTemplateId();
+    if (id == null) {
+      return;
+    }
+
+    this.templatesStore.moveFieldDown(id, index)
+  }
 }

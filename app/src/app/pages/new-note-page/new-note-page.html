@@ -1,21 +1,34 @@
 <app-layout-main>
   <app-notes-panel/>
-  <section class="new-note">
-    <h3 class="section-title">Select Template</h3>
-    <div class="template-search-container">
-      <input #templatesearch autofocus class="app-input template-search" placeholder="Template Name" [value]="searchValue()" (input)="onChangeSearch($event)" (keypress)="onKeypress($event)">
-    </div>
-    <hr/>
-    <div class="template-list">
-      @for (template of orderedTemplates(); track template.id) {
-        <button class="app-list-item " [class.active]="$index == 0" (click)="onClickTemplateButton($index)">{{ template.name }}</button>
-      }
-    </div>
 
-    <div class="btn-container">
-      <button class="app-btn-secondary" (click)="onClickCancel()">Cancel </button>
-      <button class="app-btn-primary" (click)="onClickSubmit()">Submit ↵</button>
-    </div>
-  </section>
+  @if (orderedTemplates().length === 0) {
+    <section class="no-templates-section">
+      <div class="no-templates-container">
+        <h3> No templates </h3>
+        <span>You must create a Template first to create notes</span>
+        <button class="app-btn-primary" (click)="onClickNewTemplate()">New Template (Ctrl + T)</button>
+      </div>
+    </section>
+  }
+  @else {
+    <section class="new-note">
+
+      <h3 class="section-title">Select Template</h3>
+      <div class="template-search-container">
+        <input #templatesearch autofocus class="app-input template-search" placeholder="Template Name" [value]="searchValue()" (input)="onChangeSearch($event)" (keypress)="onKeypress($event)">
+      </div>
+      <hr/>
+      <div class="template-list">
+        @for (template of orderedTemplates(); track template.id) {
+          <button class="app-list-item " [class.active]="$index == 0" (click)="onClickTemplateButton($index)">{{ template.name }}</button>
+        }
+      </div>
+
+      <div class="btn-container">
+        <!-- <button class="app-btn-secondary" (click)="onClickCancel()">Cancel </button> -->
+        <button class="app-btn-primary" (click)="onClickSubmit()">Submit ↵</button>
+      </div>
+    </section>
+  }
 
 </app-layout-main>

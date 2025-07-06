@@ -5,6 +5,7 @@ import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { TemplatesStore } from '../../store/templates-store';
 import { NotesPanel } from '../../components/notes-panel/notes-panel';
+import { TemplateFieldType } from '../../models/template-interface';
 
 @Component({
   selector: 'app-new-note-page',
@@ -80,6 +81,20 @@ export class NewNotePage implements AfterViewInit {
 
   onClickSubmit() {
     this.onClickTemplateButton(0);
+  }
+
+  onClickNewTemplate() {
+    const id = this.templatesStore.createTemplate({
+      name: 'Untitled',
+      fields: [
+        {
+          name: 'Date',
+          type: TemplateFieldType.DATE,
+        }
+      ]
+    });
+
+    this.router.navigate(['templates', id]);
   }
 }
 

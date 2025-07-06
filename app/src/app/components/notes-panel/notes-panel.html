@@ -13,10 +13,12 @@
     </select>
 </div>
 <hr/>
-<ul id="note-list">
-    @for (note of notesStore.notes(); track note.id) {
-        <a routerLink="/notes/{{ note.id }}" class="app-list-item" [class.active]="note.id == currentNoteId()">{{ note.name }}</a>
-    }
-</ul>
-<hr/>
+@if (notesStore.notes().length > 0) {
+    <ul id="note-list">
+        @for (note of notesStore.notes(); track note.id) {
+            <a routerLink="/notes/{{ note.id }}" class="app-list-item" [class.active]="note.id == currentNoteId()">{{ note.name }}</a>
+        }
+    </ul>
+    <hr/>
+}
 <a id="new-note-btn" class="app-btn-primary" routerLink="/new-note">New Note (Ctrl + N)</a>

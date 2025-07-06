@@ -1,6 +1,6 @@
 @import '../../../utils.less';
 
-app-notes-panel{
+app-notes-panel {
   min-width: 200px;
 
   display: flex;
@@ -8,6 +8,31 @@ app-notes-panel{
 
   padding: 16px;
   border-right: @grey-04 1px solid;
+}
+
+.no-templates-section {
+  width: 100%;
+  position: relative;
+}
+
+.no-templates-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  h3 {
+    margin-bottom: 8px;
+  }
+
+  span {
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  button {
+    margin: 0;
+  }
 }
 
 section.new-note {
@@ -20,41 +45,42 @@ section.new-note {
   color: @grey-01;
   background-color: @grey-05;
   padding: 8px 16px;
-    font-size: 14px;
+  font-size: 14px;
+
+
+  .section-title {
+    margin-top: 16px;
+    margin-bottom: 8px;
   }
 
-.section-title {
-  margin-top: 16px;
-  margin-bottom: 8px;
-}
+  .template-search-container {
+    display: flex;
+  }
 
-.template-search-container {
-  display: flex;
-}
+  .template-search {
+    flex-grow: 1;
+  }
 
-.template-search {
-  flex-grow: 1;
-}
+  .template-list {
+    margin-bottom: 16px;
+  }
 
-.template-list {
-  margin-bottom: 16px;
-}
+  .app-list-item {
+    width: 100%;
+  }
 
-.app-list-item {
-  width: 100%;
-}
-
-.btn-container {
-  display:flex;
-  justify-content: flex-end;
-}
+  .btn-container {
+    display: flex;
+    justify-content: flex-end;
+  }
 
 
-.app-btn-primary {
-  margin-left: 8px;
-}
+  .app-btn-primary {
+    margin-left: 8px;
+  }
 
-hr {
-  margin-top: 16px;
-  margin-bottom: 16px;
+  hr {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
 }

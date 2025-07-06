@@ -7,20 +7,7 @@ type NotesStore = {
 }
 
 const initialState: NotesStore = {
-    notes: [
-        {
-            id: 1,
-            name: "Standup - March 5th",
-            template: "Meeting",
-            fields: [
-                { name: "Date", type: TemplateFieldType.DATE, value: "2025-03-05" },
-                { name: "Location", type: TemplateFieldType.TEXT, value: "Conference Room A" },
-                { name: "Organizer", type: TemplateFieldType.TEXT, value: "Sarah Johnson" },
-                { name: "Attendees", type: TemplateFieldType.TEXT, value: "John, Mike, Lisa, Alex, Emily, David, Rachel, Tom" }
-            ],
-            content: null,
-        },
-    ]
+    notes: [ ]
 }
 
 export const NotesStore = signalStore(
@@ -28,8 +15,8 @@ export const NotesStore = signalStore(
     withState(initialState),
     withMethods((store) => ({
         create(dto: Partial<Note>) {
-            // TODO: do better here
-            const nextId = Math.max(...store.notes().map(n => n.id)) + 1;
+            const notes = store.notes();
+            const nextId = notes.length === 0 ? 0 : Math.max(...store.notes().map(n => n.id)) + 1
             patchState(store, (state) => {
                 const newNote: Note = {
                     id: nextId,

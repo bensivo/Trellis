@@ -1,23 +1,12 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { Template, TemplateField, TemplateFieldType } from '../models/template-interface';
+import { Template, TemplateFieldType } from '../models/template-interface';
 
 interface TemplatesStore {
     templates: Template[];
 }
 
 const initialState: TemplatesStore = {
-    templates: [{
-        id: 1,
-        name: "Meeting",
-        fields: [
-            { name: "Date", type: TemplateFieldType.DATE },
-            { name: "Location", type: TemplateFieldType.TEXT },
-            { name: "Organizer", type: TemplateFieldType.TEXT },
-            { name: "Attendees", type: TemplateFieldType.TEXT }
-        ],
-        content: null
-    },
-    ]
+    templates: [ ]
 }
 
 export const TemplatesStore = signalStore(
@@ -26,8 +15,7 @@ export const TemplatesStore = signalStore(
     withMethods((store) => ({
         createTemplate(dto: Partial<Template>) {
             const templates = store.templates();
-            const maxId = Math.max(...templates.map(t => t.id));
-            const newId = maxId + 1;
+            const newId = templates.length === 0 ? 0 : Math.max(...templates.map(t => t.id)) + 1; 
 
             const newTemplate: Template = {
                 id: newId,
@@ -53,14 +41,25 @@ export const TemplatesStore = signalStore(
         addField(id: number) {
             patchState(store, (state) => ({
                 templates: state.templates.map(t =>
-                    t.id === id ? { 
-                        ...t, 
+                    t.id === id ? {
+                        ...t,
                         fields: [...t.fields, {
                             name: '',
                             type: TemplateFieldType.TEXT
                         }]
-                    } 
-                    : t
+                    }
+                        : t
+                )
+            }));
+        },
+        removeField(id: number, index: number) {
+            patchState(store, (state) => ({
+                templates: state.templates.map(t =>
+                    t.id === id ? {
+                        ...t,
+                        fields: t.fields.filter((v, i) => i !== index),
+                    }
+                        : t
                 )
             }));
         },
@@ -124,5 +123,33 @@ export const TemplatesStore = signalStore(
             })
         },
 
+        moveFieldUp(id: number, index: number) {
+            if (index === 0) return;
+
+            patchState(store, (state) => ({
+                templates: state.templates.map(t => {
+                    if (t.id !== id) return t;
+
+                    const fields = [...t.fields];
+                    [fields[index], fields[index - 1]] = [fields[index - 1], fields[index]];
+
+                    return { ...t, fields };
+                })
+            }));
+        },
+
+        moveFieldDown(id: number, index: number) {
+            patchState(store, (state) => ({
+                templates: state.templates.map(t => {
+                    if (t.id !== id) return t;
+                    if (index === t.fields.length - 1) return t;
+
+                    const fields = [...t.fields];
+                    [fields[index], fields[index + 1]] = [fields[index + 1], fields[index]];
+
+                    return { ...t, fields };
+                })
+            }));
+        }
     }))
 );
