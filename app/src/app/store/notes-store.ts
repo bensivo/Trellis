@@ -125,6 +125,24 @@ export const NotesStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
     withMethods((store) => ({
+        create(dto: Partial<Note>) {
+            // TODO: do better here
+            const nextId = Math.max(...store.notes().map(n => n.id)) + 1;
+            patchState(store, (state) => {
+                const newNote: Note = {
+                    id: nextId,
+                    name: 'Untitled',
+                    template: 'Unknown',
+                    fields: [],
+                    content: null,
+                    ...dto,
+                }
+                return {
+                    notes: [...state.notes, newNote]
+                }
+            })
+            return nextId;
+        },
         updateNoteContent(id: number, content: any) {
             // Note: this is probably a very inefficient way to manage note state.
             // We're looping the entire note array everytime somethign changes in a single note.

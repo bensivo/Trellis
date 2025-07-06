@@ -1,0 +1,43 @@
+<app-layout-main>
+  <section id="notes">
+    <div class="row">
+      <h3>Notes</h3>
+      <button id="new-note-btn">+ New Note</button>
+    </div>
+    <div class="row">
+      <input id="search-notes" placeholder="Search"/>
+    </div>
+    <div class="row">
+      <label id="note-template-label" for="">Template</label>
+      <select id="note-template-select">
+        @for (template of templatesStore.templates(); track template.id) {
+          <option>{{ template.name }}</option>
+        }
+      </select>
+    </div>
+    <hr/>
+    <ul id="note-list">
+      @for (note of notesStore.notes(); track note.id) {
+        <a routerLink="/notes/{{ note.id }}">{{ note.name }}</a>
+      }
+    </ul>
+  </section>
+  <section id="new-note">
+    <h3 class="section-header">Select Template</h3>
+    <div class="template-search-container">
+      <input #templatesearch autofocus class="template-search" placeholder="Template Name" [value]="searchValue()" (input)="onChangeSearch($event)" (keypress)="onKeypress($event)">
+    </div>
+    <hr/>
+    <div class="template-list">
+      @for (template of orderedTemplates(); track template.id) {
+        <button class="template-btn active" [class.active]="$index == 0" (click)="onClickTemplateButton($index)">{{ template.name }}</button>
+      }
+    </div>
+
+    <div class="btn-container">
+      <button class="cancel-btn" (click)="onClickCancel()">Cancel </button>
+      <button class="submit-btn" (click)="onClickSubmit()">Submit ↵</button>
+    </div>
+  </section>
+
+</app-layout-main>

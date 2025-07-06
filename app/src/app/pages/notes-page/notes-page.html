@@ -2,7 +2,6 @@
   <section id="notes">
     <div class="row">
       <h3>Notes</h3>
-      <button id="new-note-btn">+ New Note</button>
     </div>
     <div class="row">
       <input id="search-notes" placeholder="Search"/>
@@ -26,6 +25,8 @@
         }
       }
     </ul>
+    <hr/>
+    <a id="new-note-btn" routerLink="/new-note">New Note (Ctrl + N)</a>
   </section>
   <section id="note-editor">
     @if (currentNote(); as note) {

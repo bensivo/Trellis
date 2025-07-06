@@ -1,6 +1,8 @@
 Basic functionality:
+[ ] Feat: rename a note
+[ ] Feat: New note - focus on name first
 [ ] Feat: serialize and load content for each template (to store)
-[ ] Feat: add note
+[ ] Feat: make order and delete btutons work on template page
 [ ] Feat: add template
 [ ] Bug: scroll issues when text-editor becomes larger than allowed space
 [ ] Bug: changing template fields should make new fields available in notes
@@ -8,7 +10,6 @@ Basic functionality:
 [ ] Feat: notes page, make "template" select functional
 [ ] Feat: notes page, make "search" functional
 [ ] Feat: Save a note to file 
-[ ] Feat: rename a note
 [ ] Feat: Read a note from a file 
 [ ] Feat: Folder structure for all notes
 [ ] Feat: List notes from folders
@@ -49,3 +50,5 @@ Done:
 [x] Feat: serialize and load note content for each note (to store)
 [x] Separate layout component from rest
 [x] Feat: serialize and load note fields to/from store
+[x] Feat: new note - focus on tempalte search
+[x] Feat: notes and temaplate: cmd+n to create new note / template

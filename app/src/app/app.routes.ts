@@ -2,6 +2,7 @@ import { NotesPage } from './pages/notes-page/notes-page';
 import { Routes } from '@angular/router';
 import { TemplatesPage } from './pages/templates-page/templates-page';
 import { HomePage } from './pages/home-page/home-page';
+import { NewNotePage } from './pages/new-note-page/new-note-page';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,11 @@ export const routes: Routes = [
     title: 'Notes',
     path: 'notes/:noteid',
     component: NotesPage,
+  },
+  {
+    title: 'New Note',
+    path: 'new-note',
+    component: NewNotePage,
   },
   {
     title: 'Templates',

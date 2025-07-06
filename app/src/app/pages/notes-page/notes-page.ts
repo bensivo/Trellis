@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, HostListener, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { TextEditor } from '../../components/text-editor/text-editor';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
@@ -17,9 +17,9 @@ import { LayoutMain } from '../../components/layout-main/layout-main';
   styleUrl: './notes-page.less'
 })
 export class NotesPage {
+  readonly router = inject(Router);
   readonly templatesStore = inject(TemplatesStore);
   readonly notesStore = inject(NotesStore);
-
   readonly notesService = inject(NotesService);
   readonly currentNoteId = this.notesService.currentNoteId;
   readonly currentNote = this.notesService.currentNote;
@@ -34,5 +34,14 @@ export class NotesPage {
     const value = target.value;
 
     this.notesStore.updateNoteField(currentNoteId, index, value);
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    // Cmd+N on Mac or Ctrl+N on Windows/Linux
+    if ((event.metaKey || event.ctrlKey) && event.key === 'n') {
+      event.preventDefault(); // Prevent browser's "New Window"
+      this.router.navigate(['/new-note']);
+    }
   }
 }
