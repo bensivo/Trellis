@@ -52,15 +52,6 @@ export class NotesPage {
     this.notesStore.updateNoteField(currentNoteId, index, value);
   }
 
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    // Cmd+N on Mac or Ctrl+N on Windows/Linux
-    if ((event.metaKey || event.ctrlKey) && event.key === 'n') {
-      event.preventDefault(); // Prevent browser's "New Window"
-      this.router.navigate(['/new-note']);
-    }
-  }
-
   onChangeTitle(event: any) {
     const id = this.currentNoteId();
     if (id == null) {

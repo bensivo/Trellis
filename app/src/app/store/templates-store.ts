@@ -49,6 +49,21 @@ export const TemplatesStore = signalStore(
                 )
             }));
         },
+
+        addField(id: number) {
+            patchState(store, (state) => ({
+                templates: state.templates.map(t =>
+                    t.id === id ? { 
+                        ...t, 
+                        fields: [...t.fields, {
+                            name: '',
+                            type: TemplateFieldType.TEXT
+                        }]
+                    } 
+                    : t
+                )
+            }));
+        },
         updateTemplateContent(id: number, content: any) {
             patchState(store, (state) => ({
                 templates: state.templates.map(t =>

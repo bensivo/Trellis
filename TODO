@@ -1,7 +1,6 @@
 Basic functionality:
-[ ] Feat: add new template field
+[ ] Feat: Delete template field
 [ ] Feat: make order and delete btutons work on template page
-[ ] Feat: Global command modal, with hotkey
 [ ] Bug: scroll issues when note-text-editor becomes larger than allowed space
 [ ] Bug: changing template fields should make new fields available in notes
 [ ] Feat: Resize notes and templates list panel, to make long note names more visible
@@ -9,6 +8,7 @@ Basic functionality:
 [ ] Feat: Logo and icon
 [ ] Feat: notes page, make "template" select functional
 [ ] Feat: notes page, make "search" functional
+[ ] Feat: Global command modal, with hotkey
 [ ] Feat: Save a note to file 
 [ ] Feat: Read a note from a file 
 [ ] Feat: Folder structure for all notes
@@ -57,3 +57,4 @@ Done:
 [x] Feat: New note - focus on name first
 [x] Feat: serialize and load content for each template (to store)
 [x] Feat: add template
+[x] Feat: add new template field

@@ -101,4 +101,13 @@ export class TemplatePanel {
     const value = event.target.value;
     this.templatesStore.updateTemplateName(id, value);
   }
+
+  onClickNewField() {
+    const id = this.currentTemplateId();
+    if (id == null) {
+      return;
+    }
+
+    this.templatesStore.addField(id)
+  }
 }
