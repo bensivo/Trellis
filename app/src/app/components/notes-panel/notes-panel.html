@@ -6,16 +6,17 @@
 </div>
 <div class="row">
     <label class="app-label" id="note-template-label" for="">Template</label>
-    <select class="app-select" id="note-template-select">
-    @for (template of templatesStore.templates(); track template.id) {
-        <option>{{ template.name }}</option>
-    }
+    <select class="app-select" id="note-template-select" [value]="templateSelect()" (change)="onChangeTemplateSelect($event)">
+        <option [value]="-1">All Templates</option>
+        @for (template of templatesStore.templates(); track template.id) {
+            <option [value]="template.id">{{ template.name }}</option>
+        }
     </select>
 </div>
 <hr/>
 @if (notesStore.notes().length > 0) {
     <ul id="note-list">
-        @for (note of notesStore.notes(); track note.id) {
+        @for (note of visibleNotes(); track note.id) {
             <a routerLink="/notes/{{ note.id }}" class="app-list-item" [class.active]="note.id == currentNoteId()">{{ note.name }}</a>
         }
     </ul>

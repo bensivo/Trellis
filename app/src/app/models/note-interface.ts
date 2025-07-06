@@ -3,7 +3,7 @@ import { TemplateFieldType } from "./template-interface";
 export interface Note {
     id: number;
     name: string;
-    template: string;
+    templateId: number;
     fields: NoteField[];
     content: any;
 }

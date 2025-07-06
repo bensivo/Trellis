@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, HostListener, inject, Signal, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutMain } from '../../components/layout-main/layout-main';
 import { NotesPanel } from '../../components/notes-panel/notes-panel';
@@ -6,6 +6,7 @@ import { NoteTextEditor } from '../../components/note-text-editor/note-text-edit
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { TemplatesStore } from '../../store/templates-store';
+import { Template } from '../../models/template-interface';
 
 @Component({
   selector: 'app-notes-page',
@@ -24,6 +25,16 @@ export class NotesPage {
   readonly notesService = inject(NotesService);
   readonly currentNoteId = this.notesService.currentNoteId;
   readonly currentNote = this.notesService.currentNote;
+
+  readonly currentTemplate: Signal<Template | null> = computed(() => {
+    const currentNote = this.currentNote();
+    if (!currentNote) {
+      return null;
+    }
+
+    const templates = this.templatesStore.templates();
+    return templates.find(t => t.id == currentNote.templateId) ?? null;
+  })
 
   @ViewChild('notetitle') titleInput!: ElementRef<HTMLInputElement>;
   ngAfterViewInit() {

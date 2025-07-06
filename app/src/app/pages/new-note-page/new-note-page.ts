@@ -67,7 +67,7 @@ export class NewNotePage implements AfterViewInit {
     const template = this.orderedTemplates()[index];
     const id = this.notesStore.create({
       name: 'Untitled',
-      template: template.name,
+      templateId: template.id,
       fields: template.fields.map(f => ({
         name: f.name,
         type: f.type,

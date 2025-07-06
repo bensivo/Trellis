@@ -1,5 +1,4 @@
 Basic functionality:
-[ ] Feat: notes page, make "template" select functional
 [ ] Feat: notes page, make "search" functional
 [ ] Bug: scroll issues when note-text-editor becomes larger than allowed space
 [ ] Bug: changing template fields should make new fields available in notes
@@ -60,3 +59,4 @@ Done:
 [x] Feat: Delete template field
 [x] Feat: make order and delete btutons work on template page
 [x] Feat: Empty text for notes panel, templates panel, fields in template panel
+[x] Feat: notes page, make "template" select functional

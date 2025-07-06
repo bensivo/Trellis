@@ -3,7 +3,7 @@
   <section class="note-editor">
     @if (currentNote(); as note) {
       <input #notetitle class="app-editable-header" [value]="note.name" (change)="onChangeTitle($event)"/>
-      <span class="section-subtitle">{{ note.template }}</span>
+      <span class="section-subtitle">{{ currentTemplate()?.name ?? 'Unknown' }}</span>
 
       <div class="note-fields-container">
         @for (field of note.fields; track field.name) {

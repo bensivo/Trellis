@@ -1,12 +1,25 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { Template, TemplateFieldType } from '../models/template-interface';
+import { Template, TemplateField, TemplateFieldType } from '../models/template-interface';
 
 interface TemplatesStore {
     templates: Template[];
 }
 
 const initialState: TemplatesStore = {
-    templates: [ ]
+    templates: [
+        {
+            id: 0,
+            name: 'Person',
+            fields: [],
+            content: null,
+        },
+        {
+            id: 1,
+            name: 'Segment',
+            fields: [],
+            content: null,
+        }
+     ]
 }
 
 export const TemplatesStore = signalStore(
