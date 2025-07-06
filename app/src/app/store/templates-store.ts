@@ -1,5 +1,5 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { Template, TemplateField, TemplateFieldType } from '../models/template-interface';
+import { Template, TemplateFieldType } from '../models/template-interface';
 
 interface TemplatesStore {
     templates: Template[];
@@ -7,18 +7,18 @@ interface TemplatesStore {
 
 const initialState: TemplatesStore = {
     templates: [
-        {
-            id: 0,
-            name: 'Person',
-            fields: [],
-            content: null,
-        },
-        {
-            id: 1,
-            name: 'Segment',
-            fields: [],
-            content: null,
-        }
+        // {
+        //     id: 0,
+        //     name: 'Person',
+        //     fields: [],
+        //     content: null,
+        // },
+        // {
+        //     id: 1,
+        //     name: 'Segment',
+        //     fields: [],
+        //     content: null,
+        // }
      ]
 }
 

@@ -1,5 +1,4 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { TemplateFieldType } from '../models/template-interface';
 import { Note } from '../models/note-interface';
 
 type NotesStore = {
@@ -8,27 +7,27 @@ type NotesStore = {
 
 const initialState: NotesStore = {
     notes: [
-        {
-            id: 0,
-            templateId: 0,
-            name: 'Anita',
-            fields: [],
-            content: null,
-        },
-        {
-            id: 1,
-            templateId: 0,
-            name: 'Ben',
-            fields: [],
-            content: null,
-        },
-        {
-            id: 2,
-            templateId: 1,
-            name: 'Family',
-            fields: [],
-            content: null,
-        },
+        // {
+        //     id: 0,
+        //     templateId: 0,
+        //     name: 'Anita',
+        //     fields: [],
+        //     content: null,
+        // },
+        // {
+        //     id: 1,
+        //     templateId: 0,
+        //     name: 'Ben',
+        //     fields: [],
+        //     content: null,
+        // },
+        // {
+        //     id: 2,
+        //     templateId: 1,
+        //     name: 'Family',
+        //     fields: [],
+        //     content: null,
+        // },
     ]
 }
 
