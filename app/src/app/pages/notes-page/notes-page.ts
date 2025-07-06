@@ -72,4 +72,14 @@ export class NotesPage {
     const value = event.target.value;
     this.notesStore.updateNoteName(id, value);
   }
+
+  onClickDeleteNote() {
+    const id = this.currentNoteId();
+    if (id == null) {
+      return;
+    }
+
+    this.notesStore.delete(id);
+    this.router.navigate(['notes'])
+  }
 }

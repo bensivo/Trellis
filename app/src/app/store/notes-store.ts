@@ -29,7 +29,7 @@ const initialState: NotesStore = {
             fields: [],
             content: null,
         },
-     ]
+    ]
 }
 
 export const NotesStore = signalStore(
@@ -53,6 +53,11 @@ export const NotesStore = signalStore(
                 }
             })
             return nextId;
+        },
+        delete(id: number) {
+            patchState(store, (state) => ({
+                notes: state.notes.filter(n => n.id !== id)
+            }))
         },
         updateNoteContent(id: number, content: any) {
             // Note: this is probably a very inefficient way to manage note state.

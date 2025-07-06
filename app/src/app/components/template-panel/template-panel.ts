@@ -137,4 +137,13 @@ export class TemplatePanel {
 
     this.templatesStore.moveFieldDown(id, index)
   }
+
+  onClickDeleteTemplate() {
+    const id = this.currentTemplateId();
+    if (id == null) {
+      return;
+    }
+
+    this.templatesStore.deleteTemplate(id);
+  }
 }

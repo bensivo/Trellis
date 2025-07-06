@@ -2,7 +2,10 @@
   <app-notes-panel/>
   <section class="note-editor">
     @if (currentNote(); as note) {
-      <input #notetitle class="app-editable-header" [value]="note.name" (change)="onChangeTitle($event)"/>
+      <div class="section-header">
+        <input #notetitle class="app-editable-header" [value]="note.name" (change)="onChangeTitle($event)"/>
+        <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteNote()"></i>
+      </div>
       <span class="section-subtitle">{{ currentTemplate()?.name ?? 'Unknown' }}</span>
 
       <div class="note-fields-container">

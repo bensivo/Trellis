@@ -43,6 +43,11 @@ export const TemplatesStore = signalStore(
 
             return newId;
         },
+        deleteTemplate(id: number) {
+            patchState(store, (state) => ({
+                templates: state.templates.filter(t => t.id !== id),
+            }));
+        },
         updateTemplateName(id: number, name: string) {
             patchState(store, (state) => ({
                 templates: state.templates.map(t =>
