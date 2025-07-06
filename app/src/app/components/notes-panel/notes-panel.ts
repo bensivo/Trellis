@@ -18,22 +18,37 @@ export class NotesPanel {
   readonly notesService = inject(NotesService);
   readonly currentNoteId = this.notesService.currentNoteId;
 
+  searchInput = signal<string>('');
   templateSelect = signal<number>(-1);
 
   readonly visibleNotes = computed(() => {
-    const notes = this.notesStore.notes();
+    let notes = this.notesStore.notes();
     const templateId = this.templateSelect();
-    console.log(notes, templateId)
+    const searchInput = this.searchInput();
 
-    if (templateId == -1) {
-      return notes;
+    
+    if (templateId != -1) {
+      notes = notes.filter(n => n.templateId == templateId);
     }
 
-    return notes.filter(n => n.templateId == templateId);
+    if (searchInput !== '') {
+      // TODO: more robust search function
+      const normalizedSearchInput = searchInput.toLowerCase().trim();
+      notes = notes.filter(n => (
+        n.name.toLowerCase().includes(normalizedSearchInput)
+      ))
+    }
+
+    return notes;
   }) 
 
   onChangeTemplateSelect(event: any) {
     const value = event.target.value;
     this.templateSelect.set(value);
+  }
+  
+  onChangeSearch(event: any) {
+    const value = event.target.value;
+    this.searchInput.set(value);
   }
 }
