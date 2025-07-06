@@ -1,5 +1,4 @@
 <input #templatetitle class="app-editable-header" [value]="currentTemplate()?.name ?? ''" (change)="onChangeName($event)"/>
-<hr/>
 <span class="section-title">Template Fields</span>
 <div id="template-fields">
 @for (field of currentTemplate()?.fields ?? []; track field.name) {

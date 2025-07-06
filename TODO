@@ -1,5 +1,5 @@
 Basic functionality:
-[ ] Feat: add template
+[ ] Feat: add new template field
 [ ] Feat: make order and delete btutons work on template page
 [ ] Feat: Global command modal, with hotkey
 [ ] Bug: scroll issues when note-text-editor becomes larger than allowed space
@@ -56,3 +56,4 @@ Done:
 [x] Feat: rename a note
 [x] Feat: New note - focus on name first
 [x] Feat: serialize and load content for each template (to store)
+[x] Feat: add template
