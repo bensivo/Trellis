@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { LayoutMain } from '../../components/layout-main/layout-main';
 
 @Component({
   selector: 'app-home-page',
-  imports: [RouterLink],
+  imports: [LayoutMain],
   templateUrl: './home-page.html',
   styleUrl: './home-page.less'
 })

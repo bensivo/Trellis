@@ -20,7 +20,7 @@ import { NotesStore } from '../../store/notes-store';
   templateUrl: './text-editor.html',
   styleUrl: './text-editor.less'
 })
-export class TextEditorComponent implements AfterViewInit {
+export class TextEditor implements AfterViewInit {
   readonly noteStore = inject(NotesStore);
   readonly notesService = inject(NotesService);
   readonly currentNoteId: Signal<number | null> = this.notesService.currentNoteId;

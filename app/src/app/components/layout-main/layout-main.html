@@ -1,0 +1,13 @@
+<div id="page">
+  <div id="header">
+  </div>
+  <div id="body">
+    <div id="side-nav">
+      <a class="nav-link" [class.active]="url().includes('/notes')" routerLink="/notes">Notes</a>
+      <a class="nav-link" [class.active]="url().includes('/templates')" routerLink="/templates">Templates</a>
+    </div>
+    <div id="content">
+        <ng-content></ng-content>
+    </div>
+  </div>
+</div>

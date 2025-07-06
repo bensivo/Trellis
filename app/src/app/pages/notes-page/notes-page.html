@@ -1,58 +1,48 @@
-<div id="page">
-  <div id="header">
-  </div>
-  <div id="body">
-    <div id="side-nav">
-      <a class="nav-link" routerLink="/notes">Notes</a>
-      <a class="nav-link" routerLink="/templates">Templates</a>
+<app-layout-main>
+  <section id="notes">
+    <div class="row">
+      <h3>Notes</h3>
+      <button id="new-note-btn">+ New Note</button>
     </div>
-    <div id="content">
-      <section id="notes">
-        <div class="row">
-          <h3>Notes</h3>
-          <button id="new-note-btn">+ New Note</button>
-        </div>
-        <div class="row">
-          <input id="search-notes" placeholder="Search"/>
-        </div>
-        <div class="row">
-          <label id="note-template-label" for="">Template</label>
-          <select id="note-template-select">
-            @for (template of templatesStore.templates(); track template) {
-              <option>{{ template.name }}</option>
-            }
-          </select>
-        </div>
-        <hr/>
-        <ul id="note-list">
-          @for (note of notesStore.notes(); track note) {
-            @if(note.id == currentNoteId()){ 
-              <a routerLink="/notes/{{ note.id }}" class="active">{{ note.name }}</a>
-            } 
-            @else {
-              <a routerLink="/notes/{{ note.id }}">{{ note.name }}</a>
-            }
-          }
-        </ul>
-      </section>
-      <section id="note-editor">
-        @if (currentNote(); as note) {
-          <h3 id="note-title">{{ note.name }}</h3>
-          <span id="note-template">{{ note.template }}</span>
-
-          <div id="note-fields">
-            @for (field of note.fields; track field) {
-              <label class="field-label">{{ field.name }}</label>
-              <input class="field-input" [value]="field.value"/>
-            }
-          </div>
-          <hr/>
-          <app-text-editor/>
+    <div class="row">
+      <input id="search-notes" placeholder="Search"/>
+    </div>
+    <div class="row">
+      <label id="note-template-label" for="">Template</label>
+      <select id="note-template-select">
+        @for (template of templatesStore.templates(); track template) {
+          <option>{{ template.name }}</option>
         }
+      </select>
+    </div>
+    <hr/>
+    <ul id="note-list">
+      @for (note of notesStore.notes(); track note) {
+        @if(note.id == currentNoteId()){ 
+          <a routerLink="/notes/{{ note.id }}" class="active">{{ note.name }}</a>
+        } 
         @else {
-          <h3 id="note-title">No note selected</h3>
+          <a routerLink="/notes/{{ note.id }}">{{ note.name }}</a>
         }
-      </section>
-    </div>
-  </div>
-</div>
+      }
+    </ul>
+  </section>
+  <section id="note-editor">
+    @if (currentNote(); as note) {
+      <h3 id="note-title">{{ note.name }}</h3>
+      <span id="note-template">{{ note.template }}</span>
+
+      <div id="note-fields">
+        @for (field of note.fields; track field) {
+          <label class="field-label">{{ field.name }}</label>
+          <input class="field-input" [value]="field.value"/>
+        }
+      </div>
+      <hr/>
+      <app-text-editor/>
+    }
+    @else {
+      <h3 id="note-title">No note selected</h3>
+    }
+  </section>
+</app-layout-main>
