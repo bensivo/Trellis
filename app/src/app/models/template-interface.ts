@@ -2,6 +2,7 @@ export interface Template {
     id: number;
     name: string;
     fields: TemplateField[];
+    content: any | null;
 }
 
 export interface TemplateField {

@@ -14,7 +14,8 @@ const initialState: TemplatesStore = {
             { name: "Location", type: TemplateFieldType.TEXT },
             { name: "Organizer", type: TemplateFieldType.TEXT },
             { name: "Attendees", type: TemplateFieldType.TEXT }
-        ]
+        ],
+        content: null
     },
     {
         id: 2,
@@ -24,7 +25,8 @@ const initialState: TemplatesStore = {
             { name: "End Date", type: TemplateFieldType.DATE },
             { name: "Status", type: TemplateFieldType.SELECT },
             { name: "Priority", type: TemplateFieldType.SELECT }
-        ]
+        ],
+        content: null
     },
     {
         id: 3,
@@ -34,14 +36,18 @@ const initialState: TemplatesStore = {
             { name: "Department", type: TemplateFieldType.TEXT },
             { name: "Manager", type: TemplateFieldType.NUMBER },
             { name: "Email", type: TemplateFieldType.TEXT },
-        ]
+        ],
+        content: null
+
     },
     {
         id: 4,
         name: "Segment",
         fields: [
             { name: "Created Date", type: TemplateFieldType.DATE },
-        ]
+        ],
+        content: null
+
     },
     {
         id: 5,
@@ -49,7 +55,9 @@ const initialState: TemplatesStore = {
         fields: [
             { name: "Subject", type: TemplateFieldType.TEXT },
             { name: "Date", type: TemplateFieldType.DATE },
-        ]
+        ],
+        content: null
+
     }
     ]
 }
@@ -58,6 +66,23 @@ export const TemplatesStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
     withMethods((store) => ({
+       updateTemplateContent(id: number, content: any) {
+            patchState(store, (state) => {
+                const newState= {
+                    templates: state.templates.map(t => {
+                        if (t.id !== id) {
+                            return t;
+                        }
+
+                        return {
+                            ...t,
+                            content,
+                        }
+                    })
+                }
+                return newState;
+            })
+        },
         updateFieldName(id: number, index: number, name: string) {
             patchState(store, (state) => {
                 const newState= {

@@ -7,43 +7,42 @@ import { registerMarkdownShortcuts } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
 import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
-import { Note } from '../../models/note-interface';
-import { NotesService } from '../../services/notes-service';
-import { NotesStore } from '../../store/notes-store';
-
+import { Template } from '../../models/template-interface';
+import { TemplatesStore } from '../../store/templates-store';
+import { TemplatesService } from '../../services/templates-service';
 
 
 @Component({
-  selector: 'app-text-editor',
+  selector: 'app-template-text-editor',
   imports: [],
-  templateUrl: './text-editor.html',
-  styleUrl: './text-editor.less'
+  templateUrl: './template-text-editor.html',
+  styleUrl: './template-text-editor.less'
 })
-export class TextEditor implements AfterViewInit {
-  readonly noteStore = inject(NotesStore);
-  readonly notesService = inject(NotesService);
-  readonly currentNoteId: Signal<number | null> = this.notesService.currentNoteId;
-  readonly currentNote: Signal<Note | null> = this.notesService.currentNote;
+export class TemplateTextEditor implements AfterViewInit {
+  readonly templateStore = inject(TemplatesStore);
+  readonly templatesService = inject(TemplatesService);
+  readonly currentTemplateId: Signal<number | null> = this.templatesService.currentTemplateId;
+  readonly currentTemplate: Signal<Template | null> = this.templatesService.currentTemplate;
 
-  previousNoteId: number | null = null;
+  previousTemplateId: number | null = null;
 
   private editor: any;
 
   constructor() {
     effect(() => {
-      // Listen for changes in the noteid, and load the new note
-      const id = this.currentNoteId();
-      if (id !== null && id !== this.previousNoteId) {
-        this.previousNoteId = id;
-        this.loadNoteFromId(id);
+      // Listen for changes in the templateid, and load the new template
+      const id = this.currentTemplateId();
+      if (id !== null && id !== this.previousTemplateId) {
+        this.previousTemplateId = id;
+        this.loadTemplateFromId(id);
       }
     });
   }
 
   ngAfterViewInit() {
-    const editorDiv = document.getElementById('text-editor');
+    const editorDiv = document.getElementById('template-text-editor');
     if (!editorDiv) {
-      console.error("CAn't initialize lexical, div#text-editor not found");
+      console.error("CAn't initialize lexical, div#template-text-editor not found");
       return;
     }
 
@@ -145,36 +144,36 @@ export class TextEditor implements AfterViewInit {
 
     // Listen for changes in the editor, and save the changes to the store
     this.editor.registerUpdateListener(() => {
-      this.saveCurrentNote();
+      this.saveCurrentTemplate();
     });
 
-    // Display the currently active noteid (if there is one)
-    const id = this.currentNoteId();
+    // Display the currently active templateid (if there is one)
+    const id = this.currentTemplateId();
     if (id !== null) {
-      this.loadNoteFromId(id);
+      this.loadTemplateFromId(id);
     }
   }
 
   /**
-   * Load a note from the store (based on id), then update the Lexical
-   * editor with the note's contents.
+   * Load a template from the store (based on id), then update the Lexical
+   * editor with the template's contents.
    * 
-   * @param id ID of the note to load
+   * @param id ID of the template to load
    */
-  loadNoteFromId(id: number) {
+  loadTemplateFromId(id: number) {
     if (!this.editor) {
-      console.warn('Skipping loadNote. this.editor undefined.')
+      console.warn('Skipping loadTemplate. this.editor undefined.')
       return;
     }
 
-    const note = this.noteStore.notes().find((n) => n.id == id);
-    if (!note) {
+    const template = this.templateStore.templates().find((n) => n.id == id);
+    if (!template) {
       return;
     }
 
-    const content = note.content;
+    const content = template.content;
 
-    // If the note had 'null' for content, create a root and a paragraph
+    // If the template had 'null' for content, create a root and a paragraph
     if (content == null) {
       this.editor.update(() => {
         const root = $getRoot();
@@ -186,7 +185,7 @@ export class TextEditor implements AfterViewInit {
       return;
     }
 
-    // If note had content, parse and load it into the editor state
+    // If template had content, parse and load it into the editor state
     try {
       const state = this.editor.parseEditorState(content);
       this.editor.setEditorState(state);
@@ -198,13 +197,13 @@ export class TextEditor implements AfterViewInit {
 
   /**
    * Take the current editor contents, and save it to the store
-   * using the current note id.
+   * using the current template id.
    *
    * @returns 
    */
-  saveCurrentNote() {
+  saveCurrentTemplate() {
     if (!this.editor) {
-      console.warn('Skipping saveNote. Editor undefined.')
+      console.warn('Skipping saveTemplate. Editor undefined.')
       return;
     }
 
@@ -212,13 +211,13 @@ export class TextEditor implements AfterViewInit {
     const editorContent = editorState.toJSON();
 
    
-    const id = this.currentNoteId();
+    const id = this.currentTemplateId();
     if (!id) {
-      console.warn('Skipping saveNote. No note in state')
+      console.warn('Skipping saveTemplate. No template in state')
       return;
     }
 
-    this.noteStore.updateNoteContent(id, editorContent);
+    this.templateStore.updateTemplateContent(id, editorContent);
   }
 
   ngOnDestroy() {

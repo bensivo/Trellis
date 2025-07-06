@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { LayoutMain } from '../../components/layout-main/layout-main';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
@@ -9,7 +9,6 @@ import { NotesPanel } from '../../components/notes-panel/notes-panel';
 @Component({
   selector: 'app-new-note-page',
   imports: [
-    RouterLink,
     LayoutMain,
     NotesPanel,
   ],
@@ -73,7 +72,7 @@ export class NewNotePage implements AfterViewInit {
         type: f.type,
         value: '',
       })),
-      content: null
+      content: template.content
     })
 
     this.router.navigate(['notes', id]);

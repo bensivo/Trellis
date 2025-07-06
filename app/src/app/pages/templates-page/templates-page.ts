@@ -4,12 +4,14 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LayoutMain } from '../../components/layout-main/layout-main';
 import { Template, TemplateFieldType } from '../../models/template-interface';
 import { TemplatesStore } from '../../store/templates-store';
+import { TemplateTextEditor } from '../../components/template-text-editor/template-text-editor';
 
 @Component({
   selector: 'app-templates-page',
   imports: [
     RouterLink,
     LayoutMain,
+    TemplateTextEditor,
   ],
   templateUrl: './templates-page.html',
   styleUrl: './templates-page.less'
