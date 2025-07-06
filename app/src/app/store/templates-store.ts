@@ -1,5 +1,5 @@
-import { signalStore, withState } from '@ngrx/signals';
-import { Template, TemplateFieldType } from '../models/template-interface';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { Template, TemplateField, TemplateFieldType } from '../models/template-interface';
 
 interface TemplatesStore {
     templates: Template[];
@@ -57,4 +57,58 @@ const initialState: TemplatesStore = {
 export const TemplatesStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
+    withMethods((store) => ({
+        updateFieldName(id: number, index: number, name: string) {
+            patchState(store, (state) => {
+                const newState= {
+                    templates: state.templates.map(t => {
+                        if (t.id !== id) {
+                            return t;
+                        }
+
+                        return {
+                            ...t,
+                            fields: t.fields.map((f, i) => {
+                                if (i !== index) {
+                                    return f;
+                                }
+
+                                return {
+                                    ...f,
+                                    name: name,
+                                }
+                            })
+                        }
+                    })
+                }
+                return newState;
+            })
+        },
+        updateFieldType(id: number, index: number, type: TemplateFieldType) {
+            patchState(store, (state) => {
+                const newState= {
+                    templates: state.templates.map(t => {
+                        if (t.id !== id) {
+                            return t;
+                        }
+
+                        return {
+                            ...t,
+                            fields: t.fields.map((f, i) => {
+                                if (i !== index) {
+                                    return f;
+                                }
+
+                                return {
+                                    ...f,
+                                    type: type,
+                                }
+                            })
+                        }
+                    })
+                }
+                return newState;
+            })
+        },
+    }))
 );

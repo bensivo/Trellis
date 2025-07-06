@@ -1,15 +1,14 @@
-import { KEY_TAB_COMMAND, COMMAND_PRIORITY_LOW, $isRangeSelection, OUTDENT_CONTENT_COMMAND, INDENT_CONTENT_COMMAND } from 'lexical';
-import { Component, AfterViewInit, inject, Signal, effect } from '@angular/core';
-import { createEditor, $getRoot, $getSelection, $createParagraphNode, $createTextNode } from 'lexical';
-import { createEmptyHistoryState, registerHistory } from '@lexical/history';
-import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
+import { AfterViewInit, Component, effect, inject, Signal } from '@angular/core';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
+import { createEmptyHistoryState, registerHistory } from '@lexical/history';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { ListItemNode, ListNode, $isListItemNode, $isListNode } from '@lexical/list';
-import { $findMatchingParent, mergeRegister } from '@lexical/utils';
+import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
-import { NotesService } from '../../services/notes-service';
+import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
+import { $findMatchingParent, mergeRegister } from '@lexical/utils';
+import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
 import { Note } from '../../models/note-interface';
+import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 
 

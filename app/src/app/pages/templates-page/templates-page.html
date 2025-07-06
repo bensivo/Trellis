@@ -4,7 +4,7 @@
       <h3>Templates</h3>
     </div>
     <div id="template-list">
-      @for (template of templatesStore.templates(); track template) {
+      @for (template of templatesStore.templates(); track template.id) {
         @if (template.id == currentTemplateId()) {
           <a routerLink="/templates/{{ template.id }}" class="active">{{ template.name }}</a>
         }
@@ -28,11 +28,11 @@
 
       <span class="section-title">Template Fields</span>
       <div id="template-fields">
-        @for (field of template.fields; track field) {
+        @for (field of template.fields; track field.name) {
           <label class="field-label"> Field Name</label>
-          <input class="field-input" [value]="field.name"/>
+          <input class="field-input" [value]="field.name" (change)="onChangeFieldName($index, $event)"/>
           <label class="field-label">Field Type</label>
-          <select class="field-select" [value]="field.type">
+          <select class="field-select" [value]="field.type" (change)="onChangeFieldType($index, $event)">
             <option value="date">Date</option>
             <option value="text">Text</option>
             <option value="number">Number</option>

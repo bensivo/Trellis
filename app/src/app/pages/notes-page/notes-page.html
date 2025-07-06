@@ -10,14 +10,14 @@
     <div class="row">
       <label id="note-template-label" for="">Template</label>
       <select id="note-template-select">
-        @for (template of templatesStore.templates(); track template) {
+        @for (template of templatesStore.templates(); track template.id) {
           <option>{{ template.name }}</option>
         }
       </select>
     </div>
     <hr/>
     <ul id="note-list">
-      @for (note of notesStore.notes(); track note) {
+      @for (note of notesStore.notes(); track note.id) {
         @if(note.id == currentNoteId()){ 
           <a routerLink="/notes/{{ note.id }}" class="active">{{ note.name }}</a>
         } 
@@ -33,9 +33,9 @@
       <span id="note-template">{{ note.template }}</span>
 
       <div id="note-fields">
-        @for (field of note.fields; track field) {
+        @for (field of note.fields; track field.name) {
           <label class="field-label">{{ field.name }}</label>
-          <input class="field-input" [value]="field.value"/>
+          <input class="field-input" [value]="field.value" (change)="onFieldChange($index, $event)"/>
         }
       </div>
       <hr/>

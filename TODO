@@ -1,9 +1,10 @@
 Basic functionality:
-[ ] Feat: serialize and load note fields to/from store
 [ ] Feat: serialize and load content for each template (to store)
 [ ] Feat: add note
 [ ] Feat: add template
 [ ] Bug: scroll issues when text-editor becomes larger than allowed space
+[ ] Bug: changing template fields should make new fields available in notes
+[ ] Feat: Logo and icon
 [ ] Feat: notes page, make "template" select functional
 [ ] Feat: notes page, make "search" functional
 [ ] Feat: Save a note to file 
@@ -27,9 +28,10 @@ Nice to have functionality:
 [ ] Mockups for "View builder" page
 
 Tech Debt:
-[ ] Separate layout component from rest
 [ ] Make components for atomic elements
 [ ] Optimize logic for saving note content to the store, maybe add debouncing too.
+[ ] Refactory node and template fields to not be nested within node and templates
+[ ] UX for when the template fields change for a note
 
 
 Done: 
@@ -45,3 +47,5 @@ Done:
 [x] Tech Debt: state management with signals?
 [x] Bug: Hash routing doesn't work with electron 
 [x] Feat: serialize and load note content for each note (to store)
+[x] Separate layout component from rest
+[x] Feat: serialize and load note fields to/from store

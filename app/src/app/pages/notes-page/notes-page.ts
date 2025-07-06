@@ -23,4 +23,16 @@ export class NotesPage {
   readonly notesService = inject(NotesService);
   readonly currentNoteId = this.notesService.currentNoteId;
   readonly currentNote = this.notesService.currentNote;
+
+  onFieldChange(index: number, event: Event) {
+    const currentNoteId = this.currentNoteId();
+    if (!currentNoteId) {
+      return;;
+    }
+
+    const target: HTMLInputElement = (event as InputEvent).target as HTMLInputElement;
+    const value = target.value;
+
+    this.notesStore.updateNoteField(currentNoteId, index, value);
+  }
 }
