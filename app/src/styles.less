@@ -1,5 +1,9 @@
 @import 'remixicon/fonts/remixicon.css';
+@import './utils.less';
 
+//
+// Global element styles
+//
 html,
 body {
   overscroll-behavior-x: none;
@@ -20,9 +24,98 @@ h1, h2, h3 {
   margin: 0;
 }
 
+hr {
+  width: 100%;
+  color: @grey-04;
+  border: none;
+  border-top: @grey-04 1px solid;
+}
 
-// Styles for text-editor elements must be defined here globally, because
-// the content inside the text-editor is managed by the lexical library, not by angular
+input {
+  color: @grey-01;
+  background-color: @grey-05;
+  padding: 8px 16px;
+  border-radius: 7px;
+  border: solid 1px @grey-04;
+  font-size: 14px;
+}
+
+select {
+  width: 100%;
+
+  color: @grey-01;
+  background-color: @grey-05;
+  padding: 8px 16px;
+  border-radius: 7px;
+  border: solid 1px @grey-04;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+  }
+}
+
+label {
+  font-size: 14px;
+  text-wrap: nowrap;
+}
+
+.list-item {
+  border: solid 1px #d1d1d1;
+  border-radius: 7px;
+  padding: 4px 8px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  color: #262626;
+  display: block;
+  text-wrap: nowrap;
+  background-color: @grey-05;
+
+  &.active {
+    background-color: @grey-04;
+  }
+
+  &:hover {
+    background-color: @grey-04;
+    cursor: pointer;
+  }
+}
+
+.btn-primary, .btn-secondary {
+  padding: 8px 16px;
+  height: fit-content;
+  font-size: 14px;
+  background-color: #CDE8FF;
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+  color: #0E5593;
+  text-decoration: none;
+
+
+  &:hover {
+    cursor: pointer;
+    background-color: #ABD5F9;
+  }
+}
+
+.btn-secondary {
+  background-color: #FFCDCD;
+  color: #930E0E;
+
+
+  &:hover {
+    cursor: pointer;
+    background-color: #fdb8b8;
+  }
+}
+
+
+// Styles for text-editor elements 
+// These must be defined here globally, becausethe content inside 
+// the text-editor is managed by the lexical library, not by angular
 
 .editor-heading-h1 {
   font-size: 19px;

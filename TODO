@@ -6,6 +6,8 @@ Basic functionality:
 [ ] Feat: add template
 [ ] Bug: scroll issues when text-editor becomes larger than allowed space
 [ ] Bug: changing template fields should make new fields available in notes
+[ ] Feat: Resize notes and templates list panel, to make long note names more visible
+[ ] Feat: Add ordering buttons to notes panel
 [ ] Feat: Logo and icon
 [ ] Feat: notes page, make "template" select functional
 [ ] Feat: notes page, make "search" functional

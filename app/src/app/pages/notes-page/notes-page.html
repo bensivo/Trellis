@@ -1,42 +1,14 @@
 <app-layout-main>
-  <section id="notes">
-    <div class="row">
-      <h3>Notes</h3>
-    </div>
-    <div class="row">
-      <input id="search-notes" placeholder="Search"/>
-    </div>
-    <div class="row">
-      <label id="note-template-label" for="">Template</label>
-      <select id="note-template-select">
-        @for (template of templatesStore.templates(); track template.id) {
-          <option>{{ template.name }}</option>
-        }
-      </select>
-    </div>
-    <hr/>
-    <ul id="note-list">
-      @for (note of notesStore.notes(); track note.id) {
-        @if(note.id == currentNoteId()){ 
-          <a routerLink="/notes/{{ note.id }}" class="active">{{ note.name }}</a>
-        } 
-        @else {
-          <a routerLink="/notes/{{ note.id }}">{{ note.name }}</a>
-        }
-      }
-    </ul>
-    <hr/>
-    <a id="new-note-btn" routerLink="/new-note">New Note (Ctrl + N)</a>
-  </section>
-  <section id="note-editor">
+  <app-notes-panel/>
+  <section class="note-editor">
     @if (currentNote(); as note) {
-      <h3 id="note-title">{{ note.name }}</h3>
-      <span id="note-template">{{ note.template }}</span>
+      <h3 class="section-title">{{ note.name }}</h3>
+      <span class="section-subtitle">{{ note.template }}</span>
 
-      <div id="note-fields">
+      <div class="note-fields-container">
         @for (field of note.fields; track field.name) {
-          <label class="field-label">{{ field.name }}</label>
-          <input class="field-input" [value]="field.value" (change)="onFieldChange($index, $event)"/>
+          <label>{{ field.name }}</label>
+          <input [value]="field.value" (change)="onFieldChange($index, $event)"/>
         }
       </div>
       <hr/>

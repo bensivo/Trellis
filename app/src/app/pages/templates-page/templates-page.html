@@ -5,16 +5,11 @@
     </div>
     <div id="template-list">
       @for (template of templatesStore.templates(); track template.id) {
-        @if (template.id == currentTemplateId()) {
-          <a routerLink="/templates/{{ template.id }}" class="active">{{ template.name }}</a>
-        }
-        @else {
-          <a routerLink="/templates/{{ template.id }}">{{ template.name }}</a>
-        }
+        <a routerLink="/templates/{{ template.id }}" class="list-item" [class.active]="template.id == currentTemplateId()">{{ template.name }}</a>
       }
     </div>
     <hr/>
-    <button id="new-template-btn">+ New Template</button>
+    <button id="new-template-btn" class="btn-primary">+ New Template</button>
   </section>
   <section id="template-editor">
     @if(currentTemplate(); as template) {

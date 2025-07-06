@@ -1,17 +1,18 @@
 import { Component, HostListener, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { LayoutMain } from '../../components/layout-main/layout-main';
+import { NotesPanel } from '../../components/notes-panel/notes-panel';
 import { TextEditor } from '../../components/text-editor/text-editor';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { TemplatesStore } from '../../store/templates-store';
-import { LayoutMain } from '../../components/layout-main/layout-main';
 
 @Component({
   selector: 'app-notes-page',
   imports: [
     TextEditor,
-    RouterLink,
     LayoutMain,
+    NotesPanel,
   ],
   templateUrl: './notes-page.html',
   styleUrl: './notes-page.less'

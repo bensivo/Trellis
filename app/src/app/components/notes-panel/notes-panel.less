@@ -1,0 +1,60 @@
+@import '../../../utils.less';
+
+#notes {
+  min-width: 200px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 16px;
+  border-right: @grey-04 1px solid;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0px 0px 8px 0px;
+}
+
+#note-template-label {
+  margin: 0px 8px;
+}
+
+#note-template-select {
+  width: 100%;
+
+  color: @grey-01;
+  background-color: @grey-05;
+  padding: 8px 16px;
+  border-radius: 7px;
+  border: solid 1px @grey-04;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+  }
+}
+
+hr {
+  width: 100%;
+  color: @grey-04;
+  border: none;
+  border-top: @grey-04 1px solid;
+}
+
+#note-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  .list-item {
+    width: auto;
+  }
+
+}
+
+#new-note-btn {
+  margin-left: auto;
+  margin-right: auto;
+}

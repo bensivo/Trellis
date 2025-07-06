@@ -1,6 +1,6 @@
 @import '../../../utils.less';
 
-#notes {
+app-notes-panel{
   min-width: 200px;
 
   display: flex;
@@ -10,99 +10,7 @@
   border-right: @grey-04 1px solid;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 0px 0px 8px 0px;
-}
-
-
-
-#search-notes {
-  width: 100%;
-
-  color: @grey-01;
-  background-color: @grey-05;
-  padding: 8px 16px;
-  border-radius: 7px;
-  border: solid 1px @grey-04;
-}
-
-#note-template-label {
-  font-size: 14px;
-  margin: 0px 8px;
-}
-
-#note-template-select {
-  width: 100%;
-
-  color: @grey-01;
-  background-color: @grey-05;
-  padding: 8px 16px;
-  border-radius: 7px;
-  border: solid 1px @grey-04;
-
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-  }
-}
-
-hr {
-  width: 100%;
-  color: @grey-04;
-  border: none;
-  border-top: @grey-04 1px solid;
-}
-
-#note-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-
-  a {
-    border: solid 1px @grey-04;
-    border-radius: 7px;
-    padding: 4px 8px;
-    margin-bottom: 8px;
-    font-weight: bold;
-    font-size: 14px;
-    text-decoration: none;
-    color: @grey-01;
-    display: block;
-    text-wrap: nowrap;
-  }
-
-  a.active {
-    background-color: white;
-  }
-
-  a:hover {
-    cursor: pointer;
-    background-color: white;
-  }
-}
-
-#new-note-btn {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 8px 16px;
-  height: fit-content;
-  font-size: 14px;
-  background-color: #CDE8FF;
-  border: none;
-  border-radius: 7px;
-  font-weight: bold;
-  color: #0E5593;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #ABD5F9;
-  }
-}
-
-#note-editor{
+section.note-editor{
   padding: 16px;
   width: 100%;
 
@@ -110,60 +18,23 @@ hr {
   flex-direction: column;
 }
 
-#note-title {
+.section-title {
   margin-bottom: 8px;
 }
-#note-template {
+
+.section-subtitle{
   display: block;
   margin-bottom: 16px;
   font-weight: bold;
 }
 
-#note-fields {
+.note-fields-container {
   max-width: 500px;
   display: grid;
   grid-template-columns: 1fr 10fr;
   row-gap: 8px;
   column-gap: 8px;
   align-items: center;
-}
-
-.field-label {
-  font-size: 14px;
-  text-wrap: nowrap;
-}
-
-.field-input {
-  color: @grey-01;
-  background-color: @grey-05;
-  padding: 8px 16px;
-  border-radius: 7px;
-  border: solid 1px @grey-04;
-  font-size: 14px;
-}
-
-.field-textarea {
-  color: @grey-01;
-  background-color: @grey-05;
-  padding: 8px 16px;
-  border-radius: 7px;
-  border: solid 1px @grey-04;
-  font-size: 14px;
-}
-
-#note-content {
-  width: 100%;
-  box-sizing: border-box;
-  height: 100%;
-  flex-grow: 1;
-
-  color: @grey-01;
-  background-color: @grey-05;
-  padding: 8px 16px;
-  border-radius: 7px;
-  border: solid 1px @grey-04;
-  font-size: 14px;
-
 }
 
 app-text-editor {

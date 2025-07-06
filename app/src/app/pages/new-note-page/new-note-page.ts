@@ -4,12 +4,14 @@ import { LayoutMain } from '../../components/layout-main/layout-main';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { TemplatesStore } from '../../store/templates-store';
+import { NotesPanel } from '../../components/notes-panel/notes-panel';
 
 @Component({
   selector: 'app-new-note-page',
   imports: [
     RouterLink,
     LayoutMain,
+    NotesPanel,
   ],
   templateUrl: './new-note-page.html',
   styleUrl: './new-note-page.less'
