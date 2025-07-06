@@ -66,26 +66,41 @@ export const TemplatesStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
     withMethods((store) => ({
-       updateTemplateContent(id: number, content: any) {
-            patchState(store, (state) => {
-                const newState= {
-                    templates: state.templates.map(t => {
-                        if (t.id !== id) {
-                            return t;
-                        }
+        createTemplate(dto: Partial<Template>) {
+            const templates = store.templates();
+            const maxId = Math.max(...templates.map(t => t.id));
+            const newId = maxId + 1;
 
-                        return {
-                            ...t,
-                            content,
-                        }
-                    })
-                }
-                return newState;
-            })
+            const newTemplate: Template = {
+                id: newId,
+                name: dto.name || '',
+                fields: dto.fields || [],
+                content: dto.content || null
+            };
+
+            patchState(store, (state) => ({
+                templates: [...state.templates, newTemplate]
+            }));
+
+            return newId;
+        },
+        updateTemplateName(id: number, name: string) {
+            patchState(store, (state) => ({
+                templates: state.templates.map(t =>
+                    t.id === id ? { ...t, name } : t
+                )
+            }));
+        },
+        updateTemplateContent(id: number, content: any) {
+            patchState(store, (state) => ({
+                templates: state.templates.map(t =>
+                    t.id === id ? { ...t, content } : t
+                )
+            }));
         },
         updateFieldName(id: number, index: number, name: string) {
             patchState(store, (state) => {
-                const newState= {
+                const newState = {
                     templates: state.templates.map(t => {
                         if (t.id !== id) {
                             return t;
@@ -111,7 +126,7 @@ export const TemplatesStore = signalStore(
         },
         updateFieldType(id: number, index: number, type: TemplateFieldType) {
             patchState(store, (state) => {
-                const newState= {
+                const newState = {
                     templates: state.templates.map(t => {
                         if (t.id !== id) {
                             return t;
@@ -135,5 +150,6 @@ export const TemplatesStore = signalStore(
                 return newState;
             })
         },
+
     }))
 );

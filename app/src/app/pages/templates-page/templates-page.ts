@@ -1,28 +1,28 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LayoutMain } from '../../components/layout-main/layout-main';
+import { TemplatePanel } from '../../components/template-panel/template-panel';
 import { Template, TemplateFieldType } from '../../models/template-interface';
 import { TemplatesStore } from '../../store/templates-store';
-import { TemplateTextEditor } from '../../components/template-text-editor/template-text-editor';
 
 @Component({
   selector: 'app-templates-page',
   imports: [
     RouterLink,
     LayoutMain,
-    TemplateTextEditor,
+    TemplatePanel,
   ],
   templateUrl: './templates-page.html',
   styleUrl: './templates-page.less'
 })
 export class TemplatesPage {
   readonly templatesStore = inject(TemplatesStore);
-
+  readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
   readonly routeParams = toSignal(this.route.params, { initialValue: null });
 
-  readonly currentTemplateId: Signal<number|null> = computed(() => {
+  readonly currentTemplateId: Signal<number | null> = computed(() => {
     const params = this.routeParams();
     if (params == null) {
       return null;
@@ -43,27 +43,18 @@ export class TemplatesPage {
     return template ?? null;
   })
 
-  onChangeFieldName(index: number, event: Event) {
-    const id = this.currentTemplateId();
-    if (!id) {
-      return;
-    }
+  onClickNewTemplate() {
+    const id = this.templatesStore.createTemplate({
+      name: 'Untitled',
+      fields: [
+        {
+          name: 'Date',
+          type: TemplateFieldType.DATE,
+        }
+      ]
+    });
 
-    const target: HTMLInputElement = (event as InputEvent).target as HTMLInputElement;
-    const value = target.value;
-
-    this.templatesStore.updateFieldName(id, index, value);
-  }
-
-  onChangeFieldType(index: number, event: Event) {
-    const id = this.currentTemplateId();
-    if (!id) {
-      return;
-    }
-
-    const target: HTMLSelectElement = (event as InputEvent).target as HTMLSelectElement;
-    const value = target.value;
-
-    this.templatesStore.updateFieldType(id, index, value as TemplateFieldType);
+    this.router.navigate(['templates', id]);
   }
 }
+

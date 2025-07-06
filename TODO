@@ -1,10 +1,8 @@
 Basic functionality:
-[ ] Feat: rename a note
-[ ] Feat: New note - focus on name first
-[ ] Feat: serialize and load content for each template (to store)
-[ ] Feat: make order and delete btutons work on template page
 [ ] Feat: add template
-[ ] Bug: scroll issues when text-editor becomes larger than allowed space
+[ ] Feat: make order and delete btutons work on template page
+[ ] Feat: Global command modal, with hotkey
+[ ] Bug: scroll issues when note-text-editor becomes larger than allowed space
 [ ] Bug: changing template fields should make new fields available in notes
 [ ] Feat: Resize notes and templates list panel, to make long note names more visible
 [ ] Feat: Add ordering buttons to notes panel
@@ -21,6 +19,7 @@ Basic functionality:
 [ ] Feat: List templates from folders
 [ ] Bug: nested list items show all levels of list
 [ ] Feat: Links to other notes
+[ ] Feat: Delete a note
 
 Nice to have functionality:
 [ ] Note editor UI with tabs
@@ -54,3 +53,6 @@ Done:
 [x] Feat: serialize and load note fields to/from store
 [x] Feat: new note - focus on tempalte search
 [x] Feat: notes and temaplate: cmd+n to create new note / template
+[x] Feat: rename a note
+[x] Feat: New note - focus on name first
+[x] Feat: serialize and load content for each template (to store)

@@ -1,0 +1,23 @@
+<input #templatetitle class="app-editable-header" [value]="currentTemplate()?.name ?? ''" (change)="onChangeName($event)"/>
+<hr/>
+<span class="section-title">Template Fields</span>
+<div id="template-fields">
+@for (field of currentTemplate()?.fields ?? []; track field.name) {
+    <label class="app-label"> Field Name</label>
+    <input class="app-input" [value]="field.name" (change)="onChangeFieldName($index, $event)"/>
+    <label class="app-label">Field Type</label>
+    <select class="app-select" [value]="field.type" (change)="onChangeFieldType($index, $event)">
+    <option value="date">Date</option>
+    <option value="text">Text</option>
+    <option value="number">Number</option>
+    <option value="select">Select</option>
+    </select>
+    <i class="ri-arrow-up-s-line"></i>
+    <i class="ri-arrow-down-s-line"></i>
+    <i class="ri-delete-bin-line"></i>
+}
+</div>
+<hr/>
+
+<span class="section-title">Content Template</span>
+<app-template-text-editor/>

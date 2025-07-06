@@ -2,7 +2,7 @@
   <app-notes-panel/>
   <section class="note-editor">
     @if (currentNote(); as note) {
-      <input #notetitle class="editable-header" [value]="note.name" (change)="onChangeTitle($event)"/>
+      <input #notetitle class="app-editable-header" [value]="note.name" (change)="onChangeTitle($event)"/>
       <span class="section-subtitle">{{ note.template }}</span>
 
       <div class="note-fields-container">

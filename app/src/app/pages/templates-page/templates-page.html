@@ -9,39 +9,11 @@
       }
     </div>
     <hr/>
-    <button id="new-template-btn" class="app-btn-primary">+ New Template</button>
+    <button id="new-template-btn" class="app-btn-primary" (click)="onClickNewTemplate()">New Template (Ctrl + T)</button>
   </section>
   <section id="template-editor">
     @if(currentTemplate(); as template) {
-      <h3 id="template-title">Edit Template</h3>
-      <div id="template-fields">
-        <label class="app-label">Name</label>
-        <input class="app-input" [value]="template.name"/>
-      </div>
-
-      <hr/>
-
-      <span class="section-title">Template Fields</span>
-      <div id="template-fields">
-        @for (field of template.fields; track field.name) {
-          <label class="app-label"> Field Name</label>
-          <input class="app-input" [value]="field.name" (change)="onChangeFieldName($index, $event)"/>
-          <label class="app-label">Field Type</label>
-          <select class="app-select" [value]="field.type" (change)="onChangeFieldType($index, $event)">
-            <option value="date">Date</option>
-            <option value="text">Text</option>
-            <option value="number">Number</option>
-            <option value="select">Select</option>
-          </select>
-          <i class="ri-arrow-up-s-line"></i>
-          <i class="ri-arrow-down-s-line"></i>
-          <i class="ri-delete-bin-line"></i>
-        }
-      </div>
-      <hr/>
-
-      <span class="section-title">Content Template</span>
-      <app-template-text-editor/>
+      <app-template-panel/>
     }
     @else {
       <h3 id="template-title">No template selected</h3>
