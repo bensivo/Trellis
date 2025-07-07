@@ -52,20 +52,20 @@ export class NotesPage {
   }
 
   onFieldChange(index: number, event: Event) {
-    const currentNoteId = this.currentNoteId();
-    if (!currentNoteId) {
-      return;;
+    const id = this.currentNoteId();
+    if (id === null) {
+      return;
     }
 
     const target: HTMLInputElement = (event as InputEvent).target as HTMLInputElement;
     const value = target.value;
 
-    this.notesStore.updateNoteField(currentNoteId, index, value);
+    this.notesStore.updateNoteField(id, index, value);
   }
 
   onChangeTitle(event: any) {
     const id = this.currentNoteId();
-    if (id == null) {
+    if (id === null) {
       return;
     }
 
@@ -75,7 +75,7 @@ export class NotesPage {
 
   onClickDeleteNote() {
     const id = this.currentNoteId();
-    if (id == null) {
+    if (id === null) {
       return;
     }
 

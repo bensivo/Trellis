@@ -70,7 +70,7 @@ export class TemplatePanel {
 
   onChangeFieldName(index: number, event: Event) {
     const id = this.currentTemplateId();
-    if (!id) {
+    if (id === null) {
       return;
     }
 
@@ -82,7 +82,7 @@ export class TemplatePanel {
 
   onChangeFieldType(index: number, event: Event) {
     const id = this.currentTemplateId();
-    if (!id) {
+    if (id === null) {
       return;
     }
 

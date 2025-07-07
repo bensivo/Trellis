@@ -1,13 +1,14 @@
 Basic functionality:
+[ ] Feat: View page - create dynamic views with filter criteria
 [ ] Bug: scroll issues when note-text-editor becomes larger than allowed space
 [ ] Bug: changing template fields should make new fields available in notes
 [ ] Feat: deleting template fields, Note should show all extra fields in 'non-template fields'
-[ ] Feat: Resize notes and templates list panel, to make long note names more visible
 [ ] Feat: Add ordering buttons to notes panel
 [ ] Feat: Logo and icon
 [ ] Feat: Persist all content to file system (or local storage)
 [ ] Bug: nested list items show all levels of list
 [ ] Feat: Links to other notes
+[ ] Feat: Resize notes and templates list panel, to make long note names more visible
 
 Nice to have functionality:
 [ ] Feat: Global command modal, with hotkey
@@ -54,3 +55,4 @@ Done:
 [x] Feat: notes page, make "search" functional
 [x] Feat: Delete a note
 [x] Feat: Delete a template
+[x] Bug: contents of first note or template not saving

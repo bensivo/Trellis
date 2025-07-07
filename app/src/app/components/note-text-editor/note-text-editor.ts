@@ -212,7 +212,7 @@ export class NoteTextEditor implements AfterViewInit {
 
    
     const id = this.currentNoteId();
-    if (!id) {
+    if (id === null) {
       console.warn('Skipping saveNote. No note in state')
       return;
     }

@@ -212,7 +212,7 @@ export class TemplateTextEditor implements AfterViewInit {
 
    
     const id = this.currentTemplateId();
-    if (!id) {
+    if (id === null) {
       console.warn('Skipping saveTemplate. No template in state')
       return;
     }
