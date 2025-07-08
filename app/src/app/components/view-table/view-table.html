@@ -1,0 +1,18 @@
+ <table class="dynamic-table">
+      <thead>
+        <tr>
+          @for (column of columns(); track column) {
+            <th>{{ column }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of data(); track $index) {
+          <tr>
+            @for (column of columns(); track column) {
+              <td>{{ getValue(row, column) }}</td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>

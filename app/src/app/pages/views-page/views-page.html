@@ -1,0 +1,14 @@
+<app-layout-main>
+    <section>
+        <div class="query-container">
+            Query
+            <textarea class="app-input" [value]="query()" (change)="onChangeQuery($event)"></textarea>
+        </div>
+
+        <div class="output-container">
+            Output
+            <!-- <pre>{{output()}}</pre> -->
+             <app-view-table [data]="output()"/>
+        </div>
+    </section>
+</app-layout-main>

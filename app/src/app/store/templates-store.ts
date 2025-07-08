@@ -7,18 +7,32 @@ interface TemplatesStore {
 
 const initialState: TemplatesStore = {
     templates: [
-        // {
-        //     id: 0,
-        //     name: 'Person',
-        //     fields: [],
-        //     content: null,
-        // },
-        // {
-        //     id: 1,
-        //     name: 'Segment',
-        //     fields: [],
-        //     content: null,
-        // }
+        {
+            id: 0,
+            name: 'Person',
+            fields: [
+                {
+                    name: "Department",
+                    type: TemplateFieldType.TEXT,
+                },
+                {
+                    name: "Manager",
+                    type: TemplateFieldType.TEXT,
+                },
+            ],
+            content: null,
+        },
+        {
+            id: 1,
+            name: 'Segment',
+            fields: [
+                {
+                    name: "Created Date",
+                    type: TemplateFieldType.DATE,
+                },
+            ],
+            content: null,
+        }
      ]
 }
 
