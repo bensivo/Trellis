@@ -1,5 +1,4 @@
 Basic functionality:
-[ ] Feat: Move "no note selected" and "no tempalte selected" to the center
 [ ] Feat: View page - create dynamic views with filter criteria
 [ ] Bug: scroll issues when note-text-editor becomes larger than allowed space
 [ ] Bug: changing template fields should make new fields available in notes
@@ -57,3 +56,4 @@ Done:
 [x] Feat: Delete a note
 [x] Feat: Delete a template
 [x] Bug: contents of first note or template not saving
+[x] Feat: Move "no note selected" and "no tempalte selected" to the center

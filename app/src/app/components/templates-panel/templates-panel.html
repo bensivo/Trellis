@@ -1,0 +1,10 @@
+<div class="row">
+    <h3>Templates</h3>
+</div>
+<div id="template-list">
+    @for (template of templatesStore.templates(); track template.id) {
+    <a routerLink="/templates/{{ template.id }}" class="app-list-item" [class.active]="template.id == currentTemplateId()">{{ template.name }}</a>
+    }
+</div>
+<hr/>
+<button id="new-template-btn" class="app-btn-primary" (click)="onClickNewTemplate()">New Template (Ctrl + T)</button>

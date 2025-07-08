@@ -1,10 +1,8 @@
-import { KeyValuePipe } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'app-view-table',
   imports: [
-    KeyValuePipe
   ],
   templateUrl: './view-table.html',
   styleUrl: './view-table.less'

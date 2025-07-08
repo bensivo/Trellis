@@ -1,22 +1,13 @@
 <app-layout-main>
   <section id="templates">
-    <div class="row">
-      <h3>Templates</h3>
-    </div>
-    <div id="template-list">
-      @for (template of templatesStore.templates(); track template.id) {
-        <a routerLink="/templates/{{ template.id }}" class="app-list-item" [class.active]="template.id == currentTemplateId()">{{ template.name }}</a>
-      }
-    </div>
-    <hr/>
-    <button id="new-template-btn" class="app-btn-primary" (click)="onClickNewTemplate()">New Template (Ctrl + T)</button>
+    <app-templates-panel/>
   </section>
-  <section id="template-editor">
+  <section class="app-centered-root" id="template-editor">
     @if(currentTemplate(); as template) {
       <app-template-panel/>
     }
     @else {
-      <h3 id="template-title">No template selected</h3>
+      <h3 class="app-centered">No template selected</h3>
     }
   </section>
 </app-layout-main>

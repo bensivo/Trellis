@@ -1,6 +1,6 @@
 <app-layout-main>
   <app-notes-panel/>
-  <section class="note-editor">
+  <section class="note-editor app-centered-root">
     @if (currentNote(); as note) {
       <div class="section-header">
         <input #notetitle class="app-editable-header" [value]="note.name" (change)="onChangeTitle($event)"/>
@@ -18,7 +18,7 @@
       <app-note-text-editor/>
     }
     @else {
-      <h3 id="note-title">No note selected</h3>
+      <h3 class="app-centered">No note selected</h3>
     }
   </section>
 </app-layout-main>
