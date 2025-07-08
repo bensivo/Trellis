@@ -6,7 +6,7 @@ import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
-import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND, SKIP_SCROLL_INTO_VIEW_TAG } from 'lexical';
 import { Note } from '../../models/note-interface';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
@@ -142,6 +142,13 @@ export class NoteTextEditor implements AfterViewInit {
       ),
     );
 
+    // // After creating editor
+    // this.editor.registerCommand(
+    //   SCROLL_TO_ELEMENT_COMMAND,
+    //   () => true, // Intercept and do nothing
+    //   COMMAND_PRIORITY_HIGH
+    // );
+
     // Listen for changes in the editor, and save the changes to the store
     this.editor.registerUpdateListener(() => {
       this.saveCurrentNote();
@@ -210,7 +217,7 @@ export class NoteTextEditor implements AfterViewInit {
     const editorState = this.editor.getEditorState();
     const editorContent = editorState.toJSON();
 
-   
+
     const id = this.currentNoteId();
     if (id === null) {
       console.warn('Skipping saveNote. No note in state')

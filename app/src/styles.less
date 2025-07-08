@@ -145,6 +145,29 @@ hr {
 // These must be defined here globally, becausethe content inside 
 // the text-editor is managed by the lexical library, not by angular
 
+.editor-root {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 16px;
+  min-height: 200px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  flex-grow: 1;
+
+  &:focus {
+    outline: none;
+    border-color: #007acc;
+  }
+}
+
+.editor-paragraph {
+  margin: 0px 0px 8px 0px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+
 .editor-heading-h1 {
   font-size: 19px;
   font-weight: bold;
