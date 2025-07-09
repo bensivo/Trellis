@@ -3,6 +3,9 @@ import { RouterLink } from '@angular/router';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { TemplatesStore } from '../../store/templates-store';
+import { Note } from '../../models/note-interface';
+import { TabService } from '../tab-container/tab-service';
+import { SampleComponent } from '../tab-container/sample-component';
 
 @Component({
   selector: 'app-notes-panel',
@@ -17,6 +20,7 @@ export class NotesPanel {
   readonly notesStore = inject(NotesStore);
   readonly notesService = inject(NotesService);
   readonly currentNoteId = this.notesService.currentNoteId;
+  readonly tabService = inject(TabService);
 
   searchInput = signal<string>('');
   templateSelect = signal<number>(-1);
@@ -50,5 +54,9 @@ export class NotesPanel {
   onChangeSearch(event: any) {
     const value = event.target.value;
     this.searchInput.set(value);
+  }
+
+  onClickNote(note: Note) {
+    this.tabService.addTab('note'+note.id, note.name, SampleComponent)
   }
 }

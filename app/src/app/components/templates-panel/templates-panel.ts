@@ -1,15 +1,14 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Template, TemplateFieldType } from '../../models/template-interface';
 import { TemplatesStore } from '../../store/templates-store';
-import { TabHeader } from '../tab-header/tab-header';
+import { TabService } from '../tab-container/tab-service';
+import { TemplatePanel } from '../template-panel/template-panel';
 
 @Component({
   selector: 'app-templates-panel',
-  imports: [
-    RouterLink,
-  ],
+  imports: [ ],
   templateUrl: './templates-panel.html',
   styleUrl: './templates-panel.less'
 })
@@ -18,6 +17,7 @@ export class TemplatesPanel {
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
   readonly routeParams = toSignal(this.route.params, { initialValue: null });
+  readonly tabService = inject(TabService);
 
   readonly currentTemplateId: Signal<number | null> = computed(() => {
     const params = this.routeParams();
@@ -52,5 +52,9 @@ export class TemplatesPanel {
     });
 
     this.router.navigate(['templates', id]);
+  }
+
+  onClickTemplate(template: Template) {
+    this.tabService.addTab('template'+template.id, template.name, TemplatePanel);
   }
 }
