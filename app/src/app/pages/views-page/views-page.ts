@@ -43,8 +43,6 @@ WHERE department='EDP'
     };
 
     const res: any[] = alasql(query)
-    console.log(res);
-    // return JSON.stringify(res, null, 2);
     return res;
   })
 

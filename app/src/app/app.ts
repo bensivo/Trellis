@@ -1,7 +1,8 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { TemplatesStore } from './store/templates-store';
 import { TemplateFieldType } from './models/template-interface';
+import { PersistenceService } from './services/persistence-service';
+import { TemplatesStore } from './store/templates-store';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class App {
 
   readonly router = inject(Router);
   readonly templatesStore = inject(TemplatesStore);
+  readonly persistenceService = inject(PersistenceService);
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {

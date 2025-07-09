@@ -69,6 +69,11 @@ export const NotesStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
     withMethods((store) => ({
+        set(notes: Note[]) {
+            patchState(store, (_) => ({
+                notes,
+            }));
+        },
         create(dto: Partial<Note>) {
             const notes = store.notes();
             const nextId = notes.length === 0 ? 0 : Math.max(...store.notes().map(n => n.id)) + 1
