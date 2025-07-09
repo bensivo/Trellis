@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, effect, inject, Signal } from '@angular/core';
+import { AfterViewInit, Component, inject, input } from '@angular/core';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { createEmptyHistoryState, registerHistory } from '@lexical/history';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
@@ -6,8 +6,7 @@ import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
-import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND, SKIP_SCROLL_INTO_VIEW_TAG } from 'lexical';
-import { Note } from '../../models/note-interface';
+import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 
@@ -19,25 +18,11 @@ import { NotesStore } from '../../store/notes-store';
   styleUrl: './note-text-editor.less'
 })
 export class NoteTextEditor implements AfterViewInit {
+  readonly noteId = input<number>();
   readonly noteStore = inject(NotesStore);
   readonly notesService = inject(NotesService);
-  readonly currentNoteId: Signal<number | null> = this.notesService.currentNoteId;
-  readonly currentNote: Signal<Note | null> = this.notesService.currentNote;
-
-  previousNoteId: number | null = null;
 
   private editor: any;
-
-  constructor() {
-    effect(() => {
-      // Listen for changes in the noteid, and load the new note
-      const id = this.currentNoteId();
-      if (id !== null && id !== this.previousNoteId) {
-        this.previousNoteId = id;
-        this.loadNoteFromId(id);
-      }
-    });
-  }
 
   ngAfterViewInit() {
     const editorDiv = document.getElementById('note-text-editor');
@@ -142,21 +127,14 @@ export class NoteTextEditor implements AfterViewInit {
       ),
     );
 
-    // // After creating editor
-    // this.editor.registerCommand(
-    //   SCROLL_TO_ELEMENT_COMMAND,
-    //   () => true, // Intercept and do nothing
-    //   COMMAND_PRIORITY_HIGH
-    // );
-
     // Listen for changes in the editor, and save the changes to the store
     this.editor.registerUpdateListener(() => {
       this.saveCurrentNote();
     });
 
     // Display the currently active noteid (if there is one)
-    const id = this.currentNoteId();
-    if (id !== null) {
+    const id = this.noteId();
+    if (id !== undefined) {
       this.loadNoteFromId(id);
     }
   }
@@ -214,15 +192,14 @@ export class NoteTextEditor implements AfterViewInit {
       return;
     }
 
+    const id = this.noteId();
+    if (id === undefined) {
+      return;
+    }
+
     const editorState = this.editor.getEditorState();
     const editorContent = editorState.toJSON();
 
-
-    const id = this.currentNoteId();
-    if (id === null) {
-      console.warn('Skipping saveNote. No note in state')
-      return;
-    }
 
     this.noteStore.updateNoteContent(id, editorContent);
   }

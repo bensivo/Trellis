@@ -55,6 +55,8 @@ export class TemplatesPanel {
   }
 
   onClickTemplate(template: Template) {
-    this.tabService.addTab('template'+template.id, template.name, TemplatePanel);
+    this.tabService.addTab('template'+template.id, template.name, TemplatePanel, { 
+      id: template.id
+    });
   }
 }

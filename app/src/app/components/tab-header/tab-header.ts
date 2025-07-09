@@ -26,9 +26,9 @@ export class TabHeader {
     return tab.id;
   }
 
-  addSampleTab(): void {
-    const id = `tab-${Date.now()}`;
-    // You'd replace SampleComponent with your actual component
-    this.tabService.addTab(id, `Tab ${id.slice(-4)}`, SampleComponent);
-  }
+  // addSampleTab(): void {
+  //   const id = `tab-${Date.now()}`;
+  //   // You'd replace SampleComponent with your actual component
+  //   this.tabService.addTab(id, `Tab ${id.slice(-4)}`, SampleComponent);
+  // }
 }

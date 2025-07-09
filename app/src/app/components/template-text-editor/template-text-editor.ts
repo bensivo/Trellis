@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, effect, inject, Signal } from '@angular/core';
+import { AfterViewInit, Component, effect, inject, input, Signal } from '@angular/core';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { createEmptyHistoryState, registerHistory } from '@lexical/history';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
@@ -19,6 +19,7 @@ import { TemplatesService } from '../../services/templates-service';
   styleUrl: './template-text-editor.less'
 })
 export class TemplateTextEditor implements AfterViewInit {
+  readonly templateId = input<number>();
   readonly templateStore = inject(TemplatesStore);
   readonly templatesService = inject(TemplatesService);
   readonly currentTemplateId: Signal<number | null> = this.templatesService.currentTemplateId;
@@ -148,8 +149,8 @@ export class TemplateTextEditor implements AfterViewInit {
     });
 
     // Display the currently active templateid (if there is one)
-    const id = this.currentTemplateId();
-    if (id !== null) {
+    const id = this.templateId();
+    if (id !== undefined) {
       this.loadTemplateFromId(id);
     }
   }
@@ -207,15 +208,13 @@ export class TemplateTextEditor implements AfterViewInit {
       return;
     }
 
-    const editorState = this.editor.getEditorState();
-    const editorContent = editorState.toJSON();
-
-   
-    const id = this.currentTemplateId();
-    if (id === null) {
-      console.warn('Skipping saveTemplate. No template in state')
+    const id = this.templateId();
+    if (id === undefined) {
       return;
     }
+
+    const editorState = this.editor.getEditorState();
+    const editorContent = editorState.toJSON();
 
     this.templateStore.updateTemplateContent(id, editorContent);
   }

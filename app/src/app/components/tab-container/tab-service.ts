@@ -1,36 +1,54 @@
 
 // tab.service.ts
-import { Injectable, ComponentRef, ViewContainerRef, signal } from '@angular/core';
+import { Injectable, ComponentRef, ViewContainerRef, signal, Injector, inject, InjectionToken } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { BehaviorSubject } from 'rxjs';
+
+export const TAB_DATA = new InjectionToken('TAB_DATA');
 
 export interface Tab {
   id: string;
   title: string;
   portal: ComponentPortal<any>;
   active: boolean;
+  data: {
+    id: number;
+  };
 }
 
 @Injectable({ providedIn: 'root' })
 export class TabService {
-  // private tabs = new BehaviorSubject<Tab[]>([]);
-  // tabs$ = this.tabs.asObservable();
+  readonly injector = inject(Injector)
   tabs = signal<Tab[]>([]);
 
-  addTab(id: string, title: string, component: any, data?: any): void {
-    const portal = new ComponentPortal(component);
-    
+  addTab(id: string, title: string, component: any, data: { id: number }): void {
+    // Check for duplicate tabs
+    const tabs = this.tabs();
+    const exists = tabs.find(t => t.id === id);
+    if (exists) {
+      this.activateTab(id);
+      return;
+    }
+
+    // Create custom injector to pass data to the portal component
+    const customInjector = Injector.create({
+      providers: [
+        { provide: TAB_DATA, useValue: data }
+      ],
+      parent: this.injector
+    });
+    const portal = new ComponentPortal(component, null, customInjector);
+
     const tab: Tab = {
       id,
       title,
       portal,
       active: false,
+      data: data,
     };
 
     const currentTabs = this.tabs();
-    // Deactivate all tabs
     currentTabs.forEach(t => t.active = false);
-    
+
     // Add new active tab
     tab.active = true;
     this.tabs.set([...currentTabs, tab]);
@@ -38,12 +56,12 @@ export class TabService {
 
   closeTab(id: string): void {
     const currentTabs = this.tabs().filter(tab => tab.id !== id);
-    
+
     // If we closed the active tab, activate the last one
     if (currentTabs.length > 0 && !currentTabs.some(t => t.active)) {
       currentTabs[currentTabs.length - 1].active = true;
     }
-    
+
     this.tabs.set(currentTabs);
   }
 

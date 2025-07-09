@@ -1,0 +1,21 @@
+<div class="note-panel">
+    @if (currentNote(); as note) {
+        <div class="section-header">
+            <input #notetitle class="app-editable-header" [value]="note.name" (change)="onChangeTitle($event)"/>
+            <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteNote()"></i>
+        </div>
+
+        <span class="section-subtitle">{{ currentTemplate()?.name ?? 'Unknown' }}</span>
+
+        <div class="note-fields-container">
+            @for (field of note.fields; track field.name) {
+                <label class="app-label">{{ field.name }}</label>
+                <input class="app-input" [value]="field.value" (change)="onFieldChange($index, $event)"/>
+            }
+        </div>
+
+        <hr/>
+
+        <app-note-text-editor [noteId]="note.id"/>
+    }
+</div>

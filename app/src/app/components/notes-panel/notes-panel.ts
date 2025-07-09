@@ -6,6 +6,7 @@ import { TemplatesStore } from '../../store/templates-store';
 import { Note } from '../../models/note-interface';
 import { TabService } from '../tab-container/tab-service';
 import { SampleComponent } from '../tab-container/sample-component';
+import { NotePanel } from '../note-panel/note-panel';
 
 @Component({
   selector: 'app-notes-panel',
@@ -57,6 +58,8 @@ export class NotesPanel {
   }
 
   onClickNote(note: Note) {
-    this.tabService.addTab('note'+note.id, note.name, SampleComponent)
+    this.tabService.addTab('note'+note.id, note.name, NotePanel, {
+      id: note.id,
+    })
   }
 }

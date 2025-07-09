@@ -1,28 +1,32 @@
-<div class="section-header">
-    <input #templatetitle class="app-editable-header" [value]="currentTemplate()?.name ?? ''" (change)="onChangeName($event)"/>
-    <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteTemplate()"></i>
-</div>
-<span class="section-title">Template Fields</span>
-<div id="template-fields">
-    @for (field of currentTemplate()?.fields ?? []; track field.name) {
-        <label class="app-label"> Field Name</label>
-        <input class="app-input" [value]="field.name" (change)="onChangeFieldName($index, $event)"/>
-        <label class="app-label">Field Type</label>
-        <select class="app-select" [value]="field.type" (change)="onChangeFieldType($index, $event)">
-        <option value="date">Date</option>
-        <option value="text">Text</option>
-        <option value="number">Number</option>
-        <option value="select">Select</option>
-        </select>
-        <i class="app-clickable-icon ri-arrow-up-s-line" (click)="onClickMoveFieldUp($index)"></i>
-        <i class="app-clickable-icon ri-arrow-down-s-line" (click)="onClickMoveFieldDown($index)"></i>
-        <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteField($index)"></i>
+<div class="template-panel">
+    @if(currentTemplate(); as template) {
+        <div class="section-header">
+            <input #templatetitle class="app-editable-header" [value]="template.name ?? ''" (change)="onChangeName($event)"/>
+            <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteTemplate()"></i>
+        </div>
+        <span class="section-title">Template Fields</span>
+        <div id="template-fields">
+            @for (field of template.fields; track field.name) {
+                <label class="app-label"> Field Name</label>
+                <input class="app-input" [value]="field.name" (change)="onChangeFieldName($index, $event)"/>
+                <label class="app-label">Field Type</label>
+                <select class="app-select" [value]="field.type" (change)="onChangeFieldType($index, $event)">
+                <option value="date">Date</option>
+                <option value="text">Text</option>
+                <option value="number">Number</option>
+                <option value="select">Select</option>
+                </select>
+                <i class="app-clickable-icon ri-arrow-up-s-line" (click)="onClickMoveFieldUp($index)"></i>
+                <i class="app-clickable-icon ri-arrow-down-s-line" (click)="onClickMoveFieldDown($index)"></i>
+                <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteField($index)"></i>
+            }
+        </div>
+        <div class="template-field-buttons">
+            <button class="app-btn-primary new-field-btn" (click)="onClickNewField()">New Field</button>
+        </div>
+        <hr/>
+
+        <span class="section-title">Content Template</span>
+        <app-template-text-editor [templateId]="template.id"/>
     }
 </div>
-<div class="template-field-buttons">
-    <button class="app-btn-primary new-field-btn" (click)="onClickNewField()">New Field</button>
-</div>
-<hr/>
-
-<span class="section-title">Content Template</span>
-<app-template-text-editor/>

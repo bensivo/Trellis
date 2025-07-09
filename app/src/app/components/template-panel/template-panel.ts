@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Template, TemplateFieldType } from '../../models/template-interface';
 import { TemplatesStore } from '../../store/templates-store';
 import { TemplateTextEditor } from '../template-text-editor/template-text-editor';
+import { TAB_DATA } from '../tab-container/tab-service';
 
 @Component({
   selector: 'app-template-panel',
@@ -14,22 +15,11 @@ import { TemplateTextEditor } from '../template-text-editor/template-text-editor
   styleUrl: './template-panel.less'
 })
 export class TemplatePanel {
+  readonly data: { id: number } = inject(TAB_DATA) as { id: number};
+
   readonly templatesStore = inject(TemplatesStore);
-  readonly router = inject(Router);
-  readonly route = inject(ActivatedRoute);
-  readonly routeParams = toSignal(this.route.params, { initialValue: null });
-
-  readonly currentTemplateId: Signal<number | null> = computed(() => {
-    const params = this.routeParams();
-    if (params == null) {
-      return null;
-    }
-
-    return +params['templateid'];
-  });
-
   readonly currentTemplate: Signal<Template | null> = computed(() => {
-    const templateId = this.currentTemplateId();
+    const templateId = this.data.id;
     const templates = this.templatesStore.templates();
 
     if (templateId == null) {
@@ -69,81 +59,80 @@ export class TemplatePanel {
   }
 
   onChangeFieldName(index: number, event: Event) {
-    const id = this.currentTemplateId();
-    if (id === null) {
+    const template = this.currentTemplate();
+    if (!template) {
       return;
     }
 
     const target: HTMLInputElement = (event as InputEvent).target as HTMLInputElement;
     const value = target.value;
 
-    this.templatesStore.updateFieldName(id, index, value);
+    this.templatesStore.updateFieldName(template.id, index, value);
   }
 
   onChangeFieldType(index: number, event: Event) {
-    const id = this.currentTemplateId();
-    if (id === null) {
+    const template = this.currentTemplate();
+    if (!template) {
       return;
     }
 
     const target: HTMLSelectElement = (event as InputEvent).target as HTMLSelectElement;
     const value = target.value;
 
-    this.templatesStore.updateFieldType(id, index, value as TemplateFieldType);
+    this.templatesStore.updateFieldType(template.id, index, value as TemplateFieldType);
   }
 
   onChangeName(event: any) {
-    const id = this.currentTemplateId();
-    if (id == null) {
+    const template = this.currentTemplate();
+    if (!template) {
       return;
     }
-
     const value = event.target.value;
-    this.templatesStore.updateTemplateName(id, value);
+    this.templatesStore.updateTemplateName(template.id, value);
   }
 
   onClickNewField() {
-    const id = this.currentTemplateId();
-    if (id == null) {
+    const template = this.currentTemplate();
+    if (!template) {
       return;
     }
 
-    this.templatesStore.addField(id)
+    this.templatesStore.addField(template.id)
   }
 
   onClickDeleteField(index: number) {
-    const id = this.currentTemplateId();
-    if (id == null) {
+    const template = this.currentTemplate();
+    if (!template) {
       return;
     }
 
-    this.templatesStore.removeField(id, index)
+    this.templatesStore.removeField(template.id, index)
   }
 
   onClickMoveFieldUp(index: number) {
-    const id = this.currentTemplateId();
-    if (id == null) {
+    const template = this.currentTemplate();
+    if (!template) {
       return;
     }
 
-    this.templatesStore.moveFieldUp(id, index)
+    this.templatesStore.moveFieldUp(template.id, index)
   }
 
   onClickMoveFieldDown(index: number) {
-    const id = this.currentTemplateId();
-    if (id == null) {
+    const template = this.currentTemplate();
+    if (!template) {
       return;
     }
 
-    this.templatesStore.moveFieldDown(id, index)
+    this.templatesStore.moveFieldDown(template.id, index)
   }
 
   onClickDeleteTemplate() {
-    const id = this.currentTemplateId();
-    if (id == null) {
+    const template = this.currentTemplate();
+    if (!template) {
       return;
     }
 
-    this.templatesStore.deleteTemplate(id);
+    this.templatesStore.deleteTemplate(template.id);
   }
 }
