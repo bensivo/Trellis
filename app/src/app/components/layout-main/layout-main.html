@@ -1,15 +1,24 @@
 <div id="page">
   <div id="side-nav">
-    <a class="nav-link" [class.active]="url().includes('/notes')" routerLink="/notes">Notes</a>
-    <a class="nav-link" [class.active]="url().includes('/templates')" routerLink="/templates">Templates</a>
-    <a class="nav-link" [class.active]="url().includes('/views')" routerLink="/views">Views</a>
+    <button class="nav-link" [class.active]="sidePanel() == 'notes'" (click)="onClickNav('notes')">Notes</button>
+    <button class="nav-link" [class.active]="sidePanel() == 'templates'" (click)="onClickNav('templates')">Templates</button>
+    <button class="nav-link" [class.active]="sidePanel() == 'views'" (click)="onClickNav('views')">Views</button>
   </div>
+  <div id="side-panel">
+    @if(sidePanel() == 'notes') {
+      <app-notes-panel/>
+    }
+    @if(sidePanel() == 'templates') {
+      <app-templates-panel/>
+    }
+  </div>
+
   <div id="body">
     <div id="header">
       <app-tab-header/>
     </div>
     <div id="content">
-        <ng-content></ng-content>
+        <!-- <ng-content></ng-content> -->
     </div>
   </div>
 </div>

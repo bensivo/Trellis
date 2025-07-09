@@ -11,34 +11,34 @@ export const routes: Routes = [
     path: '',
     component: HomePage,
   },
-  {
-    title: 'Notes',
-    path: 'notes',
-    component: NotesPage,
-  },
-  {
-    title: 'Notes',
-    path: 'notes/:noteid',
-    component: NotesPage,
-  },
-  {
-    title: 'New Note',
-    path: 'new-note',
-    component: NewNotePage,
-  },
-  {
-    title: 'Templates',
-    path: 'templates',
-    component: TemplatesPage,
-  },
-  {
-    title: 'Templates',
-    path: 'templates/:templateid',
-    component: TemplatesPage,
-  },
-  {
-    title: 'Views',
-    path: 'views',
-    component: ViewsPage,
-  }
+  // {
+  //   title: 'Notes',
+  //   path: 'notes',
+  //   component: NotesPage,
+  // },
+  // {
+  //   title: 'Notes',
+  //   path: 'notes/:noteid',
+  //   component: NotesPage,
+  // },
+  // {
+  //   title: 'New Note',
+  //   path: 'new-note',
+  //   component: NewNotePage,
+  // },
+  // {
+  //   title: 'Templates',
+  //   path: 'templates',
+  //   component: TemplatesPage,
+  // },
+  // {
+  //   title: 'Templates',
+  //   path: 'templates/:templateid',
+  //   component: TemplatesPage,
+  // },
+  // {
+  //   title: 'Views',
+  //   path: 'views',
+  //   component: ViewsPage,
+  // }
 ];
