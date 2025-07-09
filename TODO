@@ -1,8 +1,9 @@
 Basic functionality:
-[x] Feat: Persist all content to file system (or local storage)
-[ ] Bug: Template fields (and maybe note fields), tag into select from input
 [ ] Feat: Tabs
+    [ ] Feat: clicking note / template opens new tab
+    [ ] Feat: show tab content in main panel
 [ ] Feat: View page - create dynamic views with filter criteria
+[ ] Bug: Template fields (and maybe note fields), tag into select from input
 [ ] Bug: changing template fields should make new fields available in notes
 [ ] Feat: deleting template fields, Note should show all extra fields in 'non-template fields'
 [ ] Feat: Add ordering buttons to notes panel
@@ -59,3 +60,4 @@ Done:
 [x] Bug: contents of first note or template not saving
 [x] Feat: Move "no note selected" and "no tempalte selected" to the center
 [x] Bug: scroll issues when note-text-editor becomes larger than allowed space
+[x] Feat: Persist all content to file system (or local storage)

@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@angular/build": "^20.0.5",
+    "@angular/cdk": "^20.0.5",
     "@angular/cli": "^20.0.5",
     "@angular/compiler-cli": "^20.0.0",
     "@lexical/history": "^0.33.0",

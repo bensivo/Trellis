@@ -1,11 +1,12 @@
 <div id="page">
-  <div id="header">
+  <div id="side-nav">
+    <a class="nav-link" [class.active]="url().includes('/notes')" routerLink="/notes">Notes</a>
+    <a class="nav-link" [class.active]="url().includes('/templates')" routerLink="/templates">Templates</a>
+    <a class="nav-link" [class.active]="url().includes('/views')" routerLink="/views">Views</a>
   </div>
   <div id="body">
-    <div id="side-nav">
-      <a class="nav-link" [class.active]="url().includes('/notes')" routerLink="/notes">Notes</a>
-      <a class="nav-link" [class.active]="url().includes('/templates')" routerLink="/templates">Templates</a>
-      <a class="nav-link" [class.active]="url().includes('/views')" routerLink="/views">Views</a>
+    <div id="header">
+      <app-tab-header/>
     </div>
     <div id="content">
         <ng-content></ng-content>

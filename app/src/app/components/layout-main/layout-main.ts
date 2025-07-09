@@ -1,12 +1,14 @@
-import { Component, inject, Signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, UrlSegment } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
+import { TabHeader } from '../tab-header/tab-header';
 
 @Component({
   selector: 'app-layout-main',
   imports: [
-    RouterLink
+    RouterLink,
+    TabHeader,
   ],
   templateUrl: './layout-main.html',
   styleUrl: './layout-main.less'

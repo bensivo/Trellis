@@ -3,11 +3,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Template, TemplateFieldType } from '../../models/template-interface';
 import { TemplatesStore } from '../../store/templates-store';
+import { TabHeader } from '../tab-header/tab-header';
 
 @Component({
   selector: 'app-templates-panel',
   imports: [
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './templates-panel.html',
   styleUrl: './templates-panel.less'
