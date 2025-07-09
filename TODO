@@ -1,5 +1,6 @@
 Basic functionality:
-[ ] Feat: Persist all content to file system (or local storage)
+[x] Feat: Persist all content to file system (or local storage)
+[ ] Bug: Template fields (and maybe note fields), tag into select from input
 [ ] Feat: Tabs
 [ ] Feat: View page - create dynamic views with filter criteria
 [ ] Bug: changing template fields should make new fields available in notes

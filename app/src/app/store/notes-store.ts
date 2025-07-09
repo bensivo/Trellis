@@ -7,62 +7,7 @@ type NotesStore = {
 }
 
 const initialState: NotesStore = {
-    notes: [
-        {
-            id: 0,
-            templateId: 0,
-            name: 'Kyle',
-            fields: [
-                {
-                    name: 'Department',
-                    type: TemplateFieldType.TEXT,
-                    value: 'EDP',
-                },
-                {
-                    name: 'Manager',
-                    type: TemplateFieldType.TEXT,
-                    value: 'Shahmeer',
-                },
-            ],
-            content: null,
-        },
-        {
-            id: 1,
-            templateId: 0,
-            name: 'Ben',
-            fields: [
-                {
-                    name: 'Department',
-                    type: TemplateFieldType.TEXT,
-                    value: 'EDP',
-                },
-                {
-                    name: 'Manager',
-                    type: TemplateFieldType.TEXT,
-                    value: 'Ganesh',
-                },
-            ],
-            content: null,
-        },
-        {
-            id: 2,
-            templateId: 1,
-            name: 'Matt',
-            fields: [
-                {
-                    name: 'Department',
-                    type: TemplateFieldType.TEXT,
-                    value: 'RND',
-                },
-                {
-                    name: 'Manager',
-                    type: TemplateFieldType.TEXT,
-                    value: 'Shahmeer',
-                },
-            ],
-            content: null,
-        },
-    ]
+    notes: [] 
 }
 
 export const NotesStore = signalStore(
