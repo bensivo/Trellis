@@ -1,0 +1,78 @@
+@import '../../../utils.less';
+
+.tab-headers {
+    display: flex;
+    background: @green-01;
+    min-height: 45px; // TODO: change this if it doens't work in the future
+}
+
+.tab-header {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    padding: 8px 8px;
+    border: 1px solid @grey-04;
+    border-bottom: none;
+    border-radius: 7px 7px 0px 0px;
+    background: @grey-04;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.tab-header.active {
+    background: @grey-05;
+}
+
+.tab-header.cdk-drag-preview {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tab-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tab-close {
+    margin-left: 8px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index:1000;
+}
+
+.tab-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+}
+
+.drag-handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: grab;
+    z-index:100;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+// .add-tab-btn {
+//     background: none;
+//     border: 1px solid #ccc;
+//     padding: 8px 12px;
+//     cursor: pointer;
+//     margin-left: 4px;
+// }

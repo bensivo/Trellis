@@ -1,0 +1,11 @@
+<div class="tab-headers" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onTabDrop($event)">
+    @for (tab of tabService.tabs(); track tab.id){
+        <div class="tab-header" [class.active]="tab.active" cdkDrag (click)="tabService.activateTab(tab.id)">
+            <span class="tab-title">{{ tab.title }}</span>
+            <button class="tab-close" (click)="closeTab($event, tab.id)"> × </button>
+            <div class="drag-handle" cdkDragHandle></div>
+        </div>
+    }
+    
+    <button class="add-tab-btn" (click)="addSampleTab()">+</button>
+</div>

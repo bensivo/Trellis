@@ -1,0 +1,13 @@
+<div class="tab-container">
+    <div class="tab-content">
+        @for(tab of tabService.tabs(); track tab.id) {
+            <ng-container>
+                @if(tab.active) {
+                    <div class="tab-pane">
+                        <ng-container [cdkPortalOutlet]="tab.portal"></ng-container>
+                    </div>
+                }
+            </ng-container>
+        }
+    </div>
+</div>
