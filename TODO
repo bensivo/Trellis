@@ -1,41 +1,36 @@
 Basic functionality:
-[ ] Feat: Tabs
-    [x] Feat: clicking note / template opens new tab
-    [x] Feat: selecting note 
-    [x] Bug: text-content doesn't update note (issue with noteid)
-    [x] Feat: selecting template tab shows that panel
-    [x] Feat: opening a note twice doesnt' duplicat eit
-    [x] Feat: make new-note work
-    [ ] Feat: on new-template, select the new template
-    [ ] Feat: hotkeys for new-note and new-template
-    [ ] Feat: change tab title if note/template title changes
-    [ ] Tech Debt: Remove all the unecessary code that isn't needed anymore
+[ ] Feat: Views as tabs
+    [ ]: Views store
+    [ ]: Views side panel
+    [ ]: New view panel
+    [ ]: Edit view panel
+    [ ]: Delete view
 [ ] Bug: Scrolling down too far makes the side-nav look weird
+[ ] Bug: adding too many notes or templates makes the side-nav grow beyond screen size
+[ ] Feat: Advanced tab management, close all, close right, close left, close others
 [ ] Feat: View page - create dynamic views with filter criteria
-[ ] Bug: Template fields (and maybe note fields), tag into select from input
+[ ] Feat: Inline links to other notes
+[ ] Feat: Date fields should default to today
+[ ] Feat: Date fields should use a date input
+[ ] Feat: Hotkey to search notes
+[ ] Feat: Hotkey to search templates
+[ ] Feat: mobile friendly UI
+[ ] Bug: Template fields (and maybe note fields), tab into select from input
 [ ] Bug: changing template fields should make new fields available in notes
 [ ] Feat: deleting template fields, Note should show all extra fields in 'non-template fields'
 [ ] Feat: Add ordering buttons to notes panel
 [ ] Feat: Logo and icon
 [ ] Bug: nested list items show all levels of list
-[ ] Feat: Links to other notes
 [ ] Feat: Resize notes and templates list panel, to make long note names more visible
 
 Nice to have functionality:
-[ ] Feat: Global command modal, with hotkey
-[ ] Note editor UI with tabs
 [ ] Feat: inline images in note
 [ ] Feat: code blocks in note
 [ ] Feat: clickable links in note
-[ ] Mockups for "Views" page
-[ ] Mockups for "View builder" page
 
 Tech Debt:
-[ ] Make components for atomic elements
-[ ] Optimize logic for saving note content to the store, maybe add debouncing too.
 [ ] Refactory node and template fields to not be nested within node and templates
 [ ] UX for when the template fields change for a note
-
 
 Done: 
 [x] Bug: spacing before lists is too large
@@ -70,3 +65,16 @@ Done:
 [x] Feat: Move "no note selected" and "no tempalte selected" to the center
 [x] Bug: scroll issues when note-text-editor becomes larger than allowed space
 [x] Feat: Persist all content to file system (or local storage)
+[x] Feat: clicking note / template opens new tab
+[x] Feat: selecting note 
+[x] Bug: text-content doesn't update note (issue with noteid)
+[x] Feat: selecting template tab shows that panel
+[x] Feat: opening a note twice doesnt' duplicat eit
+[x] Feat: make new-note work
+[x] Feat: on new-template, select the new template
+[x] Feat: on select tab, switch side panel
+[x] Feat: hotkeys for new-note and new-template
+[x] Feat: change tab title if note/template title changes
+[x] Tech Debt: Remove all the unecessary code that isn't needed anymore
+[x] Feat: Fix header to go across entire screen, not stop at side panel
+[x] Feat: Tabs
