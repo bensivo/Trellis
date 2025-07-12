@@ -1,26 +1,27 @@
 import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LayoutMain } from '../../components/layout-main/layout-main';
+import { LayoutMain } from '../layout-main/layout-main';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { TemplatesStore } from '../../store/templates-store';
-import { NotesPanel } from '../../components/notes-panel/notes-panel';
+import { NotesPanel } from '../notes-panel/notes-panel';
 import { TemplateFieldType } from '../../models/template-interface';
+import { NotePanel } from '../note-panel/note-panel';
+import { TabService } from '../tab-container/tab-service';
 
 @Component({
-  selector: 'app-new-note-page',
+  selector: 'app-new-note-panel',
   imports: [
-    LayoutMain,
-    NotesPanel,
   ],
-  templateUrl: './new-note-page.html',
-  styleUrl: './new-note-page.less'
+  templateUrl: './new-note-panel.html',
+  styleUrl: './new-note-panel.less'
 })
-export class NewNotePage implements AfterViewInit {
+export class NewNotePanel implements AfterViewInit {
   readonly templatesStore = inject(TemplatesStore);
   readonly notesStore = inject(NotesStore);
   readonly notesService = inject(NotesService);
   readonly router = inject(Router);
+  readonly tabService = inject(TabService);
 
   // Re-order the templates in the list based on similarity with search term
   // similar to Obsidian's UX when selecting a template
@@ -74,9 +75,14 @@ export class NewNotePage implements AfterViewInit {
         value: '',
       })),
       content: template.content
-    })
+    });
 
-    this.router.navigate(['notes', id]);
+
+    this.tabService.addTab('note'+id, 'Untitled', NotePanel, {
+      id,
+    });
+
+    this.tabService.closeTab('newnote');
   }
 
   onClickSubmit() {

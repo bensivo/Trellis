@@ -4,6 +4,8 @@ import { TemplateFieldType } from './models/template-interface';
 import { PersistenceService } from './services/persistence-service';
 import { TemplatesStore } from './store/templates-store';
 import { NotesStore } from './store/notes-store';
+import { TabService } from './components/tab-container/tab-service';
+import { NewNotePanel } from './components/new-note-panel/new-note-panel';
 
 @Component({
   selector: 'app-root',
@@ -18,13 +20,14 @@ export class App {
   readonly notesStore = inject(NotesStore);
   readonly templatesStore = inject(TemplatesStore);
   readonly persistenceService = inject(PersistenceService);
+  readonly tabService = inject(TabService);
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     // Cmd+N on Mac or Ctrl+N on Windows/Linux
     if ((event.metaKey || event.ctrlKey) && event.key === 'n') {
       event.preventDefault(); // Prevent browser's "New Window"
-      this.router.navigate(['/new-note']);
+      this.tabService.addTab('newnote', 'New Note', NewNotePanel, {});
     }
 
     // Cmd+T on Mac or Ctrl+T on Windows/Linux

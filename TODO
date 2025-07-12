@@ -1,7 +1,16 @@
 Basic functionality:
 [ ] Feat: Tabs
-    [ ] Feat: clicking note / template opens new tab
-    [ ] Feat: show tab content in main panel
+    [x] Feat: clicking note / template opens new tab
+    [x] Feat: selecting note 
+    [x] Bug: text-content doesn't update note (issue with noteid)
+    [x] Feat: selecting template tab shows that panel
+    [x] Feat: opening a note twice doesnt' duplicat eit
+    [x] Feat: make new-note work
+    [ ] Feat: on new-template, select the new template
+    [ ] Feat: hotkeys for new-note and new-template
+    [ ] Feat: change tab title if note/template title changes
+    [ ] Tech Debt: Remove all the unecessary code that isn't needed anymore
+[ ] Bug: Scrolling down too far makes the side-nav look weird
 [ ] Feat: View page - create dynamic views with filter criteria
 [ ] Bug: Template fields (and maybe note fields), tag into select from input
 [ ] Bug: changing template fields should make new fields available in notes

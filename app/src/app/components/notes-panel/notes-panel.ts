@@ -1,12 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Note } from '../../models/note-interface';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { TemplatesStore } from '../../store/templates-store';
-import { Note } from '../../models/note-interface';
-import { TabService } from '../tab-container/tab-service';
-import { SampleComponent } from '../tab-container/sample-component';
+import { NewNotePanel } from '../new-note-panel/new-note-panel';
 import { NotePanel } from '../note-panel/note-panel';
+import { TabService } from '../tab-container/tab-service';
 
 @Component({
   selector: 'app-notes-panel',
@@ -61,5 +61,9 @@ export class NotesPanel {
     this.tabService.addTab('note'+note.id, note.name, NotePanel, {
       id: note.id,
     })
+  }
+
+  onClickNewNote() {
+    this.tabService.addTab('newnote', 'New Note', NewNotePanel, {});
   }
 }

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Template, TemplateFieldType } from '../../models/template-interface';
 import { TemplatesStore } from '../../store/templates-store';
 import { TemplateTextEditor } from '../template-text-editor/template-text-editor';
-import { TAB_DATA } from '../tab-container/tab-service';
+import { TAB_DATA, TabData } from '../tab-container/tab-service';
 
 @Component({
   selector: 'app-template-panel',
@@ -15,7 +15,7 @@ import { TAB_DATA } from '../tab-container/tab-service';
   styleUrl: './template-panel.less'
 })
 export class TemplatePanel {
-  readonly data: { id: number } = inject(TAB_DATA) as { id: number};
+  readonly data: TabData = inject(TAB_DATA) as TabData;
 
   readonly templatesStore = inject(TemplatesStore);
   readonly currentTemplate: Signal<Template | null> = computed(() => {

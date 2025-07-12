@@ -3,7 +3,7 @@ import { Template } from '../../models/template-interface';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { TemplatesStore } from '../../store/templates-store';
-import { TAB_DATA } from '../tab-container/tab-service';
+import { TAB_DATA, TabData, TabService } from '../tab-container/tab-service';
 import { NoteTextEditor } from '../note-text-editor/note-text-editor';
 
 @Component({
@@ -15,11 +15,12 @@ import { NoteTextEditor } from '../note-text-editor/note-text-editor';
   styleUrl: './note-panel.less'
 })
 export class NotePanel {
-  readonly data: { id: number } = inject(TAB_DATA) as { id: number};
+  readonly data: TabData = inject(TAB_DATA) as TabData;
 
   readonly templatesStore = inject(TemplatesStore);
   readonly notesStore = inject(NotesStore);
   readonly notesService = inject(NotesService);
+  readonly tabService = inject(TabService);
 
   readonly currentNote = computed(() => {
     const notes = this.notesStore.notes();
@@ -76,6 +77,7 @@ export class NotePanel {
 
     const value = event.target.value;
     this.notesStore.updateNoteName(note.id, value);
+    this.tabService.updateTabTitle('note' + note.id, value);
   }
 
   onClickDeleteNote() {
@@ -85,5 +87,6 @@ export class NotePanel {
     }
 
     this.notesStore.delete(note.id);
+    this.tabService.closeTab('note' + note.id);
   }
 }

@@ -5,6 +5,7 @@ import { filter, map, startWith } from 'rxjs';
 import { TabHeader } from '../tab-header/tab-header';
 import { NotesPanel } from '../notes-panel/notes-panel';
 import { TemplatesPanel } from '../templates-panel/templates-panel';
+import { NewNotePanel } from '../new-note-panel/new-note-panel';
 
 @Component({
   selector: 'app-layout-main',
@@ -13,6 +14,7 @@ import { TemplatesPanel } from '../templates-panel/templates-panel';
     TabHeader,
     NotesPanel,
     TemplatesPanel,
+    NewNotePanel,
   ],
   templateUrl: './layout-main.html',
   styleUrl: './layout-main.less'

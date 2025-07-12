@@ -10,9 +10,11 @@ export interface Tab {
   title: string;
   portal: ComponentPortal<any>;
   active: boolean;
-  data: {
-    id: number;
-  };
+  data: TabData;
+}
+
+export interface TabData {
+  id?: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -20,7 +22,7 @@ export class TabService {
   readonly injector = inject(Injector)
   tabs = signal<Tab[]>([]);
 
-  addTab(id: string, title: string, component: any, data: { id: number }): void {
+  addTab(id: string, title: string, component: any, data: TabData): void {
     // Check for duplicate tabs
     const tabs = this.tabs();
     const exists = tabs.find(t => t.id === id);
@@ -52,6 +54,11 @@ export class TabService {
     // Add new active tab
     tab.active = true;
     this.tabs.set([...currentTabs, tab]);
+  }
+
+  updateTabTitle(id: string, title: string): void {
+    const tabs = this.tabs();
+    this.tabs.set(tabs.map(t => t.id === id ? { ...t, title } : t));
   }
 
   closeTab(id: string): void {
