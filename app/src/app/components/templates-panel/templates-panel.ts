@@ -1,7 +1,8 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Template, TemplateFieldType } from '../../models/template-interface';
+import { Template } from '../../models/template-interface';
+import { TemplateService } from '../../services/templates-service';
 import { TemplatesStore } from '../../store/templates-store';
 import { TabService } from '../tab-container/tab-service';
 import { TemplatePanel } from '../template-panel/template-panel';
@@ -13,6 +14,7 @@ import { TemplatePanel } from '../template-panel/template-panel';
   styleUrl: './templates-panel.less'
 })
 export class TemplatesPanel {
+  readonly templateService = inject(TemplateService);
   readonly templatesStore = inject(TemplatesStore);
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
@@ -41,17 +43,7 @@ export class TemplatesPanel {
   })
 
   onClickNewTemplate() {
-    const id = this.templatesStore.createTemplate({
-      name: 'Untitled',
-      fields: [
-        {
-          name: 'Date',
-          type: TemplateFieldType.DATE,
-        }
-      ]
-    });
-
-    this.router.navigate(['templates', id]);
+    this.templateService.createNewTemplate();
   }
 
   onClickTemplate(template: Template) {

@@ -1,11 +1,12 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { NewNotePanel } from './components/new-note-panel/new-note-panel';
+import { TabService } from './components/tab-container/tab-service';
 import { TemplateFieldType } from './models/template-interface';
 import { PersistenceService } from './services/persistence-service';
-import { TemplatesStore } from './store/templates-store';
+import { TemplateService } from './services/templates-service';
 import { NotesStore } from './store/notes-store';
-import { TabService } from './components/tab-container/tab-service';
-import { NewNotePanel } from './components/new-note-panel/new-note-panel';
+import { TemplatesStore } from './store/templates-store';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class App {
   readonly router = inject(Router);
   readonly notesStore = inject(NotesStore);
   readonly templatesStore = inject(TemplatesStore);
+  readonly templateService = inject(TemplateService);
   readonly persistenceService = inject(PersistenceService);
   readonly tabService = inject(TabService);
 
@@ -33,24 +35,12 @@ export class App {
     // Cmd+T on Mac or Ctrl+T on Windows/Linux
     if ((event.metaKey || event.ctrlKey) && event.key === 't') {
       event.preventDefault(); // Prevent browser's "New Window"
-
-      const id = this.templatesStore.createTemplate({
-        name: 'Untitled',
-        fields: [
-          {
-            name: 'Date',
-            type: TemplateFieldType.DATE,
-          }
-        ]
-      });
-
-      this.router.navigate(['templates', id]);
+      this.templateService.createNewTemplate();
     }
 
-    /**
-     * Developer debugger commands
-     */
-
+    // 
+    // Developer debugger commands
+    //
     // Cmd+Shift+1 - Clear all state
     if ((event.metaKey || event.ctrlKey) && event.shiftKey && event.key === '1') {
       event.preventDefault(); 
@@ -58,7 +48,6 @@ export class App {
       this.templatesStore.set([]);
       this.notesStore.set([]);
     }
-
     // Cmd+Shift+2 - Load seed data
     if ((event.metaKey || event.ctrlKey) && event.shiftKey && event.key === '2') {
       event.preventDefault(); 

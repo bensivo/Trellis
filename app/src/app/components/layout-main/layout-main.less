@@ -14,9 +14,28 @@
 
 #body {
   flex-grow: 1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
+}
 
+#action-bar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content:end;
+  padding: 8px 16px;
+  background-color: @green-01;
+
+  i {
+    color: @grey-05;
+    font-size: 24px;
+
+    &:hover {
+      cursor: pointer;
+      color: @grey-04;
+    } 
+  }
 }
 
 #side-nav {

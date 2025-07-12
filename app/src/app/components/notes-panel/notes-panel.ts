@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Note } from '../../models/note-interface';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
@@ -10,9 +9,7 @@ import { TabService } from '../tab-container/tab-service';
 
 @Component({
   selector: 'app-notes-panel',
-  imports: [
-    RouterLink,
-  ],
+  imports: [ ],
   templateUrl: './notes-panel.html',
   styleUrl: './notes-panel.less'
 })

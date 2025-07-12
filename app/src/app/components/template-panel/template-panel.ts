@@ -1,10 +1,8 @@
 import { Component, computed, effect, ElementRef, inject, Signal, ViewChild } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Template, TemplateFieldType } from '../../models/template-interface';
 import { TemplatesStore } from '../../store/templates-store';
+import { TAB_DATA, TabData, TabService } from '../tab-container/tab-service';
 import { TemplateTextEditor } from '../template-text-editor/template-text-editor';
-import { TAB_DATA, TabData } from '../tab-container/tab-service';
 
 @Component({
   selector: 'app-template-panel',
@@ -16,7 +14,7 @@ import { TAB_DATA, TabData } from '../tab-container/tab-service';
 })
 export class TemplatePanel {
   readonly data: TabData = inject(TAB_DATA) as TabData;
-
+  readonly tabService = inject(TabService);
   readonly templatesStore = inject(TemplatesStore);
   readonly currentTemplate: Signal<Template | null> = computed(() => {
     const templateId = this.data.id;
@@ -89,6 +87,7 @@ export class TemplatePanel {
     }
     const value = event.target.value;
     this.templatesStore.updateTemplateName(template.id, value);
+    this.tabService.updateTabTitle('template' + template.id, value);
   }
 
   onClickNewField() {
@@ -134,5 +133,6 @@ export class TemplatePanel {
     }
 
     this.templatesStore.deleteTemplate(template.id);
+    this.tabService.closeTab('template' + template.id);
   }
 }

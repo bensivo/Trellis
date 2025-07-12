@@ -1,7 +1,7 @@
 <div class="template-panel">
     @if(currentTemplate(); as template) {
         <div class="section-header">
-            <input #templatetitle class="app-editable-header" [value]="template.name ?? ''" (change)="onChangeName($event)"/>
+            <input #templatetitle class="app-editable-header" [value]="template.name" (change)="onChangeName($event)"/>
             <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteTemplate()"></i>
         </div>
         <span class="section-title">Template Fields</span>

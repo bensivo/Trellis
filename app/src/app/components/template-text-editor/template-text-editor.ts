@@ -9,7 +9,7 @@ import { $findMatchingParent, mergeRegister } from '@lexical/utils';
 import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
 import { Template } from '../../models/template-interface';
 import { TemplatesStore } from '../../store/templates-store';
-import { TemplatesService } from '../../services/templates-service';
+import { TemplateService } from '../../services/templates-service';
 
 
 @Component({
@@ -21,9 +21,9 @@ import { TemplatesService } from '../../services/templates-service';
 export class TemplateTextEditor implements AfterViewInit {
   readonly templateId = input<number>();
   readonly templateStore = inject(TemplatesStore);
-  readonly templatesService = inject(TemplatesService);
-  readonly currentTemplateId: Signal<number | null> = this.templatesService.currentTemplateId;
-  readonly currentTemplate: Signal<Template | null> = this.templatesService.currentTemplate;
+  readonly templatesService = inject(TemplateService);
+  // readonly currentTemplateId: Signal<number | null> = this.templatesService.currentTemplateId;
+  // readonly currentTemplate: Signal<Template | null> = this.templatesService.currentTemplate;
 
   previousTemplateId: number | null = null;
 
@@ -32,8 +32,8 @@ export class TemplateTextEditor implements AfterViewInit {
   constructor() {
     effect(() => {
       // Listen for changes in the templateid, and load the new template
-      const id = this.currentTemplateId();
-      if (id !== null && id !== this.previousTemplateId) {
+      const id = this.templateId();
+      if (id !== undefined && id !== this.previousTemplateId) {
         this.previousTemplateId = id;
         this.loadTemplateFromId(id);
       }

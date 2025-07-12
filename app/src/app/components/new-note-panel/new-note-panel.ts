@@ -1,11 +1,8 @@
 import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { LayoutMain } from '../layout-main/layout-main';
 import { NotesService } from '../../services/notes-service';
+import { TemplateService } from '../../services/templates-service';
 import { NotesStore } from '../../store/notes-store';
 import { TemplatesStore } from '../../store/templates-store';
-import { NotesPanel } from '../notes-panel/notes-panel';
-import { TemplateFieldType } from '../../models/template-interface';
 import { NotePanel } from '../note-panel/note-panel';
 import { TabService } from '../tab-container/tab-service';
 
@@ -18,9 +15,9 @@ import { TabService } from '../tab-container/tab-service';
 })
 export class NewNotePanel implements AfterViewInit {
   readonly templatesStore = inject(TemplatesStore);
+  readonly templateService = inject(TemplateService);
   readonly notesStore = inject(NotesStore);
   readonly notesService = inject(NotesService);
-  readonly router = inject(Router);
   readonly tabService = inject(TabService);
 
   // Re-order the templates in the list based on similarity with search term
@@ -60,10 +57,6 @@ export class NewNotePanel implements AfterViewInit {
     }
   }
 
-  onClickCancel() {
-    this.router.navigate(['notes']);
-  }
-
   onClickTemplateButton(index: number) {
     const template = this.orderedTemplates()[index];
     const id = this.notesStore.create({
@@ -90,17 +83,7 @@ export class NewNotePanel implements AfterViewInit {
   }
 
   onClickNewTemplate() {
-    const id = this.templatesStore.createTemplate({
-      name: 'Untitled',
-      fields: [
-        {
-          name: 'Date',
-          type: TemplateFieldType.DATE,
-        }
-      ]
-    });
-
-    this.router.navigate(['templates', id]);
+    this.templateService.createNewTemplate();
   }
 }
 
