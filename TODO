@@ -3,9 +3,11 @@ Basic functionality:
 [ ] Feat: Views as tabs
     [x]: Views store
     [x]: Views side panel
-    [ ]: View SQL Text box
-    [ ]: View SQL Output
     [x]: Delete view
+    [x]: SQL Error messages
+    [ ]: 'link' field that opens the item in a new tab
+    [ ]: Helptext describing schemas of SQL tables
+[ ] Feat: side-by-side panels
 [ ] Bug: Scrolling down too far makes the side-nav look weird
 [ ] Bug: adding too many notes or templates makes the side-nav grow beyond screen size
 [ ] Feat: Advanced tab management, close all, close right, close left, close others

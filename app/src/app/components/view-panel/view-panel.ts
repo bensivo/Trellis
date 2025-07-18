@@ -5,6 +5,11 @@ import { ViewsStore } from '../../store/views-store';
 import { TAB_DATA, TabData, TabService } from '../tab-container/tab-service';
 import { ViewTable } from '../view-table/view-table';
 
+interface SQLResult {
+  error: string | null;
+  data: any[];
+}
+
 @Component({
   selector: 'app-view-panel',
   imports: [
@@ -22,7 +27,6 @@ export class ViewPanel {
   readonly tabService = inject(TabService);
 
   readonly currentView = computed(() => {
-    console.log('New view');
     const views = this.viewsStore.views();
     const view =  views.find(n => n.id === this.data.id);
     if (!view) {
@@ -32,18 +36,33 @@ export class ViewPanel {
     return view;
   })
 
-  readonly sqlResults: Signal<any[]> = computed(() => {
+  readonly sqlResults: Signal<SQLResult> = computed(() => {
     const view = this.currentView();
     if (!view) {
-      return [];
+      return { 
+        error: 'No view found', 
+        data: [] 
+      };
+    }
+
+    if (view.sql.trim() === '') {
+      return { 
+        error: 'Write a SQL query to see results', 
+        data: [] 
+      };
     }
 
     try {
       const results = this.viewsService.evaluateSQL(view.sql);
-      return results;
+      return { 
+        error: null, 
+        data: results 
+      };
     } catch (e) {
-      console.error('Error evaluating SQL:', e);
-      return [];
+      return { 
+        error: 'SQL Evaluation Error: \n\n' + e, 
+        data: [] 
+      };
     }
   });
 

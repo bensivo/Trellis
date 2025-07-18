@@ -10,10 +10,21 @@ const initialState: ViewsStore = {
         {
             id: 0,
             name: 'All Notes',
-            sql: `SELECT n.name as name, t.name as template
+            sql: `
+SELECT n.name as name, t.name as template
 FROM notes n
 LEFT JOIN templates t 
     ON n.templateId = t.id`
+        },
+        {
+            id: 1,
+            name: 'EDP Persons',
+            sql: `
+SELECT t.name as template, n.name as name, n.Department as department, n.Manager as manager FROM notes n
+LEFT JOIN templates t on n.templateId = t.id
+WHERE t.name = 'Person'
+    AND n.Department = 'EDP'
+`
         }
     ]
 }
@@ -27,33 +38,5 @@ export const ViewsStore = signalStore(
                 views,
             }))
         },
-        // createView(dto: Partial<View>) {
-        //     const views = store.views();
-        //     const newId = views.length === 0 ? 0 : Math.max(...views.map(t => t.id)) + 1;
-
-        //     const newView: View = {
-        //         id: newId,
-        //         name: dto.name || '',
-        //         sql: dto.sql || '',
-        //     };
-
-        //     patchState(store, (state) => ({
-        //         views: [...state.views, newView]
-        //     }));
-
-        //     return newId;
-        // },
-        // deleteView(id: number) {
-        //     patchState(store, (state) => ({
-        //         views: state.views.filter(t => t.id !== id),
-        //     }));
-        // },
-        // updateViewName(id: number, name: string) {
-        //     patchState(store, (state) => ({
-        //         views: state.views.map(t =>
-        //             t.id === id ? { ...t, name } : t
-        //         )
-        //     }));
-        // },
     }))
 );

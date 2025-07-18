@@ -7,7 +7,6 @@
 
         <label class="app-label">SQL Query</label>
         <div class="sql-editor-container">
-            <!-- <app-sql-editor [viewId]="view.id"></app-sql-editor> -->
              <textarea class="app-textarea" [value]="view.sql.trim()" (change)="onChangeSQL($event)"></textarea>
         </div>
 
@@ -15,7 +14,17 @@
 
         <label class="app-label">SQL Output</label>
         <div class="sql-results-container">
-            <app-view-table [data]="sqlResults()" ></app-view-table> 
+            @if (sqlResults().error) {
+                <div class="app-error-message">
+                    <pre>{{ sqlResults().error }}</pre>
+                </div>
+            } @else if (sqlResults().data.length === 0) {
+                <div class="app-info-message">
+                    No rows returned.
+                </div>
+            } @else {
+                <app-view-table [data]="sqlResults().data" ></app-view-table> 
+            }
         </div>
 
     }

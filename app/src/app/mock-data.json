@@ -1,0 +1,155 @@
+{
+    "notes": [
+        {
+            "id": 0,
+            "name": "Alice",
+            "templateId": 0,
+            "fields": [
+                {
+                    "name": "Department",
+                    "type": "text",
+                    "value": "Cybersecurity"
+                },
+                {
+                    "name": "Manager",
+                    "type": "text",
+                    "value": "Bob"
+                }
+            ],
+            "content": { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Responsibilities:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Cyber Stuff", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Notes:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Alice seems to always be the first person to hear of vulnerabilities", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+        },
+        {
+            "id": 1,
+            "name": "Bob",
+            "templateId": 0,
+            "fields": [
+                {
+                    "name": "Department",
+                    "type": "text",
+                    "value": "Cybersecurity"
+                },
+                {
+                    "name": "Manager",
+                    "type": "text",
+                    "value": "Charlie"
+                }
+            ],
+            "content": { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Responsibilities:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Alice's Manager", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Notes:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Talks a lot with Alice", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+        },
+        {
+            "id": 2,
+            "name": "Charlie",
+            "templateId": 0,
+            "fields": [
+                {
+                    "name": "Department",
+                    "type": "text",
+                    "value": "Cybersecurity"
+                },
+                {
+                    "name": "Manager",
+                    "type": "text",
+                    "value": ""
+                }
+            ],
+            "content": { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Responsibilities:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Oversee everyone", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Notes:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [], "direction": null, "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+        },
+        {
+            "id": 3,
+            "name": "David",
+            "templateId": 0,
+            "fields": [
+                {
+                    "name": "Department",
+                    "type": "text",
+                    "value": "Client"
+                },
+                {
+                    "name": "Manager",
+                    "type": "text",
+                    "value": ""
+                }
+            ],
+            "content": { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Responsibilities:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "None", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Notes:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "One of our early adopters", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+        },
+        {
+            "id": 4,
+            "name": "Cybersecurity People",
+            "templateId": 1,
+            "fields": [
+                {
+                    "name": "Created Date",
+                    "type": "date",
+                    "value": "1970-01-01"
+                }
+            ],
+            "content": { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Description", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Everyone who works in our Cyber department", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "People", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Alice", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Bob", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 2 }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Charlie", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 3 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+        },
+        {
+            "id": 5,
+            "name": "Elizabeth",
+            "templateId": 0,
+            "fields": [
+                {
+                    "name": "Department",
+                    "type": "text",
+                    "value": "Client"
+                },
+                {
+                    "name": "Manager",
+                    "type": "text",
+                    "value": ""
+                }
+            ],
+            "content": { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Responsibilities:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Queen of England", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Notes:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Also one of our first clients", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+        },
+        {
+            "id": 6,
+            "name": "Early Adopters",
+            "templateId": 1,
+            "fields": [
+                {
+                    "name": "Created Date",
+                    "type": "date",
+                    "value": "1970-01-01"
+                }
+            ],
+            "content": { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Description", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "People who were early adopters of our product", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "People", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "David", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Elizabeth (III)", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 2 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+        }
+    ],
+    "templates": [
+        {
+            "id": 1,
+            "name": "Segment",
+            "fields": [
+                {
+                    "name": "Created Date",
+                    "type": "date"
+                }
+            ],
+            "content": { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Description", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Lorem Ipsum", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "People", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [], "direction": null, "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+        },
+        {
+            "id": 0,
+            "name": "Person",
+            "fields": [
+                {
+                    "name": "Department",
+                    "type": "text"
+                },
+                {
+                    "name": "Manager",
+                    "type": "text"
+                }
+            ],
+            "content": { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Responsibilities:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [], "direction": null, "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Notes:", "type": "text", "version": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "heading", "version": 1, "tag": "h2" }, { "children": [ { "children": [], "direction": null, "format": "", "indent": 0, "type": "listitem", "version": 1, "value": 1 } ], "direction": "ltr", "format": "", "indent": 0, "type": "list", "version": 1, "listType": "bullet", "start": 1, "tag": "ul" }, { "children": [], "direction": null, "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+        }
+    ],
+    "views": [
+        {
+            "id": 0,
+            "name": "Cybersecurity Team",
+            "sql": "SELECT n.name as name, n.Department as department, n.Manager as manager\nFROM notes n\nLEFT JOIN templates t \n    ON n.templateId = t.id\nWHERE t.name = 'Person'\nAND n.Department = 'Cybersecurity'"
+        }
+    ]
+}

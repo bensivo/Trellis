@@ -1,15 +1,17 @@
-import { computed, effect, inject, Injectable, Signal } from "@angular/core";
-import { NotesStore } from "../store/notes-store";
-import { TemplatesStore } from "../store/templates-store";
+import { computed, inject, Injectable, Signal } from "@angular/core";
+import { toObservable } from "@angular/core/rxjs-interop";
+import { debounceTime } from "rxjs";
 import { Note } from "../models/note-interface";
 import { Template } from "../models/template-interface";
-import { patchState } from "@ngrx/signals";
-import { toObservable } from "@angular/core/rxjs-interop";
-import { debounce, debounceTime } from "rxjs";
+import { View } from "../models/view-interface";
+import { NotesStore } from "../store/notes-store";
+import { TemplatesStore } from "../store/templates-store";
+import { ViewsStore } from "../store/views-store";
 
 export interface AppState {
     notes: Note[];
     templates: Template[];
+    views: View[];
 }
 
 /**
@@ -22,14 +24,17 @@ export interface AppState {
 export class PersistenceService {
     readonly notesStore = inject(NotesStore);
     readonly templatesStore = inject(TemplatesStore);
+    readonly viewsStore = inject(ViewsStore);
 
     readonly appState: Signal<AppState> = computed(() => {
         const notes = this.notesStore.notes();
         const templates = this.templatesStore.templates();
+        const views = this.viewsStore.views();
 
         return {
             notes,
             templates,
+            views,
         }
     })
 
@@ -42,8 +47,9 @@ export class PersistenceService {
             try {
                 // TODO: use zod to schema validation on persisted state
                 const persistedAppState: AppState = JSON.parse(persistedAppStateStr);
-                this.notesStore.set(persistedAppState.notes);
-                this.templatesStore.set(persistedAppState.templates);
+                this.notesStore.set(persistedAppState.notes ?? []);
+                this.templatesStore.set(persistedAppState.templates ?? []);
+                this.viewsStore.set(persistedAppState.views ?? []);
             }
             catch(e: any) {
                 console.warn("Failed loading state from local storage", e);
