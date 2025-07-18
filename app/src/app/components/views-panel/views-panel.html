@@ -1,0 +1,11 @@
+<div class="row">
+    <h3>Views</h3>
+</div>
+<div id="view-list">
+    @for (view of viewsStore.views(); track view.id) {
+        <!-- <button class="app-list-item" [class.active]="view.id == currentViewId()" (click)="onClickView(view)">{{ view.name }}</button> -->
+        <button class="app-list-item" (click)="onClickView(view)">{{ view.name }}</button>
+    }
+</div>
+<hr/>
+<button id="new-view-btn" class="app-btn-primary" (click)="onClickNewView()">New View (Ctrl + T)</button>

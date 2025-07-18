@@ -17,7 +17,6 @@ export class NotesPanel {
   readonly templatesStore = inject(TemplatesStore);
   readonly notesStore = inject(NotesStore);
   readonly notesService = inject(NotesService);
-  readonly currentNoteId = this.notesService.currentNoteId;
   readonly tabService = inject(TabService);
 
   searchInput = signal<string>('');

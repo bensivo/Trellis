@@ -2,6 +2,7 @@
   <div id="side-nav" >
     <button class="nav-link" [class.active]="sidePanel() == 'notes'" (click)="onClickNav('notes')">Notes</button>
     <button class="nav-link" [class.active]="sidePanel() == 'templates'" (click)="onClickNav('templates')">Templates</button>
+    <button class="nav-link" [class.active]="sidePanel() == 'views'" (click)="onClickNav('views')">Views</button>
   </div>
   <div id="body">
     <div id="side-panel" [style.width.px]="sideNavWidth">
@@ -10,6 +11,9 @@
       }
       @if(sidePanel() == 'templates') {
         <app-templates-panel/>
+      }
+      @if(sidePanel() == 'views') {
+        <app-views-panel/>
       }
     </div>
     <div class="resize-handle" 

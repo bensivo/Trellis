@@ -4,6 +4,7 @@ import { TabService } from '../tab-container/tab-service';
 import { TabHeader } from '../tab-header/tab-header';
 import { TemplatesPanel } from '../templates-panel/templates-panel';
 import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
+import { ViewsPanel } from '../views-panel/views-panel';
 
 @Component({
   selector: 'app-layout-main',
@@ -12,6 +13,7 @@ import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
     NotesPanel,
     TemplatesPanel,
     CdkDrag,
+    ViewsPanel,
   ],
   templateUrl: './layout-main.html',
   styleUrl: './layout-main.less'

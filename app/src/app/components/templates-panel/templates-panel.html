@@ -3,7 +3,7 @@
 </div>
 <div id="template-list">
     @for (template of templatesStore.templates(); track template.id) {
-        <button class="app-list-item" [class.active]="template.id == currentTemplateId()" (click)="onClickTemplate(template)">{{ template.name }}</button>
+        <button class="app-list-item" (click)="onClickTemplate(template)">{{ template.name }}</button>
     }
 </div>
 <hr/>

@@ -1,0 +1,19 @@
+<div class="view-panel">
+    @if (currentView(); as view) {
+        <div class="section-header">
+            <input #viewtitle class="app-editable-header" [value]="view.name" (change)="onChangeTitle($event)"/>
+            <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteView()"></i>
+        </div>
+
+        <!-- <div class="view-fields-container">
+            @for (field of view.fields; track field.name) {
+                <label class="app-label">{{ field.name }}</label>
+                <input class="app-input" [value]="field.value" (change)="onFieldChange($index, $event)"/>
+            }
+        </div> -->
+
+        <!-- <hr/> -->
+
+        <!-- <app-view-text-editor [viewId]="view.id"/> -->
+    }
+</div>

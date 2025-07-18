@@ -17,7 +17,7 @@
 @if (notesStore.notes().length > 0) {
     <ul id="note-list">
         @for (note of visibleNotes(); track note.id) {
-            <button class="app-list-item" [class.active]="note.id == currentNoteId()" (click)="onClickNote(note)">{{ note.name }}</button>
+            <button class="app-list-item" (click)="onClickNote(note)">{{ note.name }}</button>
         }
     </ul>
     <hr/>

@@ -1,14 +1,14 @@
 Basic functionality:
+[ ] Feat: View page - create dynamic views with filter criteria
 [ ] Feat: Views as tabs
-    [ ]: Views store
-    [ ]: Views side panel
-    [ ]: New view panel
-    [ ]: Edit view panel
-    [ ]: Delete view
+    [x]: Views store
+    [x]: Views side panel
+    [ ]: View SQL Text box
+    [ ]: View SQL Output
+    [x]: Delete view
 [ ] Bug: Scrolling down too far makes the side-nav look weird
 [ ] Bug: adding too many notes or templates makes the side-nav grow beyond screen size
 [ ] Feat: Advanced tab management, close all, close right, close left, close others
-[ ] Feat: View page - create dynamic views with filter criteria
 [ ] Feat: remember width of side-panel
 [ ] Feat: Inline links to other notes
 [ ] Feat: Date fields should default to today

@@ -21,27 +21,6 @@ export class TemplatesPanel {
   readonly routeParams = toSignal(this.route.params, { initialValue: null });
   readonly tabService = inject(TabService);
 
-  readonly currentTemplateId: Signal<number | null> = computed(() => {
-    const params = this.routeParams();
-    if (params == null) {
-      return null;
-    }
-
-    return +params['templateid'];
-  });
-
-  readonly currentTemplate: Signal<Template | null> = computed(() => {
-    const templateId = this.currentTemplateId();
-    const templates = this.templatesStore.templates();
-
-    if (templateId == null) {
-      return null;
-    }
-
-    const template = templates.find(t => t.id == templateId);
-    return template ?? null;
-  })
-
   onClickNewTemplate() {
     this.templateService.createNewTemplate();
   }
