@@ -1,18 +1,10 @@
 <div id="page">
-    <div id="side-nav">
-      <button class="nav-link" [class.active]="sidePanel() == 'notes'" (click)="onClickNav('notes')">Notes</button>
-      <button class="nav-link" [class.active]="sidePanel() == 'templates'" (click)="onClickNav('templates')">Templates</button>
-      <!-- <button class="nav-link" [class.active]="sidePanel() == 'views'" (click)="onClickNav('views')">Views</button> -->
-    </div>
+  <div id="side-nav" >
+    <button class="nav-link" [class.active]="sidePanel() == 'notes'" (click)="onClickNav('notes')">Notes</button>
+    <button class="nav-link" [class.active]="sidePanel() == 'templates'" (click)="onClickNav('templates')">Templates</button>
+  </div>
   <div id="body">
-    <div id="action-bar">
-      <!-- <i class="ri-file-download-fill"></i>
-      <i class="ri-file-copy-2-fill"></i> -->
-    </div>
-    <div id="header">
-      <app-tab-header/>
-    </div>
-    <div id="side-panel">
+    <div id="side-panel" [style.width.px]="sideNavWidth">
       @if(sidePanel() == 'notes') {
         <app-notes-panel/>
       }
@@ -20,9 +12,20 @@
         <app-templates-panel/>
       }
     </div>
-
-    <div id="content">
-        <ng-content></ng-content>
+    <div class="resize-handle" 
+      cdkDrag
+      cdkDragLockAxis="x"
+      [cdkDragFreeDragPosition]="{x: 0, y: 0}"
+      (cdkDragMoved)="onResize($event)"
+      (cdkDragEnded)="onResizeEnd($event)"
+    ></div>
+    <div id="main-panel">
+      <div id="header">
+        <app-tab-header/>
+      </div>
+      <div id="content">
+          <ng-content></ng-content>
+      </div>
     </div>
   </div>
 </div>

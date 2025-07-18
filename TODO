@@ -9,6 +9,7 @@ Basic functionality:
 [ ] Bug: adding too many notes or templates makes the side-nav grow beyond screen size
 [ ] Feat: Advanced tab management, close all, close right, close left, close others
 [ ] Feat: View page - create dynamic views with filter criteria
+[ ] Feat: remember width of side-panel
 [ ] Feat: Inline links to other notes
 [ ] Feat: Date fields should default to today
 [ ] Feat: Date fields should use a date input
@@ -78,3 +79,4 @@ Done:
 [x] Tech Debt: Remove all the unecessary code that isn't needed anymore
 [x] Feat: Fix header to go across entire screen, not stop at side panel
 [x] Feat: Tabs
+[x] Feat: resizable side-panel

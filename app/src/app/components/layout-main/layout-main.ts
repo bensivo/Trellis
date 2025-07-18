@@ -1,12 +1,9 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { filter, map, startWith } from 'rxjs';
-import { TabHeader } from '../tab-header/tab-header';
 import { NotesPanel } from '../notes-panel/notes-panel';
-import { TemplatesPanel } from '../templates-panel/templates-panel';
-import { NewNotePanel } from '../new-note-panel/new-note-panel';
 import { TabService } from '../tab-container/tab-service';
+import { TabHeader } from '../tab-header/tab-header';
+import { TemplatesPanel } from '../templates-panel/templates-panel';
+import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-layout-main',
@@ -14,12 +11,17 @@ import { TabService } from '../tab-container/tab-service';
     TabHeader,
     NotesPanel,
     TemplatesPanel,
+    CdkDrag,
   ],
   templateUrl: './layout-main.html',
   styleUrl: './layout-main.less'
 })
 export class LayoutMain {
   readonly tabService = inject(TabService);
+
+  minNavWidth = 200;
+  sideNavWidth = this.minNavWidth; // TODO: make this persistent
+  prevSideNavWidth = this.sideNavWidth;
 
   constructor() {
     // Listen for changes in active tab, and update sidePanel accordingly
@@ -47,4 +49,14 @@ export class LayoutMain {
   onClickNav(item: string) {
     this.sidePanel.set(item);
   }
+
+  onResize(event: CdkDragMove) {
+    this.sideNavWidth = Math.max(this.prevSideNavWidth + (event.distance.x), 200);
+    event.source.reset();
+  }
+
+  onResizeEnd(event: CdkDragEnd) {
+    this.prevSideNavWidth = this.sideNavWidth;
+  }
+
 }

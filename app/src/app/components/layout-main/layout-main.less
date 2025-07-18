@@ -13,38 +13,33 @@
 
 
 #body {
-  flex-grow: 1;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: auto 1fr;
-}
-
-#action-bar {
+  flex: 1;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content:end;
-  padding: 8px 16px;
-  background-color: @green-01;
-
-  i {
-    color: @grey-05;
-    font-size: 24px;
-
-    &:hover {
-      cursor: pointer;
-      color: @grey-04;
-    } 
-  }
 }
+
+// #action-bar {
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content:end;
+//   padding: 8px 16px;
+//   background-color: @green-01;
+
+//   i {
+//     color: @grey-05;
+//     font-size: 24px;
+
+//     &:hover {
+//       cursor: pointer;
+//       color: @grey-04;
+//     } 
+//   }
+// }
 
 #side-nav {
   background-color: @green-01;
   padding: 64px 0px;
-}
-
-#side-panel {
-  padding: 16px;
 }
 
 .nav-link {
@@ -71,20 +66,29 @@
 }
 
 
-app-notes-panel{
-  width: 200px;
+.split-container { display: flex; height: 100vh; }
+.panel { background: #f5f5f5; }
+// .main-content { flex: 1; }
+
+#side-panel {
+  padding: 16px;
+}
+
+.resize-handle { 
+  width: 4px; 
+  background: #ddd; 
+  cursor: ew-resize; 
+}
+
+#main-panel {
+  flex: 1;
 
   display: flex;
   flex-direction: column;
 }
 
-app-templates-panel{
-  width: 200px;
-
-  display: flex;
-  flex-direction: column;
+#header {
 }
-
 
 #content {
   flex-grow: 1;
@@ -94,3 +98,14 @@ app-templates-panel{
 
   background-color: @grey-05;
 }
+
+app-notes-panel{
+  display: flex;
+  flex-direction: column;
+}
+
+app-templates-panel{
+  display: flex;
+  flex-direction: column;
+}
+
