@@ -16,28 +16,27 @@
   max-width: 500px;
 }
 
-
 .section-title {
   margin-bottom: 8px;
 }
 
-.section-subtitle{
-  display: block;
-  margin-bottom: 16px;
-  font-weight: bold;
+.app-label {
+  font-size: 14px;
+  text-wrap: nowrap;
+  margin-bottom: 8px;
 }
 
-.view-fields-container {
-  max-width: 500px;
-  display: grid;
-  grid-template-columns: 1fr 10fr;
-  row-gap: 8px;
-  column-gap: 8px;
-  align-items: center;
-}
-
-app-view-text-editor {
-  flex-grow: 1;
+.sql-editor-container {
+  min-height: 150px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+
+  textarea {
+    flex: 1;
+  }
+}
+
+hr {
+  margin-top: 16px;
+  margin-bottom: 16px;
 }

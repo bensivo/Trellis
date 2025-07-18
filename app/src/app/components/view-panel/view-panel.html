@@ -5,15 +5,18 @@
             <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteView()"></i>
         </div>
 
-        <!-- <div class="view-fields-container">
-            @for (field of view.fields; track field.name) {
-                <label class="app-label">{{ field.name }}</label>
-                <input class="app-input" [value]="field.value" (change)="onFieldChange($index, $event)"/>
-            }
-        </div> -->
+        <label class="app-label">SQL Query</label>
+        <div class="sql-editor-container">
+            <!-- <app-sql-editor [viewId]="view.id"></app-sql-editor> -->
+             <textarea class="app-textarea" [value]="view.sql.trim()" (change)="onChangeSQL($event)"></textarea>
+        </div>
 
-        <!-- <hr/> -->
+        <hr/>
 
-        <!-- <app-view-text-editor [viewId]="view.id"/> -->
+        <label class="app-label">SQL Output</label>
+        <div class="sql-results-container">
+            <app-view-table [data]="sqlResults()" ></app-view-table> 
+        </div>
+
     }
 </div>

@@ -1,12 +1,14 @@
-import { Component, computed, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, signal, Signal, ViewChild } from '@angular/core';
 import { ViewsService } from '../../services/views-service';
 import { TemplatesStore } from '../../store/templates-store';
 import { ViewsStore } from '../../store/views-store';
 import { TAB_DATA, TabData, TabService } from '../tab-container/tab-service';
+import { ViewTable } from '../view-table/view-table';
 
 @Component({
   selector: 'app-view-panel',
   imports: [
+    ViewTable,
   ],
   templateUrl: './view-panel.html',
   styleUrl: './view-panel.less'
@@ -20,6 +22,7 @@ export class ViewPanel {
   readonly tabService = inject(TabService);
 
   readonly currentView = computed(() => {
+    console.log('New view');
     const views = this.viewsStore.views();
     const view =  views.find(n => n.id === this.data.id);
     if (!view) {
@@ -28,6 +31,22 @@ export class ViewPanel {
 
     return view;
   })
+
+  readonly sqlResults: Signal<any[]> = computed(() => {
+    const view = this.currentView();
+    if (!view) {
+      return [];
+    }
+
+    try {
+      const results = this.viewsService.evaluateSQL(view.sql);
+      return results;
+    } catch (e) {
+      console.error('Error evaluating SQL:', e);
+      return [];
+    }
+  });
+
 
   @ViewChild('viewtitle') titleInput!: ElementRef<HTMLInputElement>;
   ngAfterViewInit() {
@@ -42,18 +61,6 @@ export class ViewPanel {
       }
 
     }, 0);
-  }
-
-  onFieldChange(index: number, event: Event) {
-    const view = this.currentView();
-    if (view === null) {
-      return;
-    }
-
-    const target: HTMLInputElement = (event as InputEvent).target as HTMLInputElement;
-    const value = target.value;
-
-    // this.viewsStore.updateViewField(view.id, index, value);
   }
 
   onChangeTitle(event: any) {
@@ -77,5 +84,19 @@ export class ViewPanel {
 
     this.viewsService.delete(view.id);
     this.tabService.closeTab('view' + view.id);
+  }
+
+  onChangeSQL(event: any) {
+    const view = this.currentView();
+    if (view === null) {
+      return;
+    }
+
+    const value = event.target.value;
+    this.viewsService.update(view.id, { 
+      sql: value 
+    });
+
+    console.log('change sql', value)
   }
 }

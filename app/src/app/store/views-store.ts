@@ -6,7 +6,16 @@ interface ViewsStore {
 }
 
 const initialState: ViewsStore = {
-    views: []
+    views: [
+        {
+            id: 0,
+            name: 'All Notes',
+            sql: `SELECT n.name as name, t.name as template
+FROM notes n
+LEFT JOIN templates t 
+    ON n.templateId = t.id`
+        }
+    ]
 }
 
 export const ViewsStore = signalStore(
