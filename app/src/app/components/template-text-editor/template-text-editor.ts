@@ -22,8 +22,6 @@ export class TemplateTextEditor implements AfterViewInit {
   readonly templateId = input<number>();
   readonly templateStore = inject(TemplatesStore);
   readonly templatesService = inject(TemplateService);
-  // readonly currentTemplateId: Signal<number | null> = this.templatesService.currentTemplateId;
-  // readonly currentTemplate: Signal<Template | null> = this.templatesService.currentTemplate;
 
   previousTemplateId: number | null = null;
 

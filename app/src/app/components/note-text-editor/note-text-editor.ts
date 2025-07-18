@@ -6,9 +6,10 @@ import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
-import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
+import { $create, $createLineBreakNode, $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
+import { $createAppLinkNode, AppLinkNode } from './app-link-node';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class NoteTextEditor implements AfterViewInit {
         LinkNode,
         ListNode,
         ListItemNode,
+        AppLinkNode, // Custom AppLinkNode
       ],
       theme: {
         root: 'editor-root',
@@ -208,5 +210,26 @@ export class NoteTextEditor implements AfterViewInit {
     if (this.editor) {
       this.editor.setRootElement(null);
     }
+  }
+
+  addCustomLink() {
+    if (!this.editor) {
+      console.warn('Skipping addCustomLink. Editor undefined.')
+      return;
+    }
+    this.editor.update(() => {
+      const selection = $getSelection();
+      if (!$isRangeSelection(selection)) {
+        return;
+      }
+
+      const linkNode = $createAppLinkNode();
+
+      // Insert link and select past it
+      selection.insertNodes([linkNode]);
+      linkNode.selectNext();
+
+      // TODO: how to make the link inline
+    });
   }
 }
