@@ -12,6 +12,7 @@ import * as mockData from './mock-data.json';
 import { Note } from './models/note-interface';
 import { ViewsStore } from './store/views-store';
 import { View } from './models/view-interface';
+import { AddLinkModalService } from './services/add-link-modal-service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ export class App {
   readonly templateService = inject(TemplateService);
   readonly persistenceService = inject(PersistenceService);
   readonly tabService = inject(TabService);
+  readonly addlinkModalService = inject(AddLinkModalService);
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {

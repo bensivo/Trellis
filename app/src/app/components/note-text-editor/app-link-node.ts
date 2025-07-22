@@ -1,6 +1,17 @@
-import { $applyNodeReplacement, EditorConfig, ElementNode, LexicalNode, NodeKey } from "lexical";
+import { $applyNodeReplacement, EditorConfig, ElementNode, LexicalNode, NodeKey, RangeSelection } from "lexical";
 
 export class AppLinkNode extends ElementNode {
+  noteId: number | null = null;
+  noteName: string | null = null;
+
+  setNoteId(noteId: number): void {
+    this.noteId = noteId;
+  }
+
+  setNoteName(noteName: string): void {
+    this.noteName = noteName;
+  }
+
   static override getType(): string {
     return 'app-link';
   }
@@ -11,10 +22,9 @@ export class AppLinkNode extends ElementNode {
 
   override createDOM(): HTMLElement {
     // Define the DOM element here
-    const element = document.createElement('a');
+    const element = document.createElement('button');
     element.className = 'editor-link-node';
-    element.textContent = 'Click Me!';
-    element.href = '#'; // Set the link's href attribute
+    element.textContent = this.noteName;
 
     return element;
   }
@@ -24,10 +34,39 @@ export class AppLinkNode extends ElementNode {
     // DOM element replacing with a new copy from createDOM.
     return false;
   }
+
+    // Handle backspace to delete the entire node
+  // handleBackspace(selection: RangeSelection): boolean {
+  //   this.remove();
+  //   return true; // Prevent default backspace behavior
+  // }
+
+  /**
+   * Override some property getters to get proper
+   * inline behavior
+   */
+  override isInline(): boolean {
+    return true;
+  }
+  
+  override canInsertTextBefore(): boolean {
+    return true;
+  }
+  
+  override canInsertTextAfter(): boolean {
+    return true;
+  }
+  
+  override canBeEmpty(): boolean {
+    return false;
+  }
 }
 
-export function $createAppLinkNode(): AppLinkNode {
-  return $applyNodeReplacement(new AppLinkNode());
+export function $createAppLinkNode(noteId: number, noteName: string): AppLinkNode {
+  const node = $applyNodeReplacement(new AppLinkNode());
+  node.setNoteId(noteId);
+  node.setNoteName(noteName);
+  return node;
 }
 
 export function $isAppLinkNode(

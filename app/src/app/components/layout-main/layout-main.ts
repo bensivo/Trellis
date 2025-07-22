@@ -5,6 +5,7 @@ import { TabHeader } from '../tab-header/tab-header';
 import { TemplatesPanel } from '../templates-panel/templates-panel';
 import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 import { ViewsPanel } from '../views-panel/views-panel';
+import { AddLinkModal } from '../add-link-modal/add-link-modal';
 
 @Component({
   selector: 'app-layout-main',
@@ -14,6 +15,7 @@ import { ViewsPanel } from '../views-panel/views-panel';
     TemplatesPanel,
     CdkDrag,
     ViewsPanel,
+    AddLinkModal
   ],
   templateUrl: './layout-main.html',
   styleUrl: './layout-main.less'

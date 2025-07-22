@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, input } from '@angular/core';
+import { AfterViewInit, Component, HostListener, inject, input } from '@angular/core';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { createEmptyHistoryState, registerHistory } from '@lexical/history';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
@@ -6,10 +6,11 @@ import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
-import { $create, $createLineBreakNode, $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
+import { $create, $createLineBreakNode, $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_DELETE_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
-import { $createAppLinkNode, AppLinkNode } from './app-link-node';
+import { $createAppLinkNode, $isAppLinkNode, AppLinkNode } from './app-link-node';
+import { AddLinkModalService } from '../../services/add-link-modal-service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class NoteTextEditor implements AfterViewInit {
   readonly noteId = input<number>();
   readonly noteStore = inject(NotesStore);
   readonly notesService = inject(NotesService);
+  readonly addLinkModalService = inject(AddLinkModalService);
 
   private editor: any;
 
@@ -127,6 +129,28 @@ export class NoteTextEditor implements AfterViewInit {
         },
         COMMAND_PRIORITY_LOW
       ),
+
+      // Custom backspace logic, to handle deleting custom nodes
+      this.editor.registerCommand(
+        KEY_BACKSPACE_COMMAND,
+        (event: any) => {
+          event.preventDefault();
+          const selection = $getSelection();
+          if (!$isRangeSelection(selection)) {
+            return true;
+          }
+
+          const appLink = selection.getNodes().find($isAppLinkNode);
+          if (appLink) {
+            appLink.remove();
+            return false; // Prevent default backspace behavior
+          }
+
+          // If not, just let the default backspace behavior happen
+          return false;
+        },
+        COMMAND_PRIORITY_LOW
+      ),
     );
 
     // Listen for changes in the editor, and save the changes to the store
@@ -217,19 +241,51 @@ export class NoteTextEditor implements AfterViewInit {
       console.warn('Skipping addCustomLink. Editor undefined.')
       return;
     }
-    this.editor.update(() => {
-      const selection = $getSelection();
-      if (!$isRangeSelection(selection)) {
-        return;
-      }
 
-      const linkNode = $createAppLinkNode();
+    const noteId = this.noteId();
+    if (noteId === undefined) {
+      console.warn('Skipping addCustomLink. Note ID undefined.');
+      return;
+    }
 
-      // Insert link and select past it
-      selection.insertNodes([linkNode]);
-      linkNode.selectNext();
+    // TODO: pass note-id, and position in note
+    this.addLinkModalService.openAddLinkModal((noteId: number, noteName: string) => {
+      this.editor.update(() => {
+        const selection = $getSelection();
+        if (!$isRangeSelection(selection)) {
+          return;
+        }
 
-      // TODO: how to make the link inline
+        // Create a new AppLinkNode with the noteId
+        const linkNode = $createAppLinkNode(noteId, noteName);
+        selection.insertNodes([linkNode, $createTextNode(' ')]);
+        linkNode.selectNext();
+      });
     });
+
+    // TODO: on submission, add the linknode to the note content
+    
+
+    // this.editor.update(() => {
+    //   const selection = $getSelection();
+    //   if (!$isRangeSelection(selection)) {
+    //     return;
+    //   }
+
+    //   const linkNode = $createAppLinkNode();
+
+    //   // TODO: Add a space to the front, if there is text there,
+    //   // but not if it 's the start of the line, or there's already space
+    //   selection.insertNodes([linkNode, $createTextNode(' ')]);
+    //   linkNode.selectNext();
+    // });
+  }
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    // Cmd+L on Mac or Ctrl+L on Windows/Linux
+    if ((event.metaKey || event.ctrlKey) && event.key === 'l') {
+      event.preventDefault(); // Prevent browser's "New Window"
+      this.addCustomLink();
+    }
   }
 }
