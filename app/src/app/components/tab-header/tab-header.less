@@ -1,19 +1,20 @@
 @import '../../../utils.less';
 
 .tab-headers {
+    // padding-left: 10px;
     display: flex;
     background: @green-01;
     min-height: 45px; // TODO: change this if it doens't work in the future
 }
 
 .tab-header {
-    margin-top: 8px;
+    // margin-top: 8px;
     display: flex;
     align-items: center;
-    padding: 8px 8px;
-    border: 1px solid @grey-04;
+    padding: 8px 8px 8px 16px;
+    border-right: 1px solid @grey-05;
     border-bottom: none;
-    border-radius: 7px 7px 0px 0px;
+    // border-radius: 7px 7px 0px 0px;
     background: @grey-04;
     cursor: pointer;
     user-select: none;
@@ -21,7 +22,7 @@
 }
 
 .tab-header.active {
-    background: @grey-05;
+    background: white;
 }
 
 .tab-header.cdk-drag-preview {
