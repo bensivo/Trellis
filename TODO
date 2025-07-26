@@ -1,23 +1,10 @@
 Basic functionality:
-[ ] Feat: Inline links to other notes
-    [x] Feat: Add custom nodes to the lexical editor
-    [x] Feat: Make the node inline (may require switching to decorator node)
-    [ ] Feat: UX for finding a note, then adding a link to it
-        [x] Feat: Search for notes in note modal
-        [x] Feat: press esc to close
-        [ ] Feat: Click off modal to close
-        [ ] Bug: Cancelling modal loses spot in editor
-        [ ] Bug: Doesn't work on templates
-        [x] Feat: Add link to note at current position on submit
-        [x] Feat: hotkeys for add link (ctrl + l)
-        [ ] Feat: Create note that doesn't exist in link
-        [x] Bug: Customn links don't persist after reload
-    [x] Feat: Attach a note-id to the link
-    [x] Feat: clicking on link opens note in new tab
-    [ ] Feat: styling for buttons
-    [ ] Feat: Query links in SQL
+[ ] Feat: Query links in SQL
 [ ] Feat: inline images in note
+[ ] Feat: Create note that doesn't exist in link
+[ ] Feat: note links as a template custom field (think jira parents / epics)
 [ ] Feat: When a note is deleted, make links to it disabled
+[ ] Bug: Cancelling add-link modal loses spot in editor
 [ ] Feat: When a note is renamed, rename its links
 [ ] Feat: code blocks in note
 [ ] Feat: clickable links in note
@@ -39,7 +26,11 @@ Basic functionality:
 [ ] Feat: cloud storage
     [ ] If it reads from a file system, I can read from storage myself. It does need some kind of backup / cloud backup
 [ ] Feat: 'link' field in a view that opens the item in a new tab
+[ ] Feat; better, intelligent search, even on the content of hte note, not just the metadata
+[ ] Feat: open notes to side with view open
+[ ] Feat: enterprise wiki features
 [ ] Feat: View page Helptext describing schemas of SQL tables
+[ ] Bug: Can't add note links in template editor
 [ ] Feat: side-by-side panels
 [ ] Feat: Advanced tab management, close all, close right, close left, close others
 [ ] Feat: remember width of side-panel
@@ -107,7 +98,4 @@ Done:
     [x]: Delete view
     [x]: SQL Error messages
 [x] Feat: View page - create dynamic views with filter criteria\
-
-[ ] Feat; better, intelligent search, even on the content of hte note, not just the metadata
-[ ] Feat: open notes to side with view open
-[ ] Feat: enterprise wiki features
+[x] Feat: Inline links to other notes
