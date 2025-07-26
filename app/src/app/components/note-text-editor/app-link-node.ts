@@ -1,6 +1,8 @@
-import { $applyNodeReplacement, EditorConfig, ElementNode, LexicalNode, NodeKey, RangeSelection } from "lexical";
+import { $applyNodeReplacement, EditorConfig, ElementNode, LexicalNode } from "lexical";
+import { NotePanel } from "../note-panel/note-panel";
 
 export class AppLinkNode extends ElementNode {
+
   noteId: number | null = null;
   noteName: string | null = null;
 
@@ -25,6 +27,25 @@ export class AppLinkNode extends ElementNode {
     const element = document.createElement('button');
     element.className = 'editor-link-node';
     element.textContent = this.noteName;
+
+    element.onclick = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const id = this.noteId;
+      const name = this.noteName;
+      const tabService = (window as any).tabService;
+
+      if (id === null || name === null || tabService === undefined) {
+        console.error('AppLinkNode: noteId or noteName is null');
+        return;
+      }
+      
+      // Use the globally-injected tabService to open the note in a new tab
+      tabService.addTab('note'+id, name, NotePanel, {
+        id,
+      });
+    };
 
     return element;
   }

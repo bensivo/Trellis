@@ -13,9 +13,12 @@ Basic functionality:
         [ ] Feat: Create note that doesn't exist in link
         [x] Bug: Customn links don't persist after reload
     [x] Feat: Attach a note-id to the link
-    [ ] Feat: clicking on link opens note in new tab
+    [x] Feat: clicking on link opens note in new tab
+    [ ] Feat: styling for buttons
     [ ] Feat: Query links in SQL
 [ ] Feat: inline images in note
+[ ] Feat: When a note is deleted, make links to it disabled
+[ ] Feat: When a note is renamed, rename its links
 [ ] Feat: code blocks in note
 [ ] Feat: clickable links in note
 [ ] Feat: add note type in 'custom link' modal

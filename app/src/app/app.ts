@@ -32,6 +32,12 @@ export class App {
   readonly tabService = inject(TabService);
   readonly addlinkModalService = inject(AddLinkModalService);
 
+  constructor() {
+    // Set the tab service on the window object, so we can access it from 
+    // outside of Angular components (namely, our custom Lexical elements)
+    (window as any).tabService = this.tabService;
+  }
+
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     // Cmd+N on Mac or Ctrl+N on Windows/Linux
