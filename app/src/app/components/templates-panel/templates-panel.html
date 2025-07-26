@@ -3,8 +3,11 @@
 </div>
 <div id="template-list">
     @for (template of templatesStore.templates(); track template.id) {
-        <button class="app-list-item" (click)="onClickTemplate(template)">{{ template.name }}</button>
+        <button class="template-list-item" (click)="onClickTemplate(template)">{{ template.name }}</button>
+    }
+
+    @if (templatesStore.templates().length === 0) {
+        <div class="no-templates">No templates</div>
     }
 </div>
-<hr/>
 <button id="new-template-btn" class="app-btn-primary" (click)="onClickNewTemplate()">New Template (Ctrl + T)</button>

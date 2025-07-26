@@ -25,7 +25,10 @@
         </button>
         }
     </ul>
-    <hr/>
+}
+
+@if (notesStore.notes().length === 0) {
+    <div class="note-list-item-empty">No notes</div>
 }
 
 <button id="new-note-btn" class="app-btn-primary" (click)="onClickNewNote()">New Note (Ctrl + N)</button>

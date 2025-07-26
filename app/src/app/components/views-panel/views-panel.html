@@ -4,8 +4,11 @@
 <div id="view-list">
     @for (view of viewsStore.views(); track view.id) {
         <!-- <button class="app-list-item" [class.active]="view.id == currentViewId()" (click)="onClickView(view)">{{ view.name }}</button> -->
-        <button class="app-list-item" (click)="onClickView(view)">{{ view.name }}</button>
+        <button class="view-list-item" (click)="onClickView(view)">{{ view.name }}</button>
+    }
+
+    @if (viewsStore.views().length === 0) {
+        <div class="no-views">No views</div>
     }
 </div>
-<hr/>
-<button id="new-view-btn" class="app-btn-primary" (click)="onClickNewView()">New View (Ctrl + T)</button>
+<button class="app-btn-primary new-view-btn" (click)="onClickNewView()">New View (Ctrl + T)</button>
