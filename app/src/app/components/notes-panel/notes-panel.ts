@@ -24,8 +24,14 @@ export class NotesPanel {
 
   readonly visibleNotes = computed(() => {
     let notes = this.notesStore.notes();
+    const templates = this.templatesStore.templates();
     const templateId = this.templateSelect();
     const searchInput = this.searchInput();
+
+    const templateIdNameMap: Record<number, string> = {};
+    templates.forEach(t => {
+      templateIdNameMap[t.id] = t.name;
+    });
 
     
     if (templateId != -1) {
@@ -40,7 +46,12 @@ export class NotesPanel {
       ))
     }
 
-    return notes;
+    return notes.map(note => {
+      return {
+        ...note,
+        templateName: templateIdNameMap[note.templateId] || 'Unknown Template'
+      };
+    });
   }) 
 
   onChangeTemplateSelect(event: any) {

@@ -69,7 +69,8 @@ export class NotePanel {
     this.notesStore.updateNoteField(note.id, index, value);
   }
 
-  onChangeTitle(event: any) {
+  // Called on every input change (each character)
+  onInputTitle(event: any) {
     const note = this.currentNote();
     if (note === null) {
       return;
@@ -78,6 +79,20 @@ export class NotePanel {
     const value = event.target.value;
     this.notesStore.updateNoteName(note.id, value);
     this.tabService.updateTabTitle('note' + note.id, value);
+  }
+
+  // Called only when the input loses focus or the user presses Enter
+  onChangeTitle(event: any) {
+    const note = this.currentNote();
+    if (note === null) {
+      return;
+    }
+
+    const value = event.target.value;
+    if (!value || value.trim() === '') {
+      this.notesStore.updateNoteName(note.id, 'Untitled');
+      this.tabService.updateTabTitle('note' + note.id, 'Untitled');
+    }
   }
 
   onClickDeleteNote() {

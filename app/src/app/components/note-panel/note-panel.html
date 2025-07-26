@@ -1,11 +1,11 @@
 <div class="note-panel">
     @if (currentNote(); as note) {
         <div class="section-header">
-            <input #notetitle class="app-editable-header" [value]="note.name" (change)="onChangeTitle($event)"/>
+            <input #notetitle class="app-editable-header" [attr.size]="note.name.length" [value]="note.name" (input)="onInputTitle($event)" (change)="onChangeTitle($event)"/>
             <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteNote()"></i>
+            <!-- <span class="note-type-subtitle">{{ currentTemplate()?.name ?? 'Unknown' }} </span> -->
         </div>
 
-        <span class="section-subtitle">{{ currentTemplate()?.name ?? 'Unknown' }}</span>
 
         <div class="note-fields-container">
             @for (field of note.fields; track field.name) {
@@ -13,8 +13,6 @@
                 <input class="app-input" [value]="field.value" (change)="onFieldChange($index, $event)"/>
             }
         </div>
-
-        <hr/>
 
         <app-note-text-editor [noteId]="note.id"/>
     }

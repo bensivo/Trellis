@@ -1,8 +1,14 @@
 <div id="page">
   <div id="side-nav" >
-    <button class="nav-link" [class.active]="sidePanel() == 'notes'" (click)="onClickNav('notes')">Notes</button>
-    <button class="nav-link" [class.active]="sidePanel() == 'templates'" (click)="onClickNav('templates')">Templates</button>
-    <button class="nav-link" [class.active]="sidePanel() == 'views'" (click)="onClickNav('views')">Views</button>
+    <button class="nav-link" [class.active]="sidePanel() == 'notes'" (click)="onClickNav('notes')">
+      <i class="ri-folder-6-line"></i>
+    </button>
+    <button class="nav-link" [class.active]="sidePanel() == 'templates'" (click)="onClickNav('templates')">
+      <i class="ri-file-copy-2-line"></i>
+    </button>
+    <button class="nav-link" [class.active]="sidePanel() == 'views'" (click)="onClickNav('views')">
+      <i class="ri-table-view"></i>
+    </button>
   </div>
   <div id="body">
     <div id="side-panel" [style.width.px]="sideNavWidth">

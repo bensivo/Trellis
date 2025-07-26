@@ -2,24 +2,30 @@
     <h3>Notes</h3>
 </div>
 <div class="row">
-    <input class="app-input" id="search-notes" placeholder="Search" [value]="searchInput()" (input)="onChangeSearch($event)"/>
+    <input class="app-input search" placeholder="Search" [value]="searchInput()" (input)="onChangeSearch($event)"/>
 </div>
 <div class="row">
-    <label class="app-label" id="note-template-label" for="">Template</label>
-    <select class="app-select" id="note-template-select" [value]="templateSelect()" (change)="onChangeTemplateSelect($event)">
+    <!-- <label class="app-label" id="note-template-label" for="">Template</label> -->
+    <select class="app-select template-select" [value]="templateSelect()" (change)="onChangeTemplateSelect($event)">
         <option [value]="-1">All Templates</option>
         @for (template of templatesStore.templates(); track template.id) {
             <option [value]="template.id">{{ template.name }}</option>
         }
     </select>
 </div>
-<hr/>
+
 @if (notesStore.notes().length > 0) {
-    <ul id="note-list">
+    <ul class="note-list">
         @for (note of visibleNotes(); track note.id) {
-            <button class="app-list-item" (click)="onClickNote(note)">{{ note.name }}</button>
+            <button class="note-list-item" (click)="onClickNote(note)">
+                {{ note.name }} 
+                <span class="note-type">
+                    {{ note.templateName }}
+                </span>
+        </button>
         }
     </ul>
     <hr/>
 }
+
 <button id="new-note-btn" class="app-btn-primary" (click)="onClickNewNote()">New Note (Ctrl + N)</button>
