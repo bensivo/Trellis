@@ -11,7 +11,7 @@ Basic functionality:
         [x] Feat: Add link to note at current position on submit
         [x] Feat: hotkeys for add link (ctrl + l)
         [ ] Feat: Create note that doesn't exist in link
-        [ ] Bug: Customn links don't persist after reload
+        [x] Bug: Customn links don't persist after reload
     [x] Feat: Attach a note-id to the link
     [ ] Feat: clicking on link opens note in new tab
     [ ] Feat: Query links in SQL
@@ -29,7 +29,8 @@ Basic functionality:
 [ ] Bug: Scrolling down too far makes the side-nav look weird
 [ ] Bug: adding too many notes or templates makes the side-nav grow beyond screen size
 [ ] Bug: nested list items show all levels of list
-[ ] Feat: Hotkey to find a note
+[ ] Feat: Hotkey to find a note "ctrl f"
+[ ] Feat: Ctrl+P command bar, for all the global commands in the app
 [ ] Feat: Add ordering buttons to notes panel
 [ ] Feat: renaming a note renames all links to that note
 [ ] Feat: cloud storage

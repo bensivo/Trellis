@@ -226,7 +226,6 @@ export class NoteTextEditor implements AfterViewInit {
     const editorState = this.editor.getEditorState();
     const editorContent = editorState.toJSON();
 
-
     this.noteStore.updateNoteContent(id, editorContent);
   }
 
@@ -248,7 +247,7 @@ export class NoteTextEditor implements AfterViewInit {
       return;
     }
 
-    // TODO: pass note-id, and position in note
+    // TODO: pass note-id, and position in note, so that we can come back to the same location
     this.addLinkModalService.openAddLinkModal((noteId: number, noteName: string) => {
       this.editor.update(() => {
         const selection = $getSelection();

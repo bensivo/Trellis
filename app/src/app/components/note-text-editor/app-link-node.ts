@@ -35,11 +35,26 @@ export class AppLinkNode extends ElementNode {
     return false;
   }
 
-    // Handle backspace to delete the entire node
-  // handleBackspace(selection: RangeSelection): boolean {
-  //   this.remove();
-  //   return true; // Prevent default backspace behavior
-  // }
+  // Override the `exportJSON` method to include noteId and noteName
+  override exportJSON(): any {
+    return {
+      ...super.exportJSON(),
+      noteId: this.noteId,
+      noteName: this.noteName,
+      type: 'app-link',
+      version: 1,
+    };
+  }
+
+  // Override the `importJSON` method to properly set the noteId and noteName 
+  // when loading via `editor.parseEditorState()`
+  static override importJSON(serializedNode: any): AppLinkNode {
+    const node = $applyNodeReplacement(new AppLinkNode());
+    node.setNoteId(serializedNode.noteId);
+    node.setNoteName(serializedNode.noteName);
+    return node;
+  }
+
 
   /**
    * Override some property getters to get proper
