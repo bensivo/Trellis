@@ -82,6 +82,15 @@ export class AddLinkModal {
     this.svc.closeAddLinkModal();
   }
 
+  onClickOutsideModal(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const modal = document.getElementById('add-link-modal');
+
+    if (modal && !modal.contains(target)) {
+      this.svc.closeAddLinkModal();
+    }
+  }
+
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'Escape') {

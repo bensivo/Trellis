@@ -1,7 +1,7 @@
 @if (svc.isVisible()) {
-    <div class="modal-overlay">
+    <div class="modal-overlay" (click)="onClickOutsideModal($event)">
         <div class="modal-container">
-            <div class="modal">
+            <div id="add-link-modal" class="modal">
                 <form (submit)="onSubmitModal($event)">
                     <h3 class="section-title">Select Note</h3>
                     <div class="note-search-container">
