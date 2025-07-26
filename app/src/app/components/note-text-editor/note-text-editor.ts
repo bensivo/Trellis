@@ -6,7 +6,7 @@ import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
-import { $create, $createLineBreakNode, $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_DELETE_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
+import { $create, $createLineBreakNode, $createParagraphNode, $createPoint, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_DELETE_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { $createAppLinkNode, $isAppLinkNode, AppLinkNode } from './app-link-node';
@@ -143,7 +143,7 @@ export class NoteTextEditor implements AfterViewInit {
           const appLink = selection.getNodes().find($isAppLinkNode);
           if (appLink) {
             appLink.remove();
-            return false; // Prevent default backspace behavior
+            return true; // Prevent default backspace behavior
           }
 
           // If not, just let the default backspace behavior happen
@@ -261,23 +261,6 @@ export class NoteTextEditor implements AfterViewInit {
         linkNode.selectNext();
       });
     });
-
-    // TODO: on submission, add the linknode to the note content
-    
-
-    // this.editor.update(() => {
-    //   const selection = $getSelection();
-    //   if (!$isRangeSelection(selection)) {
-    //     return;
-    //   }
-
-    //   const linkNode = $createAppLinkNode();
-
-    //   // TODO: Add a space to the front, if there is text there,
-    //   // but not if it 's the start of the line, or there's already space
-    //   selection.insertNodes([linkNode, $createTextNode(' ')]);
-    //   linkNode.selectNext();
-    // });
   }
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {

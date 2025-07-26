@@ -229,11 +229,18 @@ hr {
 
 
 .editor-link-node {
-  color: #007acc;
-  text-decoration: none;
+  // color: #007acc;
+  // text-decoration: none;
   cursor: pointer;
+  text-decoration: underline;
+  background-color: transparent;
+  border: none;
+  color: #0e7700;
+  padding: 0;
+  font-weight: bold;
 
-  &:hover {
-    text-decoration: underline;
-  }
+}
+
+.editor-link-node:hover {
+  color: #2e5b2e; // @green-02
 }
