@@ -9,6 +9,7 @@ Major features:
 [ ] Feat: Advanced tab management, close all, close right, close left, close others
 [ ] Feat: Logo and icon
 [ ] Feat: Date fields should use a date input
+[ ] Feat: Export as markdown
 
 Minor features:
 [ ] Feat: Hotkey to find a note "ctrl f"
@@ -23,6 +24,7 @@ Minor features:
 [ ] Feat: remember width of side-panel
 [ ] Feat: mobile friendly UI
 [ ] Feat: Open note in side-panel from view
+[ ] Feat: collapse metadata
 
 Major Bugs:
 [ ] Bug: Scrolling down too far makes the side-nav look weird
