@@ -1,5 +1,5 @@
 Major features:
-[ ] Feat: inline images in note
+[ ] Feat: Upload images to server (or file), not save inline in JSON 
 [ ] Feat: code blocks in note
 [ ] Feat: clickable links in note
 [ ] Feat: add note type in 'custom link' modal
@@ -10,6 +10,7 @@ Major features:
 [ ] Feat: Logo and icon
 [ ] Feat: Date fields should use a date input
 [ ] Feat: Export as markdown
+[ ] Feat: Collapse side nav panels (for split views)
 
 Minor features:
 [ ] Feat: Hotkey to find a note "ctrl f"
@@ -25,6 +26,7 @@ Minor features:
 [ ] Feat: mobile friendly UI
 [ ] Feat: Open note in side-panel from view
 [ ] Feat: collapse metadata
+[ ] Feat: change size of an image (maybe width slider)
 
 Major Bugs:
 [ ] Bug: Scrolling down too far makes the side-nav look weird
@@ -33,6 +35,8 @@ Major Bugs:
 [ ] Bug: Nested list items show too many dots
 [ ] Bug: changing template fields should make new fields available in notes
 [ ] Bug: deleting template fields doesn't update notes
+[ ] Bug: After image, user can get 1 character of un-editable text
+[ ] Bug: With large selection containing custom links or images, backspace just deletes 1 item at a time
 
 Minor Bugs: 
 [ ] Bug: Cancelling add-link modal loses spot in editor
@@ -98,3 +102,4 @@ Done:
 [x] Feat: Inline links to other notes
 [x] Design: make it prettier, less whitespace, more consistent colors
 [x] Feat: Resize notes and templates list panel, to make long note names more visible
+[x] Feat: inline images in note

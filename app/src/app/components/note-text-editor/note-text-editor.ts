@@ -6,11 +6,12 @@ import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
 import { registerMarkdownShortcuts } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
-import { $create, $createLineBreakNode, $createParagraphNode, $createPoint, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_DELETE_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND, PASTE_COMMAND } from 'lexical';
+import { AddLinkModalService } from '../../services/add-link-modal-service';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
+import { $createImageNode, $isImageNode, ImageNode } from './app-image-node';
 import { $createAppLinkNode, $isAppLinkNode, AppLinkNode } from './app-link-node';
-import { AddLinkModalService } from '../../services/add-link-modal-service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class NoteTextEditor implements AfterViewInit {
         ListNode,
         ListItemNode,
         AppLinkNode, // Custom AppLinkNode
+        ImageNode, // Custom ImageNode
       ],
       theme: {
         root: 'editor-root',
@@ -146,8 +148,39 @@ export class NoteTextEditor implements AfterViewInit {
             return true; // Prevent default backspace behavior
           }
 
+          const image = selection.getNodes().find($isImageNode);
+          if (image) {
+            image.remove();
+            return true; // Prevent default backspace behavior
+          }
+
           // If not, just let the default backspace behavior happen
           return false;
+        },
+        COMMAND_PRIORITY_LOW
+      ),
+
+      // Custom paste logic, to handle pasting images
+      this.editor.registerCommand(
+        PASTE_COMMAND,
+        (event: ClipboardEvent) => {
+          const clipboardData = event.clipboardData;
+          if (!clipboardData) return false;
+
+          // Check for images
+          const items = Array.from(clipboardData.items);
+          const imageItem = items.find(item => item.type.startsWith('image/'));
+
+          if (imageItem) {
+            event.preventDefault();
+            const file = imageItem.getAsFile();
+            if (file) {
+              this.handleImagePaste(file);
+            }
+            return true;
+          }
+
+          return false; // Let default paste handle text
         },
         COMMAND_PRIORITY_LOW
       ),
@@ -262,6 +295,28 @@ export class NoteTextEditor implements AfterViewInit {
       });
     });
   }
+
+  handleImagePaste(file: File) {
+    // Convert to data URL or upload to server
+    const reader = new FileReader();
+    reader.onload = (e) => {
+
+      // TODO, instead of directly using the data URL,
+      // upload it to a server and use a link to the image instead.
+      const src = e.target?.result as string;
+
+      this.editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          const imageNode = $createImageNode(src);
+          selection.insertNodes([imageNode, $createParagraphNode()]);
+        }
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+
+
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     // Cmd+L on Mac or Ctrl+L on Windows/Linux
