@@ -86,6 +86,7 @@ export class ViewsService {
             return {
                 id: note.id,
                 name: note.name,
+                link: `link-${note.id}`,
                 templateId: note.templateId,
                 ...fields,
             };

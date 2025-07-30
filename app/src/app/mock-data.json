@@ -149,7 +149,7 @@
         {
             "id": 0,
             "name": "Cybersecurity Team",
-            "sql": "SELECT n.name as name, n.Department as department, n.Manager as manager\nFROM notes n\nLEFT JOIN templates t \n    ON n.templateId = t.id\nWHERE t.name = 'Person'\nAND n.Department = 'Cybersecurity'"
+            "sql": "SELECT n.link as Note, n.Department as department, n.Manager as manager\nFROM notes n\nLEFT JOIN templates t \n    ON n.templateId = t.id\nWHERE t.name = 'Person'\nAND n.Department = 'Cybersecurity'"
         }
     ]
 }

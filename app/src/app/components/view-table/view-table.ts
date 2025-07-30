@@ -1,4 +1,7 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
+import { NotesStore } from '../../store/notes-store';
+import { TabService } from '../tab-container/tab-service';
+import { NotePanel } from '../note-panel/note-panel';
 
 @Component({
   selector: 'app-view-table',
@@ -9,6 +12,10 @@ import { Component, computed, input } from '@angular/core';
 })
 export class ViewTable {
   data = input.required<any[]>();
+
+  readonly notesStore = inject(NotesStore);
+  readonly notes = this.notesStore.notes;
+  readonly tabService = inject(TabService);
   
   readonly columns = computed(() => {
     const items = this.data();
@@ -25,5 +32,42 @@ export class ViewTable {
   
   getValue(obj: any, key: string): any {
     return obj[key] ?? '';
+  }
+
+  isLink(row: any, col: any) {
+    const value =  row[col] ?? '';
+    try {
+      const isLink = value.split('-')[0] === 'link';
+      return isLink;
+    } catch(e) {
+      return false;
+    }
+  }
+
+  linkName(row: any, col: any) {
+    const value =  row[col] ?? '';
+    const noteId = +value.split('-')[1];
+
+    const note = this.notes().find(n => n.id === noteId);
+    if (!note) {
+      return 'Unknown';
+    } else {
+      return note.name;
+    }
+  }
+
+  onClickLink(row: any, col: any) {
+    const value =  row[col] ?? '';
+    const noteId = +value.split('-')[1];
+
+    const note = this.notes().find(n => n.id === noteId);
+    if (!note) {
+      return;
+    }
+
+    this.tabService.addTab('note'+note.id, note.name, NotePanel, {
+      id: note.id
+    })
+
   }
 }

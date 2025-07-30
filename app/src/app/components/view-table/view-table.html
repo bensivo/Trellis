@@ -10,7 +10,13 @@
     @for (row of data(); track $index) {
       <tr>
         @for (column of columns(); track column) {
-          <td>{{ getValue(row, column) }}</td>
+
+          @if(isLink(row, column)) {
+            <td><button class="note-link" (click)="onClickLink(row, column)">{{linkName(row, column)}}</button></td>
+          }
+          @else {
+            <td>{{ getValue(row, column) }}</td>
+          }
         }
       </tr>
     }

@@ -1,10 +1,15 @@
+Prioritized Backlog:
+[ ] Feat: Local file storage (electron)
+[ ] Feat: Cloud storage (web)
+[ ] Bug: Adding too many notes or templates makes the side-nav grow beyond screen size
+[ ] Bug: Scrolling down too far makes the side-nav look weird
+[ ] Feat: Build and sign for MacOS
+
 Major features:
 [ ] Feat: Upload images to server (or file), not save inline in JSON 
 [ ] Feat: code blocks in note
 [ ] Feat: clickable links in note
 [ ] Feat: add note type in 'custom link' modal
-[ ] Feat: Local file storage (electron)
-[ ] Feat: Cloud storage (web)
 [ ] Feat; better, intelligent search, even on the content of hte note, not just the metadata
 [ ] Feat: Advanced tab management, close all, close right, close left, close others
 [ ] Feat: Logo and icon
@@ -24,13 +29,10 @@ Minor features:
 [ ] Feat: Date fields should default to today
 [ ] Feat: remember width of side-panel
 [ ] Feat: mobile friendly UI
-[ ] Feat: Open note in side-panel from view
 [ ] Feat: collapse metadata
 [ ] Feat: change size of an image (maybe width slider)
 
 Major Bugs:
-[ ] Bug: Scrolling down too far makes the side-nav look weird
-[ ] Bug: Adding too many notes or templates makes the side-nav grow beyond screen size
 [ ] Bug: Tabs all close on refresh
 [ ] Bug: Nested list items show too many dots
 [ ] Bug: changing template fields should make new fields available in notes
@@ -105,3 +107,4 @@ Done:
 [x] Feat: Resize notes and templates list panel, to make long note names more visible
 [x] Feat: inline images in note
 [x] Feat: export as pdf
+[x] Feat: Open note from view
