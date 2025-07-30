@@ -57,6 +57,11 @@ export class NotePanel {
     }, 0);
   }
 
+  @ViewChild('noteTextEditor') noteTextEditor!: NoteTextEditor;
+  exportToPDF() {
+    this.noteTextEditor.exportToPDF();
+  }
+
   onFieldChange(index: number, event: Event) {
     const note = this.currentNote();
     if (note === null) {

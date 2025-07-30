@@ -39,6 +39,7 @@ Major Bugs:
 [ ] Bug: With large selection containing custom links or images, backspace just deletes 1 item at a time
 
 Minor Bugs: 
+[ ] Bug: PDF Export - no vertical padding on pages exported
 [ ] Bug: Cancelling add-link modal loses spot in editor
 [ ] Bug: When a note is deleted, links to it still exist, and open tabs with no content
 [ ] Bug: When a note is renamed, links to it still show old name
@@ -103,3 +104,4 @@ Done:
 [x] Design: make it prettier, less whitespace, more consistent colors
 [x] Feat: Resize notes and templates list panel, to make long note names more visible
 [x] Feat: inline images in note
+[x] Feat: export as pdf

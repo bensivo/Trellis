@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, HostListener, inject, input } from '@angular/core';
+import { $generateHtmlFromNodes } from '@lexical/html';
+import { AfterViewInit, Component, computed, HostListener, inject, input } from '@angular/core';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { createEmptyHistoryState, registerHistory } from '@lexical/history';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
-import { registerMarkdownShortcuts } from '@lexical/markdown';
+import { $convertToMarkdownString, registerMarkdownShortcuts, TRANSFORMERS } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
 import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND, PASTE_COMMAND } from 'lexical';
@@ -12,6 +13,8 @@ import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { $createImageNode, $isImageNode, ImageNode } from './app-image-node';
 import { $createAppLinkNode, $isAppLinkNode, AppLinkNode } from './app-link-node';
+
+import jsPDF from 'jspdf';
 
 
 @Component({
@@ -25,6 +28,16 @@ export class NoteTextEditor implements AfterViewInit {
   readonly noteStore = inject(NotesStore);
   readonly notesService = inject(NotesService);
   readonly addLinkModalService = inject(AddLinkModalService);
+
+  readonly currentNote = computed(() => {
+    const notes = this.noteStore.notes();
+    const note = notes.find(n => n.id === this.noteId());
+    if (!note) {
+      return null;
+    }
+
+    return note;
+  })
 
   private editor: any;
 
@@ -196,6 +209,38 @@ export class NoteTextEditor implements AfterViewInit {
     if (id !== undefined) {
       this.loadNoteFromId(id);
     }
+  }
+
+  async exportToPDF() {
+    if (!this.editor) {
+      console.warn('Skipping exportToPDF. Editor undefined.');
+      return;
+    }
+    const editorElement = document.getElementById('note-text-editor');
+    if (!editorElement) return;
+
+    const note = this.currentNote();
+    if (!note) {
+      console.warn('No current note to export.');
+      return;
+    }
+
+    this.editor.update(() => {
+      const htmlString = $generateHtmlFromNodes(this.editor, null);
+      const pdf = new jsPDF();
+      pdf.html(htmlString, {
+        callback: (doc) => {
+          doc.save(`${note.name}.pdf`);
+        },
+        x: 10,
+        y: 10,
+        width: 180, // A4 width minus margins
+        windowWidth: 800,
+        html2canvas: {
+          scale: 0.25,
+        }
+      });
+    });
   }
 
   /**

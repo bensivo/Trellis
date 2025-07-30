@@ -2,7 +2,10 @@
     @if (currentNote(); as note) {
         <div class="section-header">
             <input #notetitle class="app-editable-header" [attr.size]="note.name.length" [value]="note.name" (input)="onInputTitle($event)" (change)="onChangeTitle($event)"/>
-            <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteNote()"></i>
+            <div class="icons">
+                <i class="app-clickable-icon ri-file-pdf-2-line" (click)="exportToPDF()"></i>
+                <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteNote()"></i>
+            </div>
             <!-- <span class="note-type-subtitle">{{ currentTemplate()?.name ?? 'Unknown' }} </span> -->
         </div>
 
@@ -16,6 +19,6 @@
 
         <hr/>
 
-        <app-note-text-editor [noteId]="note.id"/>
+        <app-note-text-editor #noteTextEditor [noteId]="note.id"/>
     }
 </div>
