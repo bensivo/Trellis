@@ -218,6 +218,13 @@ hr {
   font-size: 14px;
   margin-bottom: 8px;
 }
+.editor-nested-listitem {
+  list-style: none !important; // Fixes a bug where nested list items have 2 bullets
+  
+  &::before {
+    display: none !important;
+  }
+}
 
 .editor-text-bold {
   font-weight: bold;
