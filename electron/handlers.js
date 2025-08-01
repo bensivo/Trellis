@@ -13,12 +13,11 @@ async function putObject(app, event, filepath, content) {
    const appData = app.getPath('appData'); 
    const absFilePath = path.join(appData, 'trellis', filepath);
 
-   // Ensure directory exists
    await fs.mkdir(path.dirname(absFilePath), { recursive: true });
    
-//    // Decode base64 and write file
-//    const buffer = Buffer.from(content, 'base64');
-   await fs.writeFile(absFilePath, content);
+   const buffer = Buffer.from(content, 'base64');
+   await fs.writeFile(absFilePath, buffer);
+   console.log('putObject: file written to ', absFilePath)
    return absFilePath;
 }
 
@@ -28,7 +27,7 @@ async function getObject(app, event, filepath) {
    
    // Read file and convert to base64
    const buffer = await fs.readFile(absFilePath);
-   return buffer.toString();
+   return buffer.toString('base64');
 }
 
 function registerHandlers(app, ipcMain){

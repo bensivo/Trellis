@@ -347,18 +347,45 @@ export class NoteTextEditor implements AfterViewInit {
     reader.onload = (e) => {
       const dataUrl = e.target?.result as string;
       if ((window as any).electron) {
-          // NOTE: we're saving the data-url, not a true image-file. That's why we use the .txt extension
-          const path = (window as any).electron.putObject(`image-${Date.now()}.txt`, dataUrl)
-          console.log('File written to', path)
+
+        const mimeToExt: Record<string, string> = {
+          'image/png': 'png',
+          'image/jpeg': 'jpg',
+          'image/jpg': 'jpg',
+          'image/gif': 'gif',
+          'image/webp': 'webp',
+          'image/svg+xml': 'svg'
+        };
+        const extension = mimeToExt[file.type] || 'png';
+        const filepath = `image-${Date.now()}.${extension}`;
+        const data = dataUrl.split(',')[1]; // Remove "data:image/png;base64,"
+
+        (window as any).electron.putObject(filepath, data)
+          .then(() => {
+
+            // NOTE: this works because of our custom 'trellis' protocol handler in electron's main.js,
+            // which translates the given relative filepath into the appropriate absolute filepath on 
+            // the base OS in the application directory
+            const src = 'trellis://' + filepath 
+
+            this.editor.update(() => {
+              const selection = $getSelection();
+              if ($isRangeSelection(selection)) {
+                const imageNode = $createImageNode(src);
+                selection.insertNodes([imageNode, $createParagraphNode()]);
+              }
+            });
+          });
+      } else {
+        this.editor.update(() => {
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)) {
+            const imageNode = $createImageNode(dataUrl);
+            selection.insertNodes([imageNode, $createParagraphNode()]);
+          }
+        });
       }
 
-      this.editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          const imageNode = $createImageNode(dataUrl);
-          selection.insertNodes([imageNode, $createParagraphNode()]);
-        }
-      });
     };
     reader.readAsDataURL(file);
   }

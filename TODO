@@ -1,5 +1,8 @@
 Prioritized Backlog:
 [ ] Feat: Local file storage (electron)
+    [x] Feat: Save images in local file storage (electron)
+    [ ]: Feat: on app load, load localstorage from fs
+    [ ]: Feat: on changes, persist from localstorage to fs
 [ ] Feat: Cloud storage (web)
 [ ] Bug: Adding too many notes or templates makes the side-nav grow beyond screen size
 [ ] Bug: Scrolling down too far makes the side-nav look weird
