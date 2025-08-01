@@ -1,20 +1,20 @@
-import { $generateHtmlFromNodes } from '@lexical/html';
 import { AfterViewInit, Component, computed, HostListener, inject, input } from '@angular/core';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { createEmptyHistoryState, registerHistory } from '@lexical/history';
+import { $generateHtmlFromNodes } from '@lexical/html';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
-import { $convertToMarkdownString, registerMarkdownShortcuts, TRANSFORMERS } from '@lexical/markdown';
+import { registerMarkdownShortcuts } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
+import jsPDF from 'jspdf';
 import { $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, createEditor, INDENT_CONTENT_COMMAND, KEY_BACKSPACE_COMMAND, KEY_TAB_COMMAND, OUTDENT_CONTENT_COMMAND, PASTE_COMMAND } from 'lexical';
+import { isElectron } from '../../../utils';
 import { AddLinkModalService } from '../../services/add-link-modal-service';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { $createImageNode, $isImageNode, ImageNode } from './app-image-node';
 import { $createAppLinkNode, $isAppLinkNode, AppLinkNode } from './app-link-node';
-
-import jsPDF from 'jspdf';
 
 
 @Component({
@@ -346,7 +346,7 @@ export class NoteTextEditor implements AfterViewInit {
     const reader = new FileReader();
     reader.onload = (e) => {
       const dataUrl = e.target?.result as string;
-      if ((window as any).electron) {
+      if (isElectron()) {
 
         const mimeToExt: Record<string, string> = {
           'image/png': 'png',
@@ -360,7 +360,7 @@ export class NoteTextEditor implements AfterViewInit {
         const filepath = `image-${Date.now()}.${extension}`;
         const data = dataUrl.split(',')[1]; // Remove "data:image/png;base64,"
 
-        (window as any).electron.putObject(filepath, data)
+        (window as any).electron.putObject(filepath, data, 'base64')
           .then(() => {
 
             // NOTE: this works because of our custom 'trellis' protocol handler in electron's main.js,

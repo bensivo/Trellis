@@ -8,7 +8,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electron', {
-  putObject: (path, contentBase64) => ipcRenderer.invoke('putObject', path, contentBase64),
-  getObject: (path) => ipcRenderer.invoke('getObject', path)
+  putObject: (path, contentBase64, encoding='utf8') => ipcRenderer.invoke('putObject', path, contentBase64, encoding),
+  getObject: (path, encoding='utf8') => ipcRenderer.invoke('getObject', path, encoding)
 })
 

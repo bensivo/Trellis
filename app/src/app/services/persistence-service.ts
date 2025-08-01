@@ -7,6 +7,7 @@ import { View } from "../models/view-interface";
 import { NotesStore } from "../store/notes-store";
 import { TemplatesStore } from "../store/templates-store";
 import { ViewsStore } from "../store/views-store";
+import { isElectron } from "../../utils";
 
 export interface AppState {
     notes: Note[];
@@ -39,28 +40,52 @@ export class PersistenceService {
     })
 
     // Convert the signals to an observable so we can debounce it and avoid unecessary computation
-    readonly appState$ = toObservable(this.appState); 
+    readonly appState$ = toObservable(this.appState);
 
     constructor() {
-        const persistedAppStateStr = localStorage.getItem('trellis-app-state');
-        if (persistedAppStateStr) {
-            try {
-                // TODO: use zod to schema validation on persisted state
-                const persistedAppState: AppState = JSON.parse(persistedAppStateStr);
-                this.notesStore.set(persistedAppState.notes ?? []);
-                this.templatesStore.set(persistedAppState.templates ?? []);
-                this.viewsStore.set(persistedAppState.views ?? []);
-            }
-            catch(e: any) {
-                console.warn("Failed loading state from local storage", e);
-            }
-        }
+        this.loadFromPersistedState();
 
         this.appState$.pipe(
             debounceTime(500),
         )
-        .subscribe((appState) => {
+            .subscribe((appState) => {
+                this.persistState(appState);
+            });
+    }
+
+    async loadFromPersistedState() {
+        let persistedAppStateStr;
+        if (isElectron()) {
+            persistedAppStateStr = await (window as any).electron.getObject('trellis-app-state.json');
+        } else {
+            persistedAppStateStr = localStorage.getItem('trellis-app-state');
+        }
+
+        if (!persistedAppStateStr) {
+            console.warn('No persisted app state found.')
+            return;
+        }
+
+        try {
+            // TODO: use zod to schema validation on persisted state
+            const persistedAppState: AppState = JSON.parse(persistedAppStateStr);
+            this.notesStore.set(persistedAppState.notes ?? []);
+            this.templatesStore.set(persistedAppState.templates ?? []);
+            this.viewsStore.set(persistedAppState.views ?? []);
+        }
+        catch (e: any) {
+            console.warn("Failed loading state from persisted app state", e);
+        }
+    }
+
+    async persistState(appState: AppState) {
+        if (isElectron()) {
+            await (window as any).electron.putObject(
+                'trellis-app-state.json',
+                JSON.stringify(appState),
+            );
+        } else {
             localStorage.setItem('trellis-app-state', JSON.stringify(appState));
-        });
+        }
     }
 }
