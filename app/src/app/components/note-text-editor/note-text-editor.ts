@@ -345,15 +345,17 @@ export class NoteTextEditor implements AfterViewInit {
     // Convert to data URL or upload to server
     const reader = new FileReader();
     reader.onload = (e) => {
-
-      // TODO, instead of directly using the data URL,
-      // upload it to a server and use a link to the image instead.
-      const src = e.target?.result as string;
+      const dataUrl = e.target?.result as string;
+      if ((window as any).electron) {
+          // NOTE: we're saving the data-url, not a true image-file. That's why we use the .txt extension
+          const path = (window as any).electron.putObject(`image-${Date.now()}.txt`, dataUrl)
+          console.log('File written to', path)
+      }
 
       this.editor.update(() => {
         const selection = $getSelection();
         if ($isRangeSelection(selection)) {
-          const imageNode = $createImageNode(src);
+          const imageNode = $createImageNode(dataUrl);
           selection.insertNodes([imageNode, $createParagraphNode()]);
         }
       });

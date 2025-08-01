@@ -22,7 +22,7 @@ export class TabService {
   readonly injector = inject(Injector)
   tabs = signal<Tab[]>([]);
 
-  addTab(id: string, title: string, component: any, data: TabData, setActive: boolean = false): void {
+  addTab(id: string, title: string, component: any, data: TabData, setActive: boolean = true): void {
     // Check for duplicate tabs
     const tabs = this.tabs();
     const exists = tabs.find(t => t.id === id);
