@@ -67,7 +67,7 @@ export class ViewTable {
 
     this.tabService.addTab('note'+note.id, note.name, NotePanel, {
       id: note.id
-    })
+    }, false)
 
   }
 }
