@@ -4,14 +4,18 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/bensivo/trellis/api/service"
 	"github.com/bensivo/trellis/api/util"
 )
 
 type HealthHttpController struct {
+	HealthService service.HealthService
 }
 
-func NewHealthHttpController() *HealthHttpController {
-	return &HealthHttpController{}
+func NewHealthHttpController(healthService service.HealthService) *HealthHttpController {
+	return &HealthHttpController{
+		HealthService: healthService,
+	}
 }
 
 func (c *HealthHttpController) RegisterRoutes(mux *http.ServeMux) {
@@ -20,7 +24,7 @@ func (c *HealthHttpController) RegisterRoutes(mux *http.ServeMux) {
 }
 
 func (c *HealthHttpController) onGetHealth(w http.ResponseWriter, r *http.Request) {
-	util.WriteJSON(w, map[string]interface{}{
-		"status": "OK",
-	})
+	health := c.HealthService.GetHealth()
+	fmt.Println(health.Status)
+	util.WriteJSON(w, health)
 }

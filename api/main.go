@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/bensivo/trellis/api/http_controller"
+	"github.com/bensivo/trellis/api/service"
 	"github.com/rs/cors"
 )
 
@@ -12,9 +13,13 @@ var port = 3000
 
 func main() {
 
-	// HTTP Controllers
-	healthHttpController := http_controller.NewHealthHttpController()
+	// Services
+	healthSvc := service.NewHealthService()
 
+	// HTTP Controllers
+	healthHttpController := http_controller.NewHealthHttpController(healthSvc)
+
+	// HTTP Mux
 	mux := &http.ServeMux{}
 	healthHttpController.RegisterRoutes(mux)
 
