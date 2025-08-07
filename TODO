@@ -1,5 +1,12 @@
 Prioritized Backlog:
-[ ] Feat: Backend VM and service
+[ ] Feat: Implement on-demand user-provisioning
+[ ] Feat: Notes CRUD API
+[ ] Feat: Templates CRUD API
+[ ] Feat: Views CRUD API
+[ ] Feat: Attachments CRUD API, with Object Storage
+[ ] Feat: UI: get notes, templates, views from APIs
+[ ] Feat: UI: push new notes, templates, views to API
+[ ] Feat: UI: upload and get attachments using CRUD API
 [ ] Feat: Backend DB, with cloud storage backups
 [ ] Feat: 
 [ ] Feat: Login
