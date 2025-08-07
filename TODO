@@ -1,4 +1,8 @@
 Prioritized Backlog:
+[ ] Feat: Backend VM and service
+[ ] Feat: Backend DB, with cloud storage backups
+[ ] Feat: 
+[ ] Feat: Login
 [ ] Feat: Cloud storage (web)
 [ ] Bug: Adding too many notes or templates makes the side-nav grow beyond screen size
 [ ] Bug: Scrolling down too far makes the side-nav look weird

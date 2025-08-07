@@ -7,7 +7,21 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/rs/cors"
 )
+
+func Cors(origins []string) *cors.Cors {
+	c := cors.New(cors.Options{
+		AllowedOrigins:   origins,
+		AllowCredentials: true,
+		AllowedMethods:   []string{"GET", "POST", "PATCH", "DELETE"},
+		AllowedHeaders:   []string{"authorization", "content-type"},
+		Debug:            true,
+	})
+
+	return c
+}
 
 func GetIntPathParam(r *http.Request, key string) (int, error) {
 	// Get the path parameter
