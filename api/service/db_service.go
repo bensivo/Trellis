@@ -47,10 +47,21 @@ func (svc *dbService) RunMigrations() error {
 		{
 			Name: "create_users",
 			SQL: `
-CREATE TABLE IF NOT EXISTS users (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	name TEXT NOT NULL
-);
+				CREATE TABLE IF NOT EXISTS users (
+					id INTEGER PRIMARY KEY AUTOINCREMENT,
+					name TEXT NOT NULL
+				);
+			`,
+		},
+		{
+			Name: "create_notes",
+			SQL: `
+				CREATE TABLE IF NOT EXISTS notes (
+					id INTEGER PRIMARY KEY AUTOINCREMENT,
+					name TEXT NOT NULL,
+					fields TEXT,
+					content_path TEXT
+				);
 			`,
 		},
 	}

@@ -50,7 +50,7 @@ func ReadJSONRequestBody[T interface{}](r *http.Request, out T) error {
 	return nil
 }
 
-func WriteJSON(w http.ResponseWriter, data interface{}) {
+func WriteJson(w http.ResponseWriter, data interface{}) {
 	// Serialize the data to JSON
 	bytes, err := json.Marshal(data)
 	if err != nil {

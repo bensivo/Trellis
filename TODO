@@ -1,6 +1,7 @@
 Prioritized Backlog:
 [ ] Feat: Implement on-demand user-provisioning
 [ ] Feat: Notes CRUD API
+    - [ ] Bug: Partial update for note
 [ ] Feat: Templates CRUD API
 [ ] Feat: Views CRUD API
 [ ] Feat: Attachments CRUD API, with Object Storage

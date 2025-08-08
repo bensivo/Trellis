@@ -44,7 +44,13 @@ func (c *UsersHttpController) onGetUsers(w http.ResponseWriter, r *http.Request)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	util.WriteJSON(w, users)
+
+	if len(users) == 0 {
+		// Prevents writing 'null' to as JSON
+		util.WriteJson(w, []interface{}{})
+	} else {
+		util.WriteJson(w, users)
+	}
 }
 
 func (c *UsersHttpController) onCreateUser(w http.ResponseWriter, r *http.Request) {
@@ -64,7 +70,7 @@ func (c *UsersHttpController) onCreateUser(w http.ResponseWriter, r *http.Reques
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	util.WriteJSON(w, user)
+	util.WriteJson(w, user)
 }
 
 func (c *UsersHttpController) onGetUser(w http.ResponseWriter, r *http.Request) {
@@ -81,7 +87,7 @@ func (c *UsersHttpController) onGetUser(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	util.WriteJSON(w, user)
+	util.WriteJson(w, user)
 }
 
 func (c *UsersHttpController) onUpdateUser(w http.ResponseWriter, r *http.Request) {
@@ -107,7 +113,7 @@ func (c *UsersHttpController) onUpdateUser(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	util.WriteJSON(w, user)
+	util.WriteJson(w, user)
 }
 
 func (c *UsersHttpController) onDeleteUser(w http.ResponseWriter, r *http.Request) {

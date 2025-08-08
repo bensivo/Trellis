@@ -28,6 +28,7 @@ func main() {
 	dbSvc := service.NewDbService(db)
 	healthSvc := service.NewHealthService()
 	userSvc := service.NewUserService(dbSvc)
+	noteSvc := service.NewNoteService(dbSvc)
 
 	err = dbSvc.RunMigrations()
 	if err != nil {
@@ -37,11 +38,13 @@ func main() {
 	// HTTP Controllers
 	healthHttpController := http_controller.NewHealthHttpController(healthSvc)
 	userHttpController := http_controller.NewUsersHttpController(userSvc)
+	noteHttpController := http_controller.NewNotesHttpController(noteSvc)
 
 	// HTTP Mux
 	mux := &http.ServeMux{}
 	healthHttpController.RegisterRoutes(mux)
 	userHttpController.RegisterRoutes(mux)
+	noteHttpController.RegisterRoutes(mux)
 
 	// CORS
 	cors := util.Cors([]string{

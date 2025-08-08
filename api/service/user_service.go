@@ -27,16 +27,6 @@ func NewUserService(db DbService) *userService {
 	}
 }
 
-func (s *userService) Init() error {
-	_, err := s.db.Exec(`
-		CREATE TABLE IF NOT EXISTS users (
-			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			name TEXT NOT NULL
-		);
-	`)
-	return err
-}
-
 func (s *userService) CreateUser(name string) (*model.User, error) {
 	res, err := s.db.Exec(`
 		INSERT INTO users (name) VALUES (?);
