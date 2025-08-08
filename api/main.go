@@ -29,6 +29,17 @@ func main() {
 	healthSvc := service.NewHealthService()
 	userSvc := service.NewUserService(dbSvc)
 	noteSvc := service.NewNoteService(dbSvc)
+	// objStgSvc, err := service.NewObjectStorageService(service.ObjectStorageServiceConfig{
+	// 	Endpoint:  "localhost:9000",
+	// 	AccessKey: "username",
+	// 	SecretKey: "password",
+	// 	Bucket:    "trellis",
+	// 	UseSSL:    false,
+	// })
+
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	err = dbSvc.RunMigrations()
 	if err != nil {
