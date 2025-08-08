@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/bensivo/trellis/api/service"
 	"github.com/bensivo/trellis/api/util"
@@ -28,14 +27,14 @@ func (c *NotesHttpController) RegisterRoutes(mux *http.ServeMux) {
 	fmt.Println("Registering route POST /notes")
 	mux.HandleFunc("POST /notes", util.WithLogger(c.onCreateNote))
 
-	fmt.Println("Registering route GET /notes/{id}")
-	mux.HandleFunc("GET /notes/{id}", util.WithLogger(c.onGetNote))
+	fmt.Println("Registering route GET /notes/{noteid}")
+	mux.HandleFunc("GET /notes/{noteid}", util.WithLogger(c.onGetNote))
 
-	fmt.Println("Registering route PUT /notes/{id}")
-	mux.HandleFunc("PUT /notes/{id}", util.WithLogger(c.onUpdateNote))
+	fmt.Println("Registering route PUT /notes/{noteid}")
+	mux.HandleFunc("PUT /notes/{noteid}", util.WithLogger(c.onUpdateNote))
 
-	fmt.Println("Registering route DELETE /notes/{id}")
-	mux.HandleFunc("DELETE /notes/{id}", util.WithLogger(c.onDeleteNote))
+	fmt.Println("Registering route DELETE /notes/{noteid}")
+	mux.HandleFunc("DELETE /notes/{noteid}", util.WithLogger(c.onDeleteNote))
 }
 
 func (c *NotesHttpController) onGetNotes(w http.ResponseWriter, r *http.Request) {
@@ -74,7 +73,7 @@ func (c *NotesHttpController) onCreateNote(w http.ResponseWriter, r *http.Reques
 }
 
 func (c *NotesHttpController) onGetNote(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/notes/") // TODO: does the new go router have a better interface for pathparams
+	idStr := r.PathValue("noteid")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid note ID", http.StatusBadRequest)
@@ -91,7 +90,7 @@ func (c *NotesHttpController) onGetNote(w http.ResponseWriter, r *http.Request) 
 }
 
 func (c *NotesHttpController) onUpdateNote(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/notes/")
+	idStr := r.PathValue("noteid")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid note ID", http.StatusBadRequest)
@@ -119,7 +118,7 @@ func (c *NotesHttpController) onUpdateNote(w http.ResponseWriter, r *http.Reques
 }
 
 func (c *NotesHttpController) onDeleteNote(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/notes/")
+	idStr := r.PathValue("noteid")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid note ID", http.StatusBadRequest)

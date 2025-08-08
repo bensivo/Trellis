@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/bensivo/trellis/api/service"
 	"github.com/bensivo/trellis/api/util"
@@ -28,14 +27,14 @@ func (c *UsersHttpController) RegisterRoutes(mux *http.ServeMux) {
 	fmt.Println("Registering route POST /users")
 	mux.HandleFunc("POST /users", util.WithLogger(c.onCreateUser))
 
-	fmt.Println("Registering route GET /users/{id}")
-	mux.HandleFunc("GET /users/{id}", util.WithLogger(c.onGetUser))
+	fmt.Println("Registering route GET /users/{userid}")
+	mux.HandleFunc("GET /users/{userid}", util.WithLogger(c.onGetUser))
 
-	fmt.Println("Registering route PUT /users/{id}")
-	mux.HandleFunc("PUT /users/{id}", util.WithLogger(c.onUpdateUser))
+	fmt.Println("Registering route PUT /users/{userid}")
+	mux.HandleFunc("PUT /users/{userid}", util.WithLogger(c.onUpdateUser))
 
-	fmt.Println("Registering route DELETE /users/{id}")
-	mux.HandleFunc("DELETE /users/{id}", util.WithLogger(c.onDeleteUser))
+	fmt.Println("Registering route DELETE /users/{userid}")
+	mux.HandleFunc("DELETE /users/{userid}", util.WithLogger(c.onDeleteUser))
 }
 
 func (c *UsersHttpController) onGetUsers(w http.ResponseWriter, r *http.Request) {
@@ -74,7 +73,7 @@ func (c *UsersHttpController) onCreateUser(w http.ResponseWriter, r *http.Reques
 }
 
 func (c *UsersHttpController) onGetUser(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/users/")
+	idStr := r.PathValue("userid")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid user ID", http.StatusBadRequest)
@@ -91,7 +90,7 @@ func (c *UsersHttpController) onGetUser(w http.ResponseWriter, r *http.Request) 
 }
 
 func (c *UsersHttpController) onUpdateUser(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/users/")
+	idStr := r.PathValue("userid")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid user ID", http.StatusBadRequest)
@@ -117,7 +116,7 @@ func (c *UsersHttpController) onUpdateUser(w http.ResponseWriter, r *http.Reques
 }
 
 func (c *UsersHttpController) onDeleteUser(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/users/")
+	idStr := r.PathValue("userid")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, "Invalid user ID", http.StatusBadRequest)

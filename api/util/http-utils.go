@@ -17,7 +17,7 @@ func Cors(origins []string) *cors.Cors {
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "PATCH", "DELETE"},
 		AllowedHeaders:   []string{"authorization", "content-type"},
-		Debug:            true,
+		Debug:            false,
 	})
 
 	return c
