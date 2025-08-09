@@ -57,7 +57,13 @@ export class NotePanel {
     }, 0);
   }
 
+
   @ViewChild('noteTextEditor') noteTextEditor!: NoteTextEditor;
+
+  exportToMarkdown() {
+    this.noteTextEditor.exportToMarkdown();
+  }
+
   exportToPDF() {
     this.noteTextEditor.exportToPDF();
   }

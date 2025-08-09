@@ -1,3 +1,4 @@
+import { TextMatchTransformer } from '@lexical/markdown';
 import { $applyNodeReplacement, EditorConfig, ElementNode, LexicalNode } from "lexical";
 import { NotePanel } from "../note-panel/note-panel";
 
@@ -40,9 +41,9 @@ export class AppLinkNode extends ElementNode {
         console.error('AppLinkNode: noteId or noteName is null');
         return;
       }
-      
+
       // Use the globally-injected tabService to open the note in a new tab
-      tabService.addTab('note'+id, name, NotePanel, {
+      tabService.addTab('note' + id, name, NotePanel, {
         id,
       });
     };
@@ -84,15 +85,15 @@ export class AppLinkNode extends ElementNode {
   override isInline(): boolean {
     return true;
   }
-  
+
   override canInsertTextBefore(): boolean {
     return true;
   }
-  
+
   override canInsertTextAfter(): boolean {
     return true;
   }
-  
+
   override canBeEmpty(): boolean {
     return false;
   }
@@ -110,3 +111,19 @@ export function $isAppLinkNode(
 ): node is AppLinkNode {
   return node instanceof AppLinkNode;
 }
+
+
+export const APP_LINK_TRANSFORMER: TextMatchTransformer = {
+  dependencies: [AppLinkNode],
+  export: (node: LexicalNode) => {
+    if ($isAppLinkNode(node)) {
+      return node.noteName || '';
+    }
+    return null;
+  },
+  regExp: /.*/, // Normally used for improts, to find the text that turns into an app link. We're not using it here.
+  replace: () => {
+    // Implement this if we ever want to create app-links from MD strings
+  },
+  type: 'text-match',
+};

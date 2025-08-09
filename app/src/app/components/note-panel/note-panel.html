@@ -3,6 +3,7 @@
         <div class="section-header">
             <input #notetitle class="app-editable-header" [attr.size]="note.name.length" [value]="note.name" (input)="onInputTitle($event)" (change)="onChangeTitle($event)"/>
             <div class="icons">
+                <i class="app-clickable-icon ri-markdown-line" (click)="exportToMarkdown()"></i>
                 <i class="app-clickable-icon ri-file-pdf-2-line" (click)="exportToPDF()"></i>
                 <i class="app-clickable-icon ri-delete-bin-line" (click)="onClickDeleteNote()"></i>
             </div>

@@ -4,7 +4,7 @@ import { createEmptyHistoryState, registerHistory } from '@lexical/history';
 import { $generateHtmlFromNodes } from '@lexical/html';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { $isListItemNode, ListItemNode, ListNode } from '@lexical/list';
-import { registerMarkdownShortcuts } from '@lexical/markdown';
+import { $convertToMarkdownString, registerMarkdownShortcuts, TRANSFORMERS } from '@lexical/markdown';
 import { HeadingNode, QuoteNode, registerRichText } from '@lexical/rich-text';
 import { $findMatchingParent, mergeRegister } from '@lexical/utils';
 import jsPDF from 'jspdf';
@@ -14,7 +14,7 @@ import { AddLinkModalService } from '../../services/add-link-modal-service';
 import { NotesService } from '../../services/notes-service';
 import { NotesStore } from '../../store/notes-store';
 import { $createImageNode, $isImageNode, ImageNode } from './app-image-node';
-import { $createAppLinkNode, $isAppLinkNode, AppLinkNode } from './app-link-node';
+import { $createAppLinkNode, $isAppLinkNode, APP_LINK_TRANSFORMER, AppLinkNode } from './app-link-node';
 
 
 @Component({
@@ -211,6 +211,51 @@ export class NoteTextEditor implements AfterViewInit {
     }
   }
 
+  async exportToMarkdown() {
+    if (!this.editor) {
+      return;
+    }
+
+    this.editor.update(async () => {
+      const note = this.currentNote();
+      if (!note) {
+        return;
+      }
+
+      let markdown = $convertToMarkdownString([
+        APP_LINK_TRANSFORMER,
+        ...TRANSFORMERS,
+      ]);
+
+      // Add note fields to markdown, as yaml frontmatter, and note titel
+      let fieldsStr = '---\n'
+      for(const field of note.fields) {
+        fieldsStr += `${field.name}: ${field.value}\n`
+      }
+      fieldsStr += '---'
+      markdown = `${fieldsStr}\n\n# ${note.name}\n\n${markdown}`
+
+      try {
+        // Create md blob file
+        const blob = new Blob([markdown], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+
+        // Create link
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${note.name}.md`;
+        document.body.appendChild(link);
+
+        // 'click' on the link to download the file, then remove it
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        console.error('Failed to download:', err);
+      }
+    })
+  }
+
   async exportToPDF() {
     if (!this.editor) {
       console.warn('Skipping exportToPDF. Editor undefined.');
@@ -366,7 +411,7 @@ export class NoteTextEditor implements AfterViewInit {
             // NOTE: this works because of our custom 'trellis' protocol handler in electron's main.js,
             // which translates the given relative filepath into the appropriate absolute filepath on 
             // the base OS in the application directory
-            const src = 'trellis://' + filepath 
+            const src = 'trellis://' + filepath
 
             this.editor.update(() => {
               const selection = $getSelection();
