@@ -12,7 +12,7 @@ type NoteService interface {
 	CreateNote(name string, fields map[string]interface{}, contentPath string) (*model.Note, error)
 	GetNotes() ([]*model.Note, error)
 	GetNote(id int) (*model.Note, error)
-	UpdateNote(id int, name string, fields map[string]interface{}, contentPath string) (*model.Note, error)
+	UpdateNote(id int, name *string, fields *map[string]interface{}, contentPath *string) (*model.Note, error)
 	DeleteNote(id int) error
 }
 
@@ -96,23 +96,46 @@ func (s *noteService) GetNote(id int) (*model.Note, error) {
 	return note, nil
 }
 
-func (s *noteService) UpdateNote(id int, name string, fields map[string]interface{}, contentPath string) (*model.Note, error) {
-	fieldsJSON, err := json.Marshal(fields)
+func (s *noteService) UpdateNote(id int, name *string, fields *map[string]interface{}, contentPath *string) (*model.Note, error) {
+	// Get existing note first
+	existingNote, err := s.GetNote(id)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = s.db.Exec("UPDATE notes SET name = ?, fields = ?, content_path = ? WHERE id = ?",
-		name, string(fieldsJSON), contentPath, id)
+	// Use existing values if new ones are empty/nil
+	updatedName := existingNote.Name
+	if name != nil {
+		updatedName = *name
+	}
+
+	updatedFields := existingNote.Fields
+	if fields != nil {
+		updatedFields = *fields
+	}
+	updatedFieldsJSON, err := json.Marshal(updatedFields)
+	if err != nil {
+		return nil, err
+	}
+
+	updatedContentPath := existingNote.ContentPath
+	if contentPath != nil {
+		updatedContentPath = *contentPath
+	}
+
+	_, err = s.db.Exec(
+		"UPDATE notes SET name = ?, fields = ?, content_path = ? WHERE id = ?",
+		updatedName, string(updatedFieldsJSON), updatedContentPath, id,
+	)
 	if err != nil {
 		return nil, err
 	}
 
 	return &model.Note{
 		Id:          id,
-		Name:        name,
-		Fields:      fields,
-		ContentPath: contentPath,
+		Name:        updatedName,
+		Fields:      updatedFields,
+		ContentPath: updatedContentPath,
 	}, nil
 }
 

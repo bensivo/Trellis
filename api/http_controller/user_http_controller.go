@@ -30,8 +30,8 @@ func (c *UsersHttpController) RegisterRoutes(mux *http.ServeMux) {
 	fmt.Println("Registering route GET /users/{userid}")
 	mux.HandleFunc("GET /users/{userid}", util.WithLogger(c.onGetUser))
 
-	fmt.Println("Registering route PUT /users/{userid}")
-	mux.HandleFunc("PUT /users/{userid}", util.WithLogger(c.onUpdateUser))
+	fmt.Println("Registering route PATCH /users/{userid}")
+	mux.HandleFunc("PATCH /users/{userid}", util.WithLogger(c.onUpdateUser))
 
 	fmt.Println("Registering route DELETE /users/{userid}")
 	mux.HandleFunc("DELETE /users/{userid}", util.WithLogger(c.onDeleteUser))
@@ -98,7 +98,7 @@ func (c *UsersHttpController) onUpdateUser(w http.ResponseWriter, r *http.Reques
 	}
 
 	var req struct {
-		Name string `json:"name"`
+		Name string `json:"name"` // TODO: omitempty like in notes
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {

@@ -51,20 +51,19 @@ describe('Notes API', () => {
        expect(getNoteResponse.data.contentPath).toBe('/content/note1.md');
        
        // 5: Update note
-       const updateResponse = await client.put(`/notes/${noteId}`, {
-           name: 'My Updated Note',
-           contentPath: '/content/note1-updated.md'
+       const updateResponse = await client.patch(`/notes/${noteId}`, {
+           name: 'Updated Name',
        });
        
        expect(updateResponse.status).toBe(200);
-       expect(updateResponse.data.name).toBe('My Updated Note');
-       expect(updateResponse.data.contentPath).toBe('/content/note1-updated.md');
+       expect(updateResponse.data.name).toBe('Updated Name'); // Name changed
+       expect(updateResponse.data.contentPath).toBe('/content/note1.md'); // ContentPath keeps original value
        
        // 6: Get note again (verify update)
        const verifyResponse = await client.get(`/notes/${noteId}`);
        expect(verifyResponse.status).toBe(200);
-       expect(updateResponse.data.name).toBe('My Updated Note');
-       expect(updateResponse.data.contentPath).toBe('/content/note1-updated.md');
+       expect(updateResponse.data.name).toBe('Updated Name');
+       expect(updateResponse.data.contentPath).toBe('/content/note1.md');
        
        // 7: Delete note
        const deleteResponse = await client.delete(`/notes/${noteId}`);

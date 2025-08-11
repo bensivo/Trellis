@@ -30,8 +30,8 @@ func (c *NotesHttpController) RegisterRoutes(mux *http.ServeMux) {
 	fmt.Println("Registering route GET /notes/{noteid}")
 	mux.HandleFunc("GET /notes/{noteid}", util.WithLogger(c.onGetNote))
 
-	fmt.Println("Registering route PUT /notes/{noteid}")
-	mux.HandleFunc("PUT /notes/{noteid}", util.WithLogger(c.onUpdateNote))
+	fmt.Println("Registering route PATCH /notes/{noteid}")
+	mux.HandleFunc("PATCH /notes/{noteid}", util.WithLogger(c.onUpdateNote))
 
 	fmt.Println("Registering route DELETE /notes/{noteid}")
 	mux.HandleFunc("DELETE /notes/{noteid}", util.WithLogger(c.onDeleteNote))
@@ -98,9 +98,9 @@ func (c *NotesHttpController) onUpdateNote(w http.ResponseWriter, r *http.Reques
 	}
 
 	var req struct {
-		Name        string                 `json:"name"`
-		Fields      map[string]interface{} `json:"fields"`
-		ContentPath string                 `json:"contentPath"`
+		Name        *string                 `json:"name,omitempty"`
+		Fields      *map[string]interface{} `json:"fields,omitempty"`
+		ContentPath *string                 `json:"contentPath,omitempty"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
