@@ -57,9 +57,22 @@
   height: 100vh; 
 }
 
-#side-panel {
-  // padding: 16px;
+.side-panel-collapsed {
   background-color: @grey-05;
+}
+.side-panel-expand {
+  padding: 4px;
+  font-size: 20px;
+}
+.side-panel {
+  background-color: @grey-05;
+  position: relative;
+}
+.side-panel-collapse {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 20px;
 }
 
 .resize-handle { 

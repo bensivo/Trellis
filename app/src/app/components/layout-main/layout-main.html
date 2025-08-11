@@ -1,5 +1,5 @@
 <div id="page">
-  <div id="side-nav" >
+  <div id="side-nav">
     <button class="nav-link" [class.active]="sidePanel() == 'notes'" (click)="onClickNav('notes')">
       <i class="ri-folder-6-line"></i>
     </button>
@@ -11,24 +11,31 @@
     </button>
   </div>
   <div id="body">
-    <div id="side-panel" [style.width.px]="sideNavWidth">
-      @if(sidePanel() == 'notes') {
-        <app-notes-panel/>
-      }
-      @if(sidePanel() == 'templates') {
-        <app-templates-panel/>
-      }
-      @if(sidePanel() == 'views') {
-        <app-views-panel/>
-      }
-    </div>
-    <div class="resize-handle" 
-      cdkDrag
-      cdkDragLockAxis="x"
-      [cdkDragFreeDragPosition]="{x: 0, y: 0}"
-      (cdkDragMoved)="onResize($event)"
-      (cdkDragEnded)="onResizeEnd($event)"
-    ></div>
+    @if(sideNavCollapsed) {
+      <div class="side-panel-collapsed">
+        <i class="side-panel-expand ri-arrow-right-double-line" (click)="toggleSideNav()"></i>
+      </div>
+    } @else {
+      <div class="side-panel" [style.width.px]="sideNavWidth">
+        <i class="side-panel-collapse ri-arrow-left-double-line" (click)="toggleSideNav()"></i>
+        @if(sidePanel() == 'notes') {
+          <app-notes-panel/>
+        }
+        @if(sidePanel() == 'templates') {
+          <app-templates-panel/>
+        }
+        @if(sidePanel() == 'views') {
+          <app-views-panel/>
+        }
+      </div>
+      <div class="resize-handle" 
+        cdkDrag
+        cdkDragLockAxis="x"
+        [cdkDragFreeDragPosition]="{x: 0, y: 0}"
+        (cdkDragMoved)="onResize($event)"
+        (cdkDragEnded)="onResizeEnd($event)"
+      ></div>
+    }
     <div id="main-panel">
       <div id="header">
         <app-tab-header/>

@@ -27,6 +27,8 @@ export class LayoutMain {
   sideNavWidth = this.minNavWidth; // TODO: make this persistent
   prevSideNavWidth = this.sideNavWidth;
 
+  sideNavCollapsed = false;
+
   constructor() {
     // Listen for changes in active tab, and update sidePanel accordingly
     effect(() => {
@@ -52,6 +54,7 @@ export class LayoutMain {
 
   onClickNav(item: string) {
     this.sidePanel.set(item);
+    this.sideNavCollapsed = false;
   }
 
   onResize(event: CdkDragMove) {
@@ -61,6 +64,10 @@ export class LayoutMain {
 
   onResizeEnd(event: CdkDragEnd) {
     this.prevSideNavWidth = this.sideNavWidth;
+  }
+
+  toggleSideNav() {
+    this.sideNavCollapsed = !this.sideNavCollapsed;
   }
 
 }
