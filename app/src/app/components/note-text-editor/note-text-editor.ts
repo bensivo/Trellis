@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { AfterViewInit, Component, computed, HostListener, inject, input } from '@angular/core';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { createEmptyHistoryState, registerHistory } from '@lexical/history';
@@ -391,19 +392,20 @@ export class NoteTextEditor implements AfterViewInit {
     const reader = new FileReader();
     reader.onload = (e) => {
       const dataUrl = e.target?.result as string;
+      // Electron, save to electron API
       if (isElectron()) {
 
-        const mimeToExt: Record<string, string> = {
-          'image/png': 'png',
-          'image/jpeg': 'jpg',
-          'image/jpg': 'jpg',
-          'image/gif': 'gif',
-          'image/webp': 'webp',
-          'image/svg+xml': 'svg'
-        };
-        const extension = mimeToExt[file.type] || 'png';
-        const filepath = `image-${Date.now()}.${extension}`;
-        const data = dataUrl.split(',')[1]; // Remove "data:image/png;base64,"
+      const mimeToExt: Record<string, string> = {
+        'image/png': 'png',
+        'image/jpeg': 'jpg',
+        'image/jpg': 'jpg',
+        'image/gif': 'gif',
+        'image/webp': 'webp',
+        'image/svg+xml': 'svg'
+      };
+      const extension = mimeToExt[file.type] || 'png';
+      const filepath = `image-${Date.now()}.${extension}`;
+      const data = dataUrl.split(',')[1]; // Remove "data:image/png;base64,"
 
         (window as any).electron.putObject(filepath, data, 'base64')
           .then(() => {
@@ -422,15 +424,33 @@ export class NoteTextEditor implements AfterViewInit {
             });
           });
       } else {
-        this.editor.update(() => {
-          const selection = $getSelection();
-          if ($isRangeSelection(selection)) {
-            const imageNode = $createImageNode(dataUrl);
-            selection.insertNodes([imageNode, $createParagraphNode()]);
-          }
-        });
-      }
+        // Browser, save to attachments REST API
+        const formData = new FormData();
+        formData.append('file', file);
 
+        axios.post('http://localhost:3000/attachments', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+          .then(response => {
+            // Use the attachment ID to create URL
+            const attachmentId = response.data.id;
+            const src = `http://localhost:3000/attachments/${attachmentId}`;
+
+            this.editor.update(() => {
+              const selection = $getSelection();
+              if ($isRangeSelection(selection)) {
+                const imageNode = $createImageNode(src);
+                selection.insertNodes([imageNode, $createParagraphNode()]);
+              }
+            });
+          })
+          .catch(error => {
+            console.error('Failed to upload image:', error);
+            // TODO: error toast?
+          });
+      }
     };
     reader.readAsDataURL(file);
   }

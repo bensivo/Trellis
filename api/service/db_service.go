@@ -64,6 +64,17 @@ func (svc *dbService) RunMigrations() error {
 				);
 			`,
 		},
+		{
+			Name: "create_attachments",
+			SQL: `
+				CREATE TABLE IF NOT EXISTS attachments (
+					id INTEGER PRIMARY KEY AUTOINCREMENT,
+					filename TEXT NOT NULL,
+					path TEXT NOT NULL,
+					size INTEGER NOT NULL
+				);
+			`,
+		},
 	}
 
 	for _, migration := range migrations {

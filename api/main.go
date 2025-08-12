@@ -29,17 +29,17 @@ func main() {
 	healthSvc := service.NewHealthService()
 	userSvc := service.NewUserService(dbSvc)
 	noteSvc := service.NewNoteService(dbSvc)
-	// objStgSvc, err := service.NewObjectStorageService(service.ObjectStorageServiceConfig{
-	// 	Endpoint:  "localhost:9000",
-	// 	AccessKey: "username",
-	// 	SecretKey: "password",
-	// 	Bucket:    "trellis",
-	// 	UseSSL:    false,
-	// })
-
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	objStgSvc, err := service.NewObjectStorageService(service.ObjectStorageServiceConfig{
+		Endpoint:  "localhost:9000",
+		AccessKey: "username",
+		SecretKey: "password",
+		Bucket:    "trellis",
+		UseSSL:    false,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	attachmentSvc := service.NewAttachmentService(dbSvc, objStgSvc)
 
 	err = dbSvc.RunMigrations()
 	if err != nil {
@@ -50,12 +50,14 @@ func main() {
 	healthHttpController := http_controller.NewHealthHttpController(healthSvc)
 	userHttpController := http_controller.NewUsersHttpController(userSvc)
 	noteHttpController := http_controller.NewNotesHttpController(noteSvc)
+	attachmentController := http_controller.NewAttachmentsHttpController(attachmentSvc)
 
 	// HTTP Mux
 	mux := &http.ServeMux{}
 	healthHttpController.RegisterRoutes(mux)
 	userHttpController.RegisterRoutes(mux)
 	noteHttpController.RegisterRoutes(mux)
+	attachmentController.RegisterRoutes(mux)
 
 	// CORS
 	cors := util.Cors([]string{

@@ -12,6 +12,7 @@ import (
 type ObjectStorageService interface {
 	PutObject(path string, content []byte) error
 	GetObject(path string) ([]byte, error)
+	DeleteObject(path string) error
 }
 
 type objectStorageService struct {
@@ -72,4 +73,13 @@ func (s *objectStorageService) GetObject(path string) ([]byte, error) {
 	defer object.Close()
 
 	return io.ReadAll(object)
+}
+
+func (s *objectStorageService) DeleteObject(path string) error {
+	return s.client.RemoveObject(
+		context.Background(),
+		s.bucket,
+		path,
+		minio.RemoveObjectOptions{},
+	)
 }
