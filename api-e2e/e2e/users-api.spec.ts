@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeAll, beforeEach } from '@jest/globals';
-import { Chance } from 'chance';
+import { beforeEach, describe, expect, it } from '@jest/globals';
 import axios, { Axios } from 'axios';
+import { Chance } from 'chance';
 
 const chance = Chance();
 
@@ -15,7 +15,6 @@ describe('Users API', () => {
     });
 
     it('CRUD', async () => {
-
         const name = chance.name();
 
        // 1: List users
@@ -45,7 +44,7 @@ describe('Users API', () => {
        expect(getUserResponse.data.name).toBe(name);
 
        // 5: Update user
-       const updateResponse = await client.put(`/users/${userId}`, {
+       const updateResponse = await client.patch(`/users/${userId}`, {
            name: `${name} Updated`
        });
        

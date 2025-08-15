@@ -50,16 +50,20 @@ func ReadJSONRequestBody[T interface{}](r *http.Request, out T) error {
 	return nil
 }
 
-func WriteJson(w http.ResponseWriter, data interface{}) {
+func WriteJson(w http.ResponseWriter, code int, data interface{}) {
 	// Serialize the data to JSON
 	bytes, err := json.Marshal(data)
 	if err != nil {
-		http.Error(w, "Failed to serialize data to JSON", http.StatusInternalServerError)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(`{"error": "Failed to serialize internal response data to JSON"}`))
 		return
 	}
 
 	// Set the Content-Type header
 	w.Header().Set("Content-Type", "application/json")
+
+	w.WriteHeader(code) // Set the HTTP status code
 
 	// Write the JSON data to the response
 	w.Write(bytes)

@@ -25,6 +25,5 @@ func (c *HealthHttpController) RegisterRoutes(mux *http.ServeMux) {
 
 func (c *HealthHttpController) onGetHealth(w http.ResponseWriter, r *http.Request) {
 	health := c.HealthService.GetHealth()
-	fmt.Println(health.Status)
-	util.WriteJson(w, health)
+	util.WriteJson(w, http.StatusOK, health)
 }

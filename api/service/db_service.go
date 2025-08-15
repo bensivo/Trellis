@@ -75,6 +75,18 @@ func (svc *dbService) RunMigrations() error {
 				);
 			`,
 		},
+		{
+			Name: "create_sessions",
+			SQL: `
+				CREATE TABLE IF NOT EXISTS sessions (
+					session_token STRING PRIMARY KEY,
+					user_id INTEGER NOT NULL,
+					expires_at INTEGER NOT NULL,
+
+					CONSTRAINT fk_sessions_user_id FOREIGN KEY (user_id) REFERENCES users (id)
+				);
+			`,
+		},
 	}
 
 	for _, migration := range migrations {

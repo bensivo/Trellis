@@ -36,13 +36,17 @@ func (c *AttachmentsHttpController) onUploadAttachment(w http.ResponseWriter, r 
 	// Parse multipart form
 	err := r.ParseMultipartForm(64 << 20) // 64MB max
 	if err != nil {
-		http.Error(w, "Failed to parse multipart form", http.StatusBadRequest)
+		util.WriteJson(w, http.StatusBadRequest, map[string]string{
+			"error": "Failed to parse multipart form",
+		})
 		return
 	}
 
 	file, header, err := r.FormFile("file")
 	if err != nil {
-		http.Error(w, "No file provided", http.StatusBadRequest)
+		util.WriteJson(w, http.StatusBadRequest, map[string]string{
+			"error": "No file provided",
+		})
 		return
 	}
 	defer file.Close()
@@ -50,32 +54,40 @@ func (c *AttachmentsHttpController) onUploadAttachment(w http.ResponseWriter, r 
 	// Read file content into byte arr
 	content, err := io.ReadAll(file)
 	if err != nil {
-		http.Error(w, "Failed to read file", http.StatusInternalServerError)
+		util.WriteJson(w, http.StatusInternalServerError, map[string]string{
+			"error": "Failed to read file",
+		})
 		return
 	}
 
 	// Upload file
 	attachment, err := c.AttachmentService.UploadAttachment(header.Filename, content)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		util.WriteJson(w, http.StatusInternalServerError, map[string]string{
+			"error": err.Error(),
+		})
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	util.WriteJson(w, attachment)
+	util.WriteJson(w, http.StatusCreated, attachment)
 }
 
 func (c *AttachmentsHttpController) onGetAttachment(w http.ResponseWriter, r *http.Request) {
 	idStr := r.PathValue("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		http.Error(w, "Invalid attachment ID", http.StatusBadRequest)
+		util.WriteJson(w, http.StatusBadRequest, map[string]string{
+			"error": "Invalid attachment ID",
+		})
 		return
 	}
 
 	attachment, content, err := c.AttachmentService.GetAttachment(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		util.WriteJson(w, http.StatusNotFound, map[string]string{
+			"error": err.Error(),
+		})
 		return
 	}
 
@@ -102,13 +114,17 @@ func (c *AttachmentsHttpController) onDeleteAttachment(w http.ResponseWriter, r 
 	idStr := r.PathValue("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		http.Error(w, "Invalid attachment ID", http.StatusBadRequest)
+		util.WriteJson(w, http.StatusBadRequest, map[string]string{
+			"error": "Invalid attachment ID",
+		})
 		return
 	}
 
 	err = c.AttachmentService.DeleteAttachment(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		util.WriteJson(w, http.StatusInternalServerError, map[string]string{
+			"error": err.Error(),
+		})
 		return
 	}
 

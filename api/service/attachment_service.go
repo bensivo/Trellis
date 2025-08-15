@@ -8,6 +8,12 @@ import (
 	"github.com/google/uuid"
 )
 
+/**
+ * AttachmentService provides methods for managing binary files (attachments) in the application.
+ * It can be used for storing images, pdfs, or any other non-structured data.
+ *
+ * NOTE: Attachments themselves are stored in object storage, with metadata stored in the database.
+ */
 type AttachmentService interface {
 	UploadAttachment(filename string, content []byte) (*model.Attachment, error)
 	GetAttachment(id int) (*model.Attachment, []byte, error)

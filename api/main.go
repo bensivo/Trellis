@@ -24,6 +24,13 @@ func main() {
 	}
 	defer db.Close()
 
+	// Enable foreign keys for this connection
+	// NOTE: This is SQLite specific, and it has to be done once per connection
+	_, err = db.Exec("PRAGMA foreign_keys = ON")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// Services
 	dbSvc := service.NewDbService(db)
 	healthSvc := service.NewHealthService()
@@ -40,6 +47,7 @@ func main() {
 		log.Fatal(err)
 	}
 	attachmentSvc := service.NewAttachmentService(dbSvc, objStgSvc)
+	sessionsSvc := service.NewSessionService(dbSvc, userSvc)
 
 	err = dbSvc.RunMigrations()
 	if err != nil {
@@ -51,6 +59,8 @@ func main() {
 	userHttpController := http_controller.NewUsersHttpController(userSvc)
 	noteHttpController := http_controller.NewNotesHttpController(noteSvc)
 	attachmentController := http_controller.NewAttachmentsHttpController(attachmentSvc)
+	sessionsController := http_controller.NewSessionHttpController(sessionsSvc)
+	authController := http_controller.NewAuthHttpController(sessionsSvc, userSvc)
 
 	// HTTP Mux
 	mux := &http.ServeMux{}
@@ -58,6 +68,8 @@ func main() {
 	userHttpController.RegisterRoutes(mux)
 	noteHttpController.RegisterRoutes(mux)
 	attachmentController.RegisterRoutes(mux)
+	sessionsController.RegisterRoutes(mux)
+	authController.RegisterRoutes(mux)
 
 	// CORS
 	cors := util.Cors([]string{

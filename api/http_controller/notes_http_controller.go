@@ -40,13 +40,15 @@ func (c *NotesHttpController) RegisterRoutes(mux *http.ServeMux) {
 func (c *NotesHttpController) onGetNotes(w http.ResponseWriter, r *http.Request) {
 	notes, err := c.NoteService.GetNotes()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		util.WriteJson(w, http.StatusInternalServerError, map[string]string{
+			"error": err.Error(),
+		})
 		return
 	}
 	if len(notes) == 0 {
-		util.WriteJson(w, []interface{}{}) // Prevents writing 'null' on empty arr
+		util.WriteJson(w, http.StatusOK, []interface{}{}) // Prevents writing 'null' on empty arr
 	} else {
-		util.WriteJson(w, notes)
+		util.WriteJson(w, http.StatusOK, notes)
 	}
 }
 
@@ -58,42 +60,51 @@ func (c *NotesHttpController) onCreateNote(w http.ResponseWriter, r *http.Reques
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		util.WriteJson(w, http.StatusBadRequest, map[string]string{
+			"error": "Invalid JSON Input",
+		})
 		return
 	}
 
 	note, err := c.NoteService.CreateNote(req.Name, req.Fields, req.ContentPath)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		util.WriteJson(w, http.StatusInternalServerError, map[string]string{
+			"error": err.Error(),
+		})
 		return
 	}
 
-	w.WriteHeader(http.StatusCreated)
-	util.WriteJson(w, note)
+	util.WriteJson(w, http.StatusCreated, note)
 }
 
 func (c *NotesHttpController) onGetNote(w http.ResponseWriter, r *http.Request) {
 	idStr := r.PathValue("noteid")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		http.Error(w, "Invalid note ID", http.StatusBadRequest)
+		util.WriteJson(w, http.StatusBadRequest, map[string]string{
+			"error": "Invalid note ID",
+		})
 		return
 	}
 
 	note, err := c.NoteService.GetNote(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		util.WriteJson(w, http.StatusNotFound, map[string]string{
+			"error": err.Error(),
+		})
 		return
 	}
 
-	util.WriteJson(w, note)
+	util.WriteJson(w, http.StatusOK, note)
 }
 
 func (c *NotesHttpController) onUpdateNote(w http.ResponseWriter, r *http.Request) {
 	idStr := r.PathValue("noteid")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		http.Error(w, "Invalid note ID", http.StatusBadRequest)
+		util.WriteJson(w, http.StatusBadRequest, map[string]string{
+			"error": "Invalid note ID",
+		})
 		return
 	}
 
@@ -104,30 +115,38 @@ func (c *NotesHttpController) onUpdateNote(w http.ResponseWriter, r *http.Reques
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		util.WriteJson(w, http.StatusBadRequest, map[string]string{
+			"error": "Invalid JSON Input",
+		})
 		return
 	}
 
 	note, err := c.NoteService.UpdateNote(id, req.Name, req.Fields, req.ContentPath)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		util.WriteJson(w, http.StatusInternalServerError, map[string]string{
+			"error": err.Error(),
+		})
 		return
 	}
 
-	util.WriteJson(w, note)
+	util.WriteJson(w, http.StatusOK, note)
 }
 
 func (c *NotesHttpController) onDeleteNote(w http.ResponseWriter, r *http.Request) {
 	idStr := r.PathValue("noteid")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		http.Error(w, "Invalid note ID", http.StatusBadRequest)
+		util.WriteJson(w, http.StatusBadRequest, map[string]string{
+			"error": "Invalid note ID",
+		})
 		return
 	}
 
 	err = c.NoteService.DeleteNote(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		util.WriteJson(w, http.StatusInternalServerError, map[string]string{
+			"error": err.Error(),
+		})
 		return
 	}
 
